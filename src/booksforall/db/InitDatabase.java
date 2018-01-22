@@ -9,6 +9,11 @@ import java.sql.Statement;
 import static booksforall.utils.Constants.*;
 
 public class InitDatabase {
+
+    /**
+     * function to create table in database.
+     * @param createStatement - create statement of the table
+     */
     public static void createTable(String createStatement) {
         try {
             Connection connection = new DBConnection().getConnection();
@@ -25,6 +30,9 @@ public class InitDatabase {
         }
     }
 
+    /**
+     * initialize tables on first run
+     */
     public static void initTables() {
         Log.l("InitDatabase", "initTables", "Initializing tables");
 
@@ -44,7 +52,10 @@ public class InitDatabase {
         createTable(CREATE_USERS_BOOKS_REVIEW_STATEMENT);
     }
 
-
+    /**
+     * drop table from database
+     * @param tableName - table name to drop
+     */
     public static void dropTable(String tableName) {
         Log.l("InitDatabase", "dropTable", "Dropping table \"" + tableName + "\"");
         try (Connection connection = new DBConnection().getConnection()) {

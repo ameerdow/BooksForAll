@@ -1,5 +1,7 @@
 package booksforall.db;
 
+import booksforall.utils.Log;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -8,9 +10,14 @@ import static booksforall.utils.Constants.*;
 
 public class DBConnection {
 
+    /**
+     * Create connection with derby database
+     * @return Connection to the /db
+     * @throws SQLException
+     */
     public Connection getConnection() throws SQLException {
         try {
-
+            Log.l("DBConnection", "getConnection","getting connection to DB");
             // Load database driver if not already loaded
             Class.forName(DRIVER).newInstance();
             // Establish network connection to database
@@ -25,6 +32,10 @@ public class DBConnection {
         }
     }
 
+    /**
+     * Closes the connection to DB.
+     * @param connection the connection to close.
+     */
     public static void close(Connection connection) {
         try {
             connection.close();

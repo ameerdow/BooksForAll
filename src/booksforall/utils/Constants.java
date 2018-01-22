@@ -81,4 +81,23 @@ public class Constants {
     public static final String CREATE_USERS_BOOKS_LIKE_STATEMENT = "CREATE TABLE " + USERS_BOOKS_LIKE + " (" +
             "USERNAME VARCHAR2(10) NOT NULL," +
             "BOOK_ID INTEGER NOT NULL";
+
+
+
+
+    /************************************
+     * User Statements.
+     **************************************/
+
+    public static final String SELECT_ALL_USERS = " SELECT * FROM " + USERS;
+    public static final String SELECT_USER_BY_USERNAME = " SELECT * FROM " + USERS + " WHERE USERNAME=?";
+    public static final String INSERT_NEW_USER = "INSERT INTO " + USERS +
+            " (USERNAME,EMAIL,PASSWORD,ADDRESS,PHONE_NUMBER,NICKNAME,DESCRIPTION,PHOTO,ROLE,DELETED,SYS_CREATION_DATE,SYS_UPDATE_DATE)" +
+            " VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+
+    public static final String UPDATE_PASSWORD = " UPDATE " + USERS + " SET PASSWORD=? , SYS_UPDATE_DATE =? " +
+            "WHERE USERNAME=? AND PASSWORD=? ";
+
+    public static final String SELECT_USER_WHERE_USERNAME_AND_PASSWORD = "SELECT * FROM " + USERS + " " +
+            "WHERE USERNAME=? AND PASSWORD=?";
 }
