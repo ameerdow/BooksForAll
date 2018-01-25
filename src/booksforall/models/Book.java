@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Book {
 
+    private Integer ID;
     private String name;
     private Double price;
     private String description;
@@ -17,7 +18,8 @@ public class Book {
     public Book() {
     }
 
-    public Book(String name, Double price, String description, int likesCount, int reviewCount, String deleted, String filePath, Date creationDate, Date updateDate) {
+    public Book(Integer ID, String name, Double price, String description, int likesCount, int reviewCount, String deleted, String filePath, Date creationDate, Date updateDate) {
+        this.ID = ID;
         this.name = name;
         this.price = price;
         this.description = description;
@@ -27,6 +29,14 @@ public class Book {
         this.filePath = filePath;
         this.creationDate = creationDate;
         this.updateDate = updateDate;
+    }
+
+    public Integer getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public String getName() {

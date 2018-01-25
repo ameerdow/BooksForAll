@@ -12,9 +12,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import static booksforall.utils.Constants.INSERT_NEW_USER;
-import static booksforall.utils.Constants.SELECT_ALL_USERS;
-import static booksforall.utils.Constants.SELECT_USER_BY_USERNAME;
+import static booksforall.utils.Constants.*;
 
 public class UserDAO {
 
@@ -93,8 +91,6 @@ public class UserDAO {
         } catch (Exception e) {
             Log.e(classFunc, "getAllUsers", "Error getting all users", e);
             return new ArrayList<>();
-        } finally {
-            Log.l(classFunc, "getAllUsers", "Done");
         }
     }
 
@@ -110,15 +106,15 @@ public class UserDAO {
             String username = getUserByUsername(user.getUsername()).getUsername();
             if (username == null || username.isEmpty()) {
                 PreparedStatement statement = connection.prepareStatement(INSERT_NEW_USER);
-                statement.setString(1,user.getUsername());
-                statement.setString(2,user.getEmail());
-                statement.setString(3,password);
-                statement.setInt(4,user.getPhoneNumber());
-                statement.setString(5,user.getNickname());
-                statement.setString(6,user.getDescription());
-                statement.setString(7,user.getPhotoUrl());
-                statement.setString(8,user.getRole());
-                statement.setString(9,user.getDeleted());
+                statement.setString(1, user.getUsername());
+                statement.setString(2, user.getEmail());
+                statement.setString(3, password);
+                statement.setInt(4, user.getPhoneNumber());
+                statement.setString(5, user.getNickname());
+                statement.setString(6, user.getDescription());
+                statement.setString(7, user.getPhotoUrl());
+                statement.setString(8, user.getRole());
+                statement.setString(9, user.getDeleted());
                 statement.setDate(10, new Date(Calendar.getInstance().getTimeInMillis()));
                 statement.setDate(11, null);
 
@@ -135,5 +131,97 @@ public class UserDAO {
             Log.e(classFunc, "addNewUser", "Exception, Error adding user :" + user.getUsername(), e);
         }
     }
+
+
+    /**
+     * Marks user as deleted in DB
+     *
+     * @param username - username to delete
+     */
+    public void deleteUser(String username, String deleteStatus) {
+        Log.l(classFunc, "deleteUser", "Starting");
+        try {
+            User user = getUserByUsername(username);
+            if (user.getUsername() == null || user.getUsername().isEmpty()) {
+                throw new RuntimeException("Username - " + username + " - not found");
+            }
+
+            Connection connection = new DBConnection().getConnection();
+            PreparedStatement statement = connection.prepareStatement(SET_DELETED_USER_BY_USERNAME);
+            statement.setString(1, deleteStatus);
+            statement.setDate(2, new Date(Calendar.getInstance().getTimeInMillis()));
+            statement.setString(3, username);
+
+            if (statement.executeUpdate() == 0) {
+                throw new RuntimeException("Error while activating or deactivating user " + username);
+            }
+
+            Log.l(classFunc, "deleteUser", "user " + username + " has been marked deleted - " + deleteStatus);
+        } catch (Exception e) {
+            Log.e(classFunc, "deleteUser", "Error while activating or deactivating user", e);
+        }
+    }
+
+
+    public User getUserByUsernameAndPassword(String username, String password) {
+        Log.l(classFunc, "getUserByUsernameAndPassword", "Starting");
+
+        try {
+            Connection connection = new DBConnection().getConnection();
+            PreparedStatement statement = connection.prepareStatement(SELECT_USER_WHERE_USERNAME_AND_PASSWORD);
+            statement.setString(1, username);
+            statement.setString(1, password);
+
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return new User(
+                        rs.getString("USERNAME"),
+                        rs.getString("EMAIL"),
+                        rs.getString("PASSWORD"),
+                        rs.getInt("PHONE_NUMBER"),
+                        rs.getString("NICKNAME"),
+                        rs.getString("DESCRIPTION"),
+                        rs.getString("PHOTO"),
+                        rs.getString("ROLE"),
+                        rs.getString("DELETED"),
+                        rs.getDate("SYS_CREATION_DATE"),
+                        rs.getDate("SYS_UPDATE_DATE"));
+            } else
+                throw new RuntimeException("Username - " + username + " - not found");
+        } catch (Exception e) {
+            Log.e(classFunc, "getUserByUsernameAndPassword", "Error getting user by username and password", e);
+        }
+        return new User();
+    }
+
+    public void updatePasswordByUsernameAndPassword(String username, String oldPassword, String newPassword) {
+        Log.l(classFunc, "updatePassowrdByUsernameAndPassword", "Starting");
+
+        try {
+            User user = getUserByUsernameAndPassword(username, oldPassword);
+            if (user.getUsername() == null || user.getUsername().isEmpty()) {
+                throw new RuntimeException("Username - " + username + " - not found");
+            }
+
+            Connection connection = new DBConnection().getConnection();
+            PreparedStatement statement = connection.prepareStatement(UPDATE_PASSWORD);
+            statement.setString(1, newPassword);
+            statement.setString(2, username);
+            statement.setString(3, oldPassword);
+
+            if (statement.executeUpdate() == 0) {
+                Log.l(classFunc, "updatePasswordByUsernameAndPassword", "error updating password" + user.getUsername());
+                throw new RuntimeException("Password has not been changed: " + user.getUsername());
+            }
+
+            connection.commit();
+            Log.l(classFunc, "updatePasswordByUsernameAndPassword", "Password changed successfully");
+
+        } catch (Exception e) {
+            Log.e(classFunc, "updatePasswordByUsernameAndPassword", "Exception, error updating password :" + username, e);
+        }
+    }
+
+
 }
 

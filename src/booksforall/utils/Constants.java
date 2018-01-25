@@ -98,6 +98,33 @@ public class Constants {
     public static final String UPDATE_PASSWORD = " UPDATE " + USERS + " SET PASSWORD=? , SYS_UPDATE_DATE =? " +
             "WHERE USERNAME=? AND PASSWORD=? ";
 
+    public static final String SET_DELETED_USER_BY_USERNAME = " UPDATE " + USERS + " SET DELETED=? , SYS_UPDATE_DATE =? " +
+            "WHERE USERNAME=? ";
+
     public static final String SELECT_USER_WHERE_USERNAME_AND_PASSWORD = "SELECT * FROM " + USERS + " " +
             "WHERE USERNAME=? AND PASSWORD=?";
+
+
+
+    /************************************
+     * Book Statements.
+     **************************************/
+
+    public static final String SELECT_ALL_BOOKS= " SELECT * FROM " + BOOKS;
+    public static final String SELECT_BOOKS_BY_BOOKNAME = " SELECT * FROM " + BOOKS + " WHERE NAME=?";
+    public static final String SELECT_BOOK_BY_ID= " SELECT * FROM " + BOOKS + " WHERE ID=?";
+    public static final String INSERT_NEW_BOOK = "INSERT INTO " + BOOKS +
+            " (NAME,PHOTO,PRICE,DESCRIPTION,LIKES_NUM,REVIEWS_NUM,DELETED,SYS_CREATION_DATE,SYS_UPDATE_DATE,FILE_PATH)" +
+            " VALUES(?,?,?,?,?,?,?,?,?,?)";
+
+    public static final String SET_DELETED_BOOK_BY_ID = " UPDATE " + BOOKS + " SET DELETED=? , SYS_UPDATE_DATE =? " +
+            "WHERE ID=? ";
+    public static final String ADD_BOOK_LIKE_COUNT_BY_ID = " UPDATE " + BOOKS + " SET LIKES_NUM= LIKES_NUM + 1 , SYS_UPDATE_DATE =? " +
+            "WHERE ID=? ";
+    public static final String ADD_BOOK_REVIEW_COUNT_BY_ID = " UPDATE " + BOOKS + " SET REVIEWS_NUM = REVIEWS_NUM + 1 , SYS_UPDATE_DATE =? " +
+            "WHERE ID=? ";
+    public static final String REMOVE_BOOK_LIKE_COUNT_BY_ID = " UPDATE " + BOOKS + " SET LIKES_NUM= LIKES_NUM - 1 , SYS_UPDATE_DATE =? " +
+            "WHERE ID=? ";
+    public static final String REMOVE_BOOK_REVIEW_COUNT_BY_ID = " UPDATE " + BOOKS + " SET REVIEWS_NUM = REVIEWS_NUM - 1 , SYS_UPDATE_DATE =? " +
+            "WHERE ID=? ";
 }
