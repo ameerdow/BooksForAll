@@ -72,6 +72,7 @@ public class Constants {
             "SYS_CREATION_DATE DATE NOT NULL";
 
     public static final String CREATE_USERS_BOOKS_REVIEW_STATEMENT = "CREATE TABLE " + USERS_BOOKS_REVIEW + " (" +
+            INC_ID +
             "USERNAME VARCHAR2(10) NOT NULL," +
             "BOOK_ID INTEGER NOT NULL," +
             "REVIEW VARCHAR2(500) NOT NULL," +
@@ -81,8 +82,6 @@ public class Constants {
     public static final String CREATE_USERS_BOOKS_LIKE_STATEMENT = "CREATE TABLE " + USERS_BOOKS_LIKE + " (" +
             "USERNAME VARCHAR2(10) NOT NULL," +
             "BOOK_ID INTEGER NOT NULL";
-
-
 
 
     /************************************
@@ -105,14 +104,13 @@ public class Constants {
             "WHERE USERNAME=? AND PASSWORD=?";
 
 
-
     /************************************
      * Book Statements.
      **************************************/
 
-    public static final String SELECT_ALL_BOOKS= " SELECT * FROM " + BOOKS;
+    public static final String SELECT_ALL_BOOKS = " SELECT * FROM " + BOOKS;
     public static final String SELECT_BOOKS_BY_BOOK_NAME = " SELECT * FROM " + BOOKS + " WHERE NAME LIKE '%?%'";
-    public static final String SELECT_BOOK_BY_ID= " SELECT * FROM " + BOOKS + " WHERE ID=?";
+    public static final String SELECT_BOOK_BY_ID = " SELECT * FROM " + BOOKS + " WHERE ID=?";
 
     public static final String SET_DELETED_BOOK_BY_ID = " UPDATE " + BOOKS + " SET DELETED=? , SYS_UPDATE_DATE =? " +
             "WHERE ID=? ";
@@ -130,13 +128,28 @@ public class Constants {
      * User Book Relation Statements.
      **************************************/
 
-    public static final String ADD_USER_BOOK_LIKE =" INSERT INTO " + USERS_BOOKS_LIKE + " VALUES (?,?)";
-    public static final String DELETE_USER_BOOK_LIKE =" DELETE FROM " + USERS_BOOKS_LIKE + " WHERE USERNAME=? AND BOOK_ID=?";
+    public static final String ADD_USER_BOOK_LIKE = " INSERT INTO " + USERS_BOOKS_LIKE + " (USERNAME,BOOK_ID) VALUES (?,?)";
+    public static final String DELETE_USER_BOOK_LIKE = " DELETE FROM " + USERS_BOOKS_LIKE + " WHERE USERNAME=? AND BOOK_ID=?";
     public static final String SELECT_USER_BOOK_LIKE = " SELECT FROM " + USERS_BOOKS_LIKE + " WHERE USERNAME=? AND BOOK_ID=?";
     public static final String SELECT_USER_BOOK_LIKE_BY_USER = " SELECT FROM " + USERS_BOOKS_LIKE + " WHERE USERNAME=?";
     public static final String SELECT_USER_BOOK_LIKE_BY_BOOK = " SELECT FROM " + USERS_BOOKS_LIKE + " WHERE BOOK_ID=?";
-//
 
+
+    public static final String ADD_USER_BOOK_REVIEW = "INSERT INTO " + USERS_BOOKS_REVIEW +
+            " (USERNAME,BOOK_ID,REVIEW,APPROVED,SYS_CREATION_DATE VALUES (?,?,?,?,?)";
+    public static final String APPROVE_USER_BOOK_REVIEW = "UPDATE " + USERS_BOOKS_REVIEW + " SET APPROVED = 'Y' WHERE ID = ?";
+    public static final String SELECT_BOOK_REVIEWS = "SELECT * FROM " + USERS_BOOKS_REVIEW + " WHERE BOOK_ID = ?";
+
+
+    public static final String ADD_USER_BOOK_PURCHASE = "INSERT INTO " + USERS_BOOKS_PURCHASE + " (USERNAME,BOOK_ID,PRICE,SYS_CREATION_DATE) " +
+            "VALUES (?,?,?,SYSDATE)";
+    public static final String GET_USER_BOOK_PURCHASE = "SELECT * FROM " + USERS_BOOKS_PURCHASE + " WHERE USERNAME=? AND BOOK_ID=?";
+    public static final String GET_ALL_PURCHASES = "SELECT * FROM " + USERS_BOOKS_PURCHASE;
+
+    public static final String GET_ALL_BOOKS_NOT_PURCHASED_BY_USER = "SELECT * FROM " + BOOKS + " WHERE BOOK_ID NOT IN " +
+            " ( SELECT BOOK_ID FROM "+ USERS_BOOKS_PURCHASE + " WHERE USERNAME = ? )";
+    public static final String GET_ALL_BOOKS_PURCHASED_BY_USER = "SELECT * FROM " + BOOKS + " WHERE BOOK_ID IN " +
+            " ( SELECT BOOK_ID FROM "+ USERS_BOOKS_PURCHASE + " WHERE USERNAME = ? )";
 
 }
 

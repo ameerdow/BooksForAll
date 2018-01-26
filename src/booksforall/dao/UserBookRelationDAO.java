@@ -1,16 +1,12 @@
 package booksforall.dao;
 
 import booksforall.db.DBConnection;
-import booksforall.models.Book;
-import booksforall.models.User;
-import booksforall.models.UserBookLikeRelation;
+import booksforall.models.*;
 import booksforall.utils.Log;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import static booksforall.utils.Constants.*;
@@ -19,6 +15,12 @@ public class UserBookRelationDAO {
 
     private final static String classFunc = BookDAO.class.getSimpleName();
 
+    /**
+     * Add new User Book Like relation
+     *
+     * @param user - user who liked
+     * @param book - book has been liked
+     */
     public void addUserBookLike(User user, Book book) {
         Log.l(classFunc, "AddUserBookLike", "Starting");
 
@@ -39,6 +41,12 @@ public class UserBookRelationDAO {
         }
     }
 
+    /**
+     * delete user book like relation
+     *
+     * @param user user who liked
+     * @param book book has been liked
+     */
     public void deleteUserBookLike(User user, Book book) {
         Log.l(classFunc, "deleteUserBookLike", "Starting");
 
@@ -59,6 +67,13 @@ public class UserBookRelationDAO {
         }
     }
 
+    /**
+     * get user book like relation
+     *
+     * @param user user who liked
+     * @param book book has been liked
+     * @return user book relation object
+     */
     public UserBookLikeRelation getUserBookLikeRelation(User user, Book book) {
         Log.l(classFunc, "getUserBookLikeRelation", "Starting");
 
@@ -83,6 +98,12 @@ public class UserBookRelationDAO {
         return null;
     }
 
+    /**
+     * Gets all user likes
+     *
+     * @param user user object
+     * @return list with all user book like relation
+     */
     public List<UserBookLikeRelation> getUserBooksLikeByUser(User user) {
         Log.l(classFunc, "getUserBooksLikeByUser", "Starting");
         List<UserBookLikeRelation> userBookLikeRelationList = new ArrayList<>();
@@ -104,6 +125,12 @@ public class UserBookRelationDAO {
         return userBookLikeRelationList;
     }
 
+    /**
+     * get all likes of a book
+     *
+     * @param book book object
+     * @return list of all user book relation
+     */
     public List<UserBookLikeRelation> getUserBooksLikeByBook(Book book) {
         Log.l(classFunc, "getUserBooksLikeByBook", "Starting");
         List<UserBookLikeRelation> userBookLikeRelationList = new ArrayList<>();
@@ -123,6 +150,247 @@ public class UserBookRelationDAO {
             Log.e(classFunc, "getUserBooksLikeByBook", e.getMessage(), e);
         }
         return userBookLikeRelationList;
+    }
+
+    /**
+     * add new review to book
+     *
+     * @param user   - user object
+     * @param book   - book object
+     * @param review - review string
+     * @return - user book relation object
+     */
+    public UserBookReviewRelation addUserBookReview(User user, Book book, String review) {
+        Log.l(classFunc, "addUserBookReview", "Starting");
+
+        try (Connection connection = new DBConnection().getConnection()) {
+
+            Date date = new Date(Calendar.getInstance().getTimeInMillis());
+            PreparedStatement statement = connection.prepareStatement(ADD_USER_BOOK_REVIEW, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, user.getUsername());
+            statement.setInt(2, book.getID());
+            statement.setString(3, review);
+            statement.setString(4, "N");
+            statement.setDate(5, date);
+
+            if (statement.executeUpdate() == 0) {
+                throw new SQLException("Could not add new user ( " + user.getUsername() + " book " + book.getID() + "  review " + review);
+            } else {
+                connection.commit();
+                ResultSet generatedKeys = statement.getGeneratedKeys();
+                if (generatedKeys.next())
+                    return new UserBookReviewRelation(generatedKeys.getInt(1), user.getUsername(), book.getID(), review, "N", date);
+                else
+                    throw new SQLException("Creating review failed, no ID obtained.");
+            }
+        } catch (Exception e) {
+            Log.e(classFunc, "addUserBookReview", e.getMessage(), e);
+        }
+        return null;
+    }
+
+    /**
+     * Approve user review
+     *
+     * @param bookReviewRelation user book relation object
+     */
+    public void approveUserBookReview(UserBookReviewRelation bookReviewRelation) {
+        Log.l(classFunc, "approveUserBookReview", "Starting");
+
+        try (Connection connection = new DBConnection().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(APPROVE_USER_BOOK_REVIEW);
+            statement.setInt(1, bookReviewRelation.getId());
+
+            if (statement.executeUpdate() == 0) {
+                throw new SQLException("Error Approving review");
+            }
+            connection.commit();
+        } catch (Exception e) {
+            Log.e(classFunc, "approveUserBookReview", e.getMessage(), e);
+        }
+    }
+
+    /**
+     * get all book reviews
+     *
+     * @param book - book object
+     * @return list of book review relation
+     */
+    public List<UserBookReviewRelation> getAllBookReviews(Book book) {
+        Log.l(classFunc, "getAllBookReviews", "Starting");
+        List<UserBookReviewRelation> userBookReviewRelationList = new ArrayList<>();
+
+        try (Connection connection = new DBConnection().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(SELECT_BOOK_REVIEWS);
+            statement.setInt(1, book.getID());
+
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                userBookReviewRelationList.add(new UserBookReviewRelation(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDate(6)
+                ));
+            }
+        } catch (Exception e) {
+            Log.e(classFunc, "getAllBookReviews", e.getMessage(), e);
+        }
+        return userBookReviewRelationList;
+    }
+
+
+    /**
+     * buy e-book
+     *
+     * @param user - user object
+     * @param book - book object
+     */
+    public void buyBook(User user, Book book) {
+        Log.l(classFunc, "buyBook", "Starting");
+
+        UserBookPurchaseRelation userBookPurchaseRelation = getUserBookPurchaseRelation(user, book);
+
+        if (userBookPurchaseRelation == null) {
+            try (Connection connection = new DBConnection().getConnection()) {
+
+                PreparedStatement statement = connection.prepareStatement(ADD_USER_BOOK_PURCHASE);
+                if (statement.executeUpdate() == 0) {
+                    throw new RuntimeException("Error purchasing book " + book.getID() + " for username " + user.getUsername());
+                }
+                connection.commit();
+            } catch (Exception e) {
+                Log.e(classFunc, "buyBook", e.getMessage(), e);
+            }
+        } else {
+            Log.l(classFunc, "buyBook", "username " + user.getUsername() + " already purchased book " + book.getID());
+        }
+    }
+
+    /**
+     * Get user book purchase relation
+     *
+     * @param user - user object
+     * @param book - book object
+     * @return - UserBookPurchaseRelation object
+     */
+    public UserBookPurchaseRelation getUserBookPurchaseRelation(User user, Book book) {
+        Log.l(classFunc, "getUserBookPurchaseRelation", "Starting");
+
+        try (Connection connection = new DBConnection().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(GET_USER_BOOK_PURCHASE);
+            statement.setString(1, user.getUsername());
+            statement.setInt(2, book.getID());
+
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                return new UserBookPurchaseRelation(
+                        rs.getString("USERNAME"),
+                        rs.getInt("BOOK_ID"),
+                        rs.getDouble("PRICE"),
+                        rs.getDate("SYS_CREATION_DATE")
+                );
+            } else {
+                throw new RuntimeException("no purchase found for username " + user.getUsername() + " and book " + book.getID());
+            }
+        } catch (Exception e) {
+            Log.e(classFunc, "getUserBookPurchaseRelation", e.getMessage(), e);
+        }
+        return null;
+    }
+
+    /**
+     * Gets all the purchases
+     *
+     * @return List<UserBookPurchaseRelation>
+     */
+    public List<UserBookPurchaseRelation> getAllPurchases() {
+        Log.l(classFunc, "getAllPurchases", "Starting");
+
+        List<UserBookPurchaseRelation> userBookPurchaseRelationList = new ArrayList<>();
+        try (Connection connection = new DBConnection().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(GET_ALL_PURCHASES);
+
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                userBookPurchaseRelationList.add(new UserBookPurchaseRelation(
+                        rs.getString("USERNAME"),
+                        rs.getInt("BOOK_ID"),
+                        rs.getDouble("PRICE"),
+                        rs.getDate("SYS_CREATION_DATE")
+                ));
+            }
+        } catch (Exception e) {
+            Log.e(classFunc, "userBookPurchaseRelationList", e.getMessage(), e);
+        }
+        return userBookPurchaseRelationList;
+    }
+
+
+    public List<Book> getAllBooksNotPurchasedByUserID(User user) {
+        Log.l(classFunc, "getAllBooksNotPurchasedByUserID", "Starting");
+
+        List<Book> booksList = new ArrayList<>();
+
+        try (Connection connection = new DBConnection().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(GET_ALL_BOOKS_NOT_PURCHASED_BY_USER);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                booksList.add(new Book(
+                        rs.getInt("ID"),
+                        rs.getString("NAME"),
+                        rs.getString("PHOTO"),
+                        rs.getDouble("PRICE"),
+                        rs.getString("DESCRIPTION"),
+                        rs.getInt("LIKES_NUM"),
+                        rs.getInt("REVIEWS_NUM"),
+                        rs.getString("DELETED"),
+                        rs.getString("FILE_PATH"),
+                        rs.getDate("SYS_CREATION_DATE"),
+                        rs.getDate("SYS_UPDATE_DATE")
+                ));
+            }
+        } catch (Exception e) {
+            Log.e(classFunc, "getAllBooksNotPurchasedByUserID", e.getMessage(), e);
+        }
+        return booksList;
+    }
+
+
+    public List<Book> getAllBooksPurchasedByUserID(User user) {
+        Log.l(classFunc, "getAllBooksPurchasedByUserID", "Starting");
+
+        List<Book> booksList = new ArrayList<>();
+
+        try (Connection connection = new DBConnection().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(GET_ALL_BOOKS_PURCHASED_BY_USER);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                booksList.add(new Book(
+                        rs.getInt("ID"),
+                        rs.getString("NAME"),
+                        rs.getString("PHOTO"),
+                        rs.getDouble("PRICE"),
+                        rs.getString("DESCRIPTION"),
+                        rs.getInt("LIKES_NUM"),
+                        rs.getInt("REVIEWS_NUM"),
+                        rs.getString("DELETED"),
+                        rs.getString("FILE_PATH"),
+                        rs.getDate("SYS_CREATION_DATE"),
+                        rs.getDate("SYS_UPDATE_DATE")
+                ));
+            }
+        } catch (Exception e) {
+            Log.e(classFunc, "getAllBooksPurchasedByUserID", e.getMessage(), e);
+        }
+        return booksList;
     }
 }
 
