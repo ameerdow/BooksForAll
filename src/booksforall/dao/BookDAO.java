@@ -4,10 +4,7 @@ import booksforall.db.DBConnection;
 import booksforall.models.Book;
 import booksforall.utils.Log;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -38,6 +35,7 @@ public class BookDAO {
                 booksList.add(new Book(
                         rs.getInt("ID"),
                         rs.getString("NAME"),
+                        rs.getString("PHOTO"),
                         rs.getDouble("PRICE"),
                         rs.getString("DESCRIPTION"),
                         rs.getInt("LIKES_NUM"),
@@ -68,7 +66,7 @@ public class BookDAO {
 
         try (Connection connection = new DBConnection().getConnection()) {
 
-            PreparedStatement statement = connection.prepareStatement(SELECT_BOOKS_BY_BOOKNAME);
+            PreparedStatement statement = connection.prepareStatement(SELECT_BOOKS_BY_BOOK_NAME);
             statement.setString(1, bookName);
 
             ResultSet rs = statement.executeQuery();
@@ -77,6 +75,7 @@ public class BookDAO {
                 booksList.add(new Book(
                         rs.getInt("ID"),
                         rs.getString("NAME"),
+                        rs.getString("PHOTO"),
                         rs.getDouble("PRICE"),
                         rs.getString("DESCRIPTION"),
                         rs.getInt("LIKES_NUM"),
@@ -113,6 +112,7 @@ public class BookDAO {
                 return new Book(
                         rs.getInt("ID"),
                         rs.getString("NAME"),
+                        rs.getString("PHOTO"),
                         rs.getDouble("PRICE"),
                         rs.getString("DESCRIPTION"),
                         rs.getInt("LIKES_NUM"),
@@ -136,7 +136,7 @@ public class BookDAO {
      * @param id    - book id to add the count
      * @param added - flag to check if count is added or decreased
      */
-    public void addLikeCountToBookID(int id, Boolean added) {
+    public void updateLikeCountToBookID(int id, Boolean added) {
         Log.l(classFunc, "addLikeCountToBookID", "Starting");
 
         try (Connection connection = new DBConnection().getConnection()) {
@@ -207,11 +207,12 @@ public class BookDAO {
             if (statement.executeUpdate() == 0) {
                 throw new RuntimeException("Error while activating or deactivating book id " + id);
             }
-
             Log.l(classFunc, "deleteBook", "book id " + id + " has been marked deleted - " + deleteStatus);
+            connection.commit();
         } catch (Exception e) {
             Log.e(classFunc, "deleteBook", "Error while activating or deactivating book", e);
         }
     }
+
 
 }

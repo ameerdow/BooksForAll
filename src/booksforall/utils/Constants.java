@@ -111,11 +111,8 @@ public class Constants {
      **************************************/
 
     public static final String SELECT_ALL_BOOKS= " SELECT * FROM " + BOOKS;
-    public static final String SELECT_BOOKS_BY_BOOKNAME = " SELECT * FROM " + BOOKS + " WHERE NAME=?";
+    public static final String SELECT_BOOKS_BY_BOOK_NAME = " SELECT * FROM " + BOOKS + " WHERE NAME LIKE '%?%'";
     public static final String SELECT_BOOK_BY_ID= " SELECT * FROM " + BOOKS + " WHERE ID=?";
-    public static final String INSERT_NEW_BOOK = "INSERT INTO " + BOOKS +
-            " (NAME,PHOTO,PRICE,DESCRIPTION,LIKES_NUM,REVIEWS_NUM,DELETED,SYS_CREATION_DATE,SYS_UPDATE_DATE,FILE_PATH)" +
-            " VALUES(?,?,?,?,?,?,?,?,?,?)";
 
     public static final String SET_DELETED_BOOK_BY_ID = " UPDATE " + BOOKS + " SET DELETED=? , SYS_UPDATE_DATE =? " +
             "WHERE ID=? ";
@@ -123,8 +120,25 @@ public class Constants {
             "WHERE ID=? ";
     public static final String ADD_BOOK_REVIEW_COUNT_BY_ID = " UPDATE " + BOOKS + " SET REVIEWS_NUM = REVIEWS_NUM + 1 , SYS_UPDATE_DATE =? " +
             "WHERE ID=? ";
-    public static final String REMOVE_BOOK_LIKE_COUNT_BY_ID = " UPDATE " + BOOKS + " SET LIKES_NUM= LIKES_NUM - 1 , SYS_UPDATE_DATE =? " +
+    public static final String REMOVE_BOOK_LIKE_COUNT_BY_ID = " UPDATE " + BOOKS + " SET LIKES_NUM = LIKES_NUM - 1 , SYS_UPDATE_DATE =? " +
             "WHERE ID=? ";
     public static final String REMOVE_BOOK_REVIEW_COUNT_BY_ID = " UPDATE " + BOOKS + " SET REVIEWS_NUM = REVIEWS_NUM - 1 , SYS_UPDATE_DATE =? " +
             "WHERE ID=? ";
+
+
+    /************************************
+     * User Book Relation Statements.
+     **************************************/
+
+    public static final String ADD_USER_BOOK_LIKE =" INSERT INTO " + USERS_BOOKS_LIKE + " VALUES (?,?)";
+    public static final String DELETE_USER_BOOK_LIKE =" DELETE FROM " + USERS_BOOKS_LIKE + " WHERE USERNAME=? AND BOOK_ID=?";
+    public static final String SELECT_USER_BOOK_LIKE = " SELECT FROM " + USERS_BOOKS_LIKE + " WHERE USERNAME=? AND BOOK_ID=?";
+    public static final String SELECT_USER_BOOK_LIKE_BY_USER = " SELECT FROM " + USERS_BOOKS_LIKE + " WHERE USERNAME=?";
+    public static final String SELECT_USER_BOOK_LIKE_BY_BOOK = " SELECT FROM " + USERS_BOOKS_LIKE + " WHERE BOOK_ID=?";
+//
+
+
 }
+
+
+

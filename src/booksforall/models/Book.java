@@ -6,6 +6,7 @@ public class Book {
 
     private Integer ID;
     private String name;
+    private String photo;
     private Double price;
     private String description;
     private int likesCount;
@@ -18,9 +19,10 @@ public class Book {
     public Book() {
     }
 
-    public Book(Integer ID, String name, Double price, String description, int likesCount, int reviewCount, String deleted, String filePath, Date creationDate, Date updateDate) {
+    public Book(Integer ID, String name,String photo, Double price, String description, int likesCount, int reviewCount, String deleted, String filePath, Date creationDate, Date updateDate) {
         this.ID = ID;
         this.name = name;
+        this.photo = photo;
         this.price = price;
         this.description = description;
         this.likesCount = likesCount;
@@ -109,5 +111,13 @@ public class Book {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }
