@@ -6,8 +6,9 @@ public class User {
 
     private String username;
     private String email;
-    private String address;
-    private int phoneNumber;
+    private String password;
+    private Address address;
+    private String phoneNumber;
     private String nickname;
     private String description;
     private String photoUrl;
@@ -20,10 +21,11 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String address, int phoneNumber, String nickname, String description, String photoUrl, String role, String deleted, Date creationDate, Date updateDate) {
+    public User(String username, String email,String password, Address address, String phoneNumber, String nickname, String description, String photoUrl, String role, String deleted, Date creationDate, Date updateDate) {
         this.username = username;
         this.email = email;
-        this.address = address;
+        this.password = password;
+        this.address = new Address(address);
         this.phoneNumber = phoneNumber;
         this.nickname = nickname;
         this.description = description;
@@ -32,6 +34,21 @@ public class User {
         this.deleted = deleted;
         this.creationDate = creationDate;
         this.updateDate = updateDate;
+    }
+
+    public User(User user){
+        this.username = user.getUsername();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.address = new Address(user.getAddress());
+        this.phoneNumber = user.getPhoneNumber();
+        this.nickname = user.getNickname();
+        this.description = user.getDescription();
+        this.photoUrl = user.getPhotoUrl();
+        this.role = user.getRole();
+        this.deleted = user.getDeleted();
+        this.creationDate = user.getCreationDate();
+        this.updateDate = user.getUpdateDate();
     }
 
     public String getUsername() {
@@ -50,19 +67,19 @@ public class User {
         this.email = email;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddress(Address address) {
+        this.address = new Address(address);
     }
 
-    public int getPhoneNumber() {
+    public String  getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String  phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -120,5 +137,9 @@ public class User {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

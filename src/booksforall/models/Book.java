@@ -33,6 +33,20 @@ public class Book {
         this.updateDate = updateDate;
     }
 
+    public Book(Book book){
+        this.ID = book.getID();
+        this.name = book.getName();
+        this.photo = book.getPhoto();
+        this.price = book.getPrice();
+        this.description = book.getDescription();
+        this.likesCount = book.getLikesCount();
+        this.reviewCount = book.getReviewCount();
+        this.deleted = book.getDeleted();
+        this.filePath = book.getFilePath();
+        this.creationDate = book.getCreationDate();
+        this.updateDate = book.getUpdateDate();
+    }
+
     public Integer getID() {
         return ID;
     }

@@ -11,6 +11,9 @@ public class UserBookReviewRelation {
     private String approved;
     private Date creationDate;
 
+    public UserBookReviewRelation() {
+    }
+
     public UserBookReviewRelation(Integer id, String username, int bookId, String review, String approved, Date creationDate) {
         this.id = id;
         this.username = username;
@@ -19,6 +22,16 @@ public class UserBookReviewRelation {
         this.approved = approved;
         this.creationDate = creationDate;
     }
+
+    public UserBookReviewRelation(UserBookReviewRelation userBookReviewRelation) {
+        this.id = userBookReviewRelation.getId();
+        this.username = userBookReviewRelation.getUsername();
+        this.bookId = userBookReviewRelation.getBookId();
+        this.review = userBookReviewRelation.getReview();
+        this.approved = userBookReviewRelation.getApproved();
+        this.creationDate = userBookReviewRelation.getCreationDate();
+    }
+
 
     public Integer getId() {
         return id;

@@ -34,8 +34,12 @@ public class Constants {
             "USERNAME VARCHAR2(10) NOT NULL UNIQUE, " +
             "EMAIL VARCHAR2(30) NOT NULL, " +
             "PASSWORD VARCHAR2(8) NOT NULL, " +
-            "ADDRESS VARCHAR2(50) NOT NULL, " +
-            "PHONE_NUMBER INTEGER NOT NULL, " +
+            "STREET VARCHAR2(50) NOT NULL, " +
+            "HOUSE_NUMBER INTEGER NOT NULL, " +
+            "CITY VARCHAR2(50) NOT NULL, " +
+            "ZIP VARCHAR2(50) NOT NULL, " +
+            "COUNTRY VARCHAR2(50) NOT NULL, " +
+            "PHONE_NUMBER VARCHAR2(50) NOT NULL, " +
             "NICKNAME VARCHAR2(20) NOT NULL, " +
             "DESCRIPTION VARCHAR2(50) NOT NULL, " +
             "PHOTO VARCHAR2(255), " +
@@ -91,8 +95,8 @@ public class Constants {
     public static final String SELECT_ALL_USERS = " SELECT * FROM " + USERS;
     public static final String SELECT_USER_BY_USERNAME = " SELECT * FROM " + USERS + " WHERE USERNAME=?";
     public static final String INSERT_NEW_USER = "INSERT INTO " + USERS +
-            " (USERNAME,EMAIL,PASSWORD,ADDRESS,PHONE_NUMBER,NICKNAME,DESCRIPTION,PHOTO,ROLE,DELETED,SYS_CREATION_DATE,SYS_UPDATE_DATE)" +
-            " VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+            " (USERNAME,EMAIL,PASSWORD,STREET,HOUSE_NUMBER,CITY,ZIP,COUNTRY,PHONE_NUMBER,NICKNAME,DESCRIPTION,PHOTO,ROLE,DELETED,SYS_CREATION_DATE,SYS_UPDATE_DATE)" +
+            " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     public static final String UPDATE_PASSWORD = " UPDATE " + USERS + " SET PASSWORD=? , SYS_UPDATE_DATE =? " +
             "WHERE USERNAME=? AND PASSWORD=? ";
@@ -139,6 +143,8 @@ public class Constants {
             " (USERNAME,BOOK_ID,REVIEW,APPROVED,SYS_CREATION_DATE VALUES (?,?,?,?,?)";
     public static final String APPROVE_USER_BOOK_REVIEW = "UPDATE " + USERS_BOOKS_REVIEW + " SET APPROVED = 'Y' WHERE ID = ?";
     public static final String SELECT_BOOK_REVIEWS = "SELECT * FROM " + USERS_BOOKS_REVIEW + " WHERE BOOK_ID = ?";
+    public static final String GET_REVIEW_BY_ID = "SELECT * FROM " + USERS_BOOKS_REVIEW + " WHERE ID = ?";
+
 
 
     public static final String ADD_USER_BOOK_PURCHASE = "INSERT INTO " + USERS_BOOKS_PURCHASE + " (USERNAME,BOOK_ID,PRICE,SYS_CREATION_DATE) " +
@@ -147,9 +153,9 @@ public class Constants {
     public static final String GET_ALL_PURCHASES = "SELECT * FROM " + USERS_BOOKS_PURCHASE;
 
     public static final String GET_ALL_BOOKS_NOT_PURCHASED_BY_USER = "SELECT * FROM " + BOOKS + " WHERE BOOK_ID NOT IN " +
-            " ( SELECT BOOK_ID FROM "+ USERS_BOOKS_PURCHASE + " WHERE USERNAME = ? )";
+            " ( SELECT BOOK_ID FROM " + USERS_BOOKS_PURCHASE + " WHERE USERNAME = ? )";
     public static final String GET_ALL_BOOKS_PURCHASED_BY_USER = "SELECT * FROM " + BOOKS + " WHERE BOOK_ID IN " +
-            " ( SELECT BOOK_ID FROM "+ USERS_BOOKS_PURCHASE + " WHERE USERNAME = ? )";
+            " ( SELECT BOOK_ID FROM " + USERS_BOOKS_PURCHASE + " WHERE USERNAME = ? )";
 
 }
 

@@ -210,6 +210,31 @@ public class UserBookRelationDAO {
         }
     }
 
+    public UserBookReviewRelation getReviewByID(int reviewID) {
+        Log.l(classFunc, "getReviewByID", "Starting");
+
+        try (Connection connection = new DBConnection().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(GET_REVIEW_BY_ID);
+            statement.setInt(1, reviewID);
+
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return new UserBookReviewRelation(
+                        rs.getInt("ID"),
+                        rs.getString("USERNAME"),
+                        rs.getInt("BOOK_ID"),
+                        rs.getString("REVIEW"),
+                        rs.getString("APPROVED"),
+                        rs.getDate("SYS_CREATION_DATE")
+                );
+            }
+        } catch (Exception e) {
+            Log.e(classFunc, "approveUserBookReview", e.getMessage(), e);
+        }
+        Log.l(classFunc, "getReviewByID", "no review found, review id " + reviewID);
+        return new UserBookReviewRelation();
+    }
+
     /**
      * get all book reviews
      *
@@ -331,8 +356,13 @@ public class UserBookRelationDAO {
         return userBookPurchaseRelationList;
     }
 
-
-    public List<Book> getAllBooksNotPurchasedByUserID(User user) {
+    /**
+     * Get all books not purchased bu user
+     *
+     * @param user user object
+     * @return list of books
+     */
+    public List<Book> getNotPurchasedBooksByUsername(User user) {
         Log.l(classFunc, "getAllBooksNotPurchasedByUserID", "Starting");
 
         List<Book> booksList = new ArrayList<>();
@@ -362,7 +392,12 @@ public class UserBookRelationDAO {
         return booksList;
     }
 
-
+    /**
+     * get all books purchased by user
+     *
+     * @param user user object
+     * @return list of books
+     */
     public List<Book> getAllBooksPurchasedByUserID(User user) {
         Log.l(classFunc, "getAllBooksPurchasedByUserID", "Starting");
 

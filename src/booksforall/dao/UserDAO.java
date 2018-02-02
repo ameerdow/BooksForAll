@@ -1,6 +1,7 @@
 package booksforall.dao;
 
 import booksforall.db.DBConnection;
+import booksforall.models.Address;
 import booksforall.models.User;
 import booksforall.utils.Log;
 
@@ -33,11 +34,19 @@ public class UserDAO {
             statement.setString(1, username);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
+                Address address = new Address(
+                        rs.getString("STREET"),
+                        rs.getInt("HOUSE_NUMBER"),
+                        rs.getString("CITY"),
+                        rs.getString("ZIP"),
+                        rs.getString("COUNTRY")
+                );
                 return new User(
                         rs.getString("USERNAME"),
                         rs.getString("EMAIL"),
                         rs.getString("PASSWORD"),
-                        rs.getInt("PHONE_NUMBER"),
+                        address,
+                        rs.getString("PHONE_NUMBER"),
                         rs.getString("NICKNAME"),
                         rs.getString("DESCRIPTION"),
                         rs.getString("PHOTO"),
@@ -71,11 +80,20 @@ public class UserDAO {
                 try (ResultSet rs = stm.executeQuery()) {
                     Log.l(classFunc, "getAllUsers", "Users found, creating list");
                     while (rs.next()) {
+                        Address address = new Address(
+                                rs.getString("STREET"),
+                                rs.getInt("HOUSE_NUMBER"),
+                                rs.getString("CITY"),
+                                rs.getString("ZIP"),
+                                rs.getString("COUNTRY")
+                        );
+
                         users.add(new User(
                                 rs.getString("USERNAME"),
                                 rs.getString("EMAIL"),
                                 rs.getString("PASSWORD"),
-                                rs.getInt("PHONE_NUMBER"),
+                                address,
+                                rs.getString("PHONE_NUMBER"),
                                 rs.getString("NICKNAME"),
                                 rs.getString("DESCRIPTION"),
                                 rs.getString("PHOTO"),
@@ -109,14 +127,19 @@ public class UserDAO {
                 statement.setString(1, user.getUsername());
                 statement.setString(2, user.getEmail());
                 statement.setString(3, password);
-                statement.setInt(4, user.getPhoneNumber());
-                statement.setString(5, user.getNickname());
-                statement.setString(6, user.getDescription());
-                statement.setString(7, user.getPhotoUrl());
-                statement.setString(8, user.getRole());
-                statement.setString(9, user.getDeleted());
-                statement.setDate(10, new Date(Calendar.getInstance().getTimeInMillis()));
-                statement.setDate(11, null);
+                statement.setString(4, user.getAddress().getStreet());
+                statement.setInt(5, user.getAddress().getNumber());
+                statement.setString(6, user.getAddress().getCity());
+                statement.setString(7, user.getAddress().getZip());
+                statement.setString(8, user.getAddress().getCountry());
+                statement.setString(9, user.getPhoneNumber());
+                statement.setString(10, user.getNickname());
+                statement.setString(11, user.getDescription());
+                statement.setString(12, user.getPhotoUrl());
+                statement.setString(13, user.getRole());
+                statement.setString(14, user.getDeleted());
+                statement.setDate(15, new Date(Calendar.getInstance().getTimeInMillis()));
+                statement.setDate(16, null);
 
                 if (statement.executeUpdate() == 0) {
                     Log.l(classFunc, "addNewUser", "User has been not been added: " + user.getUsername());
@@ -163,6 +186,12 @@ public class UserDAO {
     }
 
 
+    /**
+     * Gets user buy username and password combination
+     * @param username username to check
+     * @param password password to check
+     * @return user object
+     */
     public User getUserByUsernameAndPassword(String username, String password) {
         Log.l(classFunc, "getUserByUsernameAndPassword", "Starting");
 
@@ -174,11 +203,20 @@ public class UserDAO {
 
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
+                Address address = new Address(
+                        rs.getString("STREET"),
+                        rs.getInt("HOUSE_NUMBER"),
+                        rs.getString("CITY"),
+                        rs.getString("ZIP"),
+                        rs.getString("COUNTRY")
+                );
+
                 return new User(
                         rs.getString("USERNAME"),
                         rs.getString("EMAIL"),
                         rs.getString("PASSWORD"),
-                        rs.getInt("PHONE_NUMBER"),
+                        address,
+                        rs.getString("PHONE_NUMBER"),
                         rs.getString("NICKNAME"),
                         rs.getString("DESCRIPTION"),
                         rs.getString("PHOTO"),
@@ -194,8 +232,15 @@ public class UserDAO {
         return new User();
     }
 
-    public void updatePasswordByUsernameAndPassword(String username, String oldPassword, String newPassword) {
-        Log.l(classFunc, "updatePassowrdByUsernameAndPassword", "Starting");
+    /**
+     * update username password
+     * @param username username to update
+     * @param oldPassword old password
+     * @param newPassword new password
+     * @return true if password changed successfully
+     */
+    public Boolean updatePasswordByUsernameAndPassword(String username, String oldPassword, String newPassword) {
+        Log.l(classFunc, "updatePasswordByUsernameAndPassword", "Starting");
 
         try {
             User user = getUserByUsernameAndPassword(username, oldPassword);
@@ -216,10 +261,12 @@ public class UserDAO {
 
             connection.commit();
             Log.l(classFunc, "updatePasswordByUsernameAndPassword", "Password changed successfully");
+            return true;
 
         } catch (Exception e) {
             Log.e(classFunc, "updatePasswordByUsernameAndPassword", "Exception, error updating password :" + username, e);
         }
+        return false;
     }
 
 
