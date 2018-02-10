@@ -188,6 +188,7 @@ public class UserDAO {
 
     /**
      * Gets user buy username and password combination
+     *
      * @param username username to check
      * @param password password to check
      * @return user object
@@ -234,7 +235,8 @@ public class UserDAO {
 
     /**
      * update username password
-     * @param username username to update
+     *
+     * @param username    username to update
      * @param oldPassword old password
      * @param newPassword new password
      * @return true if password changed successfully
@@ -269,6 +271,46 @@ public class UserDAO {
         return false;
     }
 
+    /**
+     * search user with username like parameter given
+     * @param username username to search
+     * @return List of Users
+     */
+    public List<User> searchUser(String username) {
+        Log.l(classFunc, "searchUser", "Starting");
+        List<User> users = new ArrayList<>();
+        try (Connection connection = new DBConnection().getConnection()) {
 
+            PreparedStatement statement = connection.prepareStatement(SEARCH_USER);
+            statement.setString(1, username);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Address address = new Address(
+                        rs.getString("STREET"),
+                        rs.getInt("HOUSE_NUMBER"),
+                        rs.getString("CITY"),
+                        rs.getString("ZIP"),
+                        rs.getString("COUNTRY")
+                );
+                users.add(new User(
+                        rs.getString("USERNAME"),
+                        rs.getString("EMAIL"),
+                        rs.getString("PASSWORD"),
+                        address,
+                        rs.getString("PHONE_NUMBER"),
+                        rs.getString("NICKNAME"),
+                        rs.getString("DESCRIPTION"),
+                        rs.getString("PHOTO"),
+                        rs.getString("ROLE"),
+                        rs.getString("DELETED"),
+                        rs.getDate("SYS_CREATION_DATE"),
+                        rs.getDate("SYS_UPDATE_DATE")
+                ));
+            }
+        } catch (Exception e) {
+            Log.e(classFunc, "searchUser", "could not retrieve username : " + username + ", " + e.getMessage(), e);
+        }
+        return users;
+    }
 }
 

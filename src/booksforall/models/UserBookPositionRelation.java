@@ -6,19 +6,25 @@ public class UserBookPositionRelation {
 
     private String username;
     private int bookId;
-    private Float position;
+    private Float positionPercent;
     private Date creationDate;
 
     public UserBookPositionRelation() {
     }
 
-    public UserBookPositionRelation(String username, int bookId, Float position, Date creationDate) {
+    public UserBookPositionRelation(String username, int bookId, Float positionPercent, Date creationDate) {
         this.username = username;
         this.bookId = bookId;
-        this.position = position;
+        this.positionPercent = positionPercent;
         this.creationDate = creationDate;
     }
 
+    public UserBookPositionRelation(UserBookPositionRelation userBookPositionRelation) {
+        this.username = userBookPositionRelation.getUsername();
+        this.bookId = userBookPositionRelation.getBookId();
+        this.positionPercent = userBookPositionRelation.getPositionPercent();
+        this.creationDate = userBookPositionRelation.getCreationDate();
+    }
     public String getUsername() {
         return username;
     }
@@ -35,12 +41,12 @@ public class UserBookPositionRelation {
         this.bookId = bookId;
     }
 
-    public Float getPosition() {
-        return position;
+    public Float getPositionPercent() {
+        return positionPercent;
     }
 
-    public void setPosition(Float position) {
-        this.position = position;
+    public void setPositionPercent(Float positionPercent) {
+        this.positionPercent = positionPercent;
     }
 
     public Date getCreationDate() {

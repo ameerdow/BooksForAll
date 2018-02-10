@@ -3,10 +3,7 @@ package booksforall.services;
 import booksforall.dao.BookDAO;
 import booksforall.dao.UserBookRelationDAO;
 import booksforall.dao.UserDAO;
-import booksforall.models.Address;
-import booksforall.models.Book;
-import booksforall.models.User;
-import booksforall.models.UserBookReviewRelation;
+import booksforall.models.*;
 import booksforall.utils.Log;
 
 import java.sql.Date;
@@ -20,13 +17,13 @@ public class UserService {
 
     private final String classFunc = UserService.class.getSimpleName();
 
-    private User getUser(String username){
+    private User getUser(String username) {
         Log.l(classFunc, "getUser", "Starting");
         UserDAO userDAO = new UserDAO();
         return new User(userDAO.getUserByUsername(username));
     }
 
-    private Book getBook(int bookId){
+    private Book getBook(int bookId) {
         Log.l(classFunc, "getBook", "Starting");
         BookDAO bookDAO = new BookDAO();
         return new Book(bookDAO.getBookByID(bookId));
@@ -163,8 +160,13 @@ public class UserService {
      */
     public User login(String username, String password) {
         Log.l(classFunc, "login", "Starting");
-        UserDAO userDAO = new UserDAO();
-        return userDAO.getUserByUsernameAndPassword(username, password);
+        if (validateUsername(username) && validatePassword(password)) {
+            UserDAO userDAO = new UserDAO();
+            return userDAO.getUserByUsernameAndPassword(username, password);
+        } else {
+            Log.lt(classFunc, "login", "validation failed to username " + username + " or password " + password);
+            return new User();
+        }
     }
 
     /**
@@ -186,9 +188,16 @@ public class UserService {
      */
     public User getUserByUsername(String username) {
         Log.l(classFunc, "getUserByUsername", "Starting");
-        return getUser(username);
+        if(validateUsername(username))
+            return getUser(username);
+        return new User();
     }
 
+    public List<User> searchUser(String username){
+        Log.l(classFunc, "getUserByUsername", "Starting");
+        UserDAO userDAO = new UserDAO();
+        return userDAO.searchUser(username);
+    }
     /**
      * Get all books purchased by user
      *
@@ -223,11 +232,12 @@ public class UserService {
 
     /**
      * /buy book
+     *
      * @param username username who bought
-     * @param bookId bookId to buy
+     * @param bookId   bookId to buy
      */
     public void buyBook(String username, int bookId) {
-        Log.l(classFunc,"buyBook","Starting");
+        Log.l(classFunc, "buyBook", "Starting");
 
         User user = new User(getUser(username));
         Book book = new Book(getBook(bookId));
@@ -238,11 +248,12 @@ public class UserService {
 
     /**
      * like book by user
+     *
      * @param username user liked book
-     * @param bookId book id was liked
+     * @param bookId   book id was liked
      */
-    public void likeBook(String username, int bookId){
-        Log.l(classFunc,"likeBook","Starting");
+    public void likeBook(String username, int bookId) {
+        Log.l(classFunc, "likeBook", "Starting");
 
         UserBookRelationDAO userBookRelationDAO = new UserBookRelationDAO();
         userBookRelationDAO.addUserBookLike(
@@ -253,11 +264,12 @@ public class UserService {
 
     /**
      * unlike book by user
+     *
      * @param username user unlike book
-     * @param bookId book id was unlike
+     * @param bookId   book id was unlike
      */
-    public void unlikeBook(String username, int bookId){
-        Log.l(classFunc,"unlikeBook","Starting");
+    public void unlikeBook(String username, int bookId) {
+        Log.l(classFunc, "unlikeBook", "Starting");
 
         UserBookRelationDAO userBookRelationDAO = new UserBookRelationDAO();
         userBookRelationDAO.deleteUserBookLike(
@@ -268,29 +280,50 @@ public class UserService {
 
     /**
      * add review to book by user
+     *
      * @param username user added review
-     * @param bookId book was reviewed
-     * @param review review itself
+     * @param bookId   book was reviewed
+     * @param review   review itself
      */
-    public void reviewBook(String username, int bookId, String review){
-        Log.l(classFunc,"reviewBook","Starting");
+    public void reviewBook(String username, int bookId, String review) {
+        Log.l(classFunc, "reviewBook", "Starting");
 
         UserBookRelationDAO userBookRelationDAO = new UserBookRelationDAO();
-        userBookRelationDAO.addUserBookReview(getUser(username), getBook(bookId),review);
+        userBookRelationDAO.addUserBookReview(getUser(username), getBook(bookId), review);
     }
 
     /**
      * approve review
+     *
      * @param username username to approve
      * @param reviewId review id to approve
      */
-    public void approveReview(String username, int reviewId){
-        Log.l(classFunc, "approveReview","Starting");
+    public void approveReview(String username, int reviewId) {
+        Log.l(classFunc, "approveReview", "Starting");
 
         User user = new User(getUser(username));
-        if(user.getRole().equals("Admin")){
+        if (user.getRole().equals("Admin")) {
             UserBookRelationDAO userBookRelationDAO = new UserBookRelationDAO();
             userBookRelationDAO.approveUserBookReview(new UserBookReviewRelation(userBookRelationDAO.getReviewByID(reviewId)));
+        }
+    }
+
+    /**
+     * Saves the reading postion after leaving the book html
+     *
+     * @param username username reading
+     * @param bookId   book being read
+     * @param position position of html
+     */
+    public void saveReadPosition(String username, int bookId, Float position) {
+        Log.l(classFunc, "saveReadPosition", "Starting");
+
+        UserBookRelationDAO userBookRelationDAO = new UserBookRelationDAO();
+        UserBookPositionRelation userBookPositionRelation = new UserBookPositionRelation(userBookRelationDAO.getUserBookPosition(username, bookId));
+        if (userBookPositionRelation.getUsername() == null || userBookPositionRelation.getUsername().isEmpty()) {
+            userBookRelationDAO.addUserBookPosition(username, bookId, position);
+        } else {
+            userBookRelationDAO.saveUserBookPosition(username, bookId, position);
         }
     }
 }

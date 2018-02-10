@@ -12,7 +12,7 @@ public class Constants {
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
     public static final String URL = PROTOCOL + DBName + ";create=true";
-    public static final String SESSION_USER_ID = "userId";
+    public static final String SESSION_USERNAME = "username";
 
     /************************************
      * Tables names.
@@ -94,6 +94,7 @@ public class Constants {
 
     public static final String SELECT_ALL_USERS = " SELECT * FROM " + USERS;
     public static final String SELECT_USER_BY_USERNAME = " SELECT * FROM " + USERS + " WHERE USERNAME=?";
+    public static final String SEARCH_USER = " SELECT * FROM " + USERS + " WHERE USERNAME LIKE '%?%' ";
     public static final String INSERT_NEW_USER = "INSERT INTO " + USERS +
             " (USERNAME,EMAIL,PASSWORD,STREET,HOUSE_NUMBER,CITY,ZIP,COUNTRY,PHONE_NUMBER,NICKNAME,DESCRIPTION,PHOTO,ROLE,DELETED,SYS_CREATION_DATE,SYS_UPDATE_DATE)" +
             " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -156,6 +157,13 @@ public class Constants {
             " ( SELECT BOOK_ID FROM " + USERS_BOOKS_PURCHASE + " WHERE USERNAME = ? )";
     public static final String GET_ALL_BOOKS_PURCHASED_BY_USER = "SELECT * FROM " + BOOKS + " WHERE BOOK_ID IN " +
             " ( SELECT BOOK_ID FROM " + USERS_BOOKS_PURCHASE + " WHERE USERNAME = ? )";
+
+
+    public static final String ADD_USER_BOOK_POSITION ="INSERT INTO " + USERS_BOOKS_POSITION + " (USERNAME,BOOK_ID,POSITION,SYS_CREATION_DATE) " +
+            "VALUES (?,?,?,SYSDATE)";
+    public static final String GET_USER_BOOK_POSITION = "SELECT * FROM " + USERS_BOOKS_POSITION + " WHERE USERNAME=? AND BOOK_ID=?";
+    public static final String SET_USER_BOOK_POSITION = "UPDATE " + USERS_BOOKS_POSITION + " SET POSITION=? WHERE USERNAME=? AND BOOK_ID=?";
+
 
 }
 

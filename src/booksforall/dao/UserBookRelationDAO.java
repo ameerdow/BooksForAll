@@ -210,6 +210,12 @@ public class UserBookRelationDAO {
         }
     }
 
+    /**
+     * get review by id
+     *
+     * @param reviewID review id to retrieve
+     * @return UserBookReviewRelation object
+     */
     public UserBookReviewRelation getReviewByID(int reviewID) {
         Log.l(classFunc, "getReviewByID", "Starting");
 
@@ -426,6 +432,92 @@ public class UserBookRelationDAO {
             Log.e(classFunc, "getAllBooksPurchasedByUserID", e.getMessage(), e);
         }
         return booksList;
+    }
+
+
+    /**
+     * get the position of the reading position for username and book id
+     *
+     * @param username username
+     * @param bookId   book id
+     * @return UserBookPositionRelation object
+     */
+    public UserBookPositionRelation getUserBookPosition(String username, int bookId) {
+        Log.l(classFunc, "getUserBookPosition", "Starting");
+
+        try (Connection connection = new DBConnection().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(GET_USER_BOOK_POSITION);
+            statement.setString(1, username);
+            statement.setInt(2, bookId);
+
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return new UserBookPositionRelation(
+                        username,
+                        bookId,
+                        rs.getFloat("POSITION"),
+                        rs.getDate("SYS_CREATION_DATE"));
+            }
+        } catch (Exception e) {
+            Log.e(classFunc, "getUserBookPosition", e.getMessage(), e);
+        }
+        return new UserBookPositionRelation();
+    }
+
+
+    /**
+     * Adds new relation for user book position
+     *
+     * @param username username
+     * @param bookId   book id
+     * @param position position percent of html
+     */
+    public void addUserBookPosition(String username, int bookId, Float position) {
+        Log.l(classFunc, "addUserBookPosition", "Starting");
+
+        try (Connection connection = new DBConnection().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(ADD_USER_BOOK_POSITION);
+            statement.setString(1, username);
+            statement.setInt(2, bookId);
+            statement.setFloat(3, position);
+
+            if (statement.executeUpdate() == 0) {
+                Log.l(classFunc, "addUserBookPosition", "error adding position, username " + username +
+                        " , bookId " + bookId + " position " + position);
+                throw new RuntimeException("Error adding user book position relation");
+            }
+            connection.commit();
+            connection.close();
+        } catch (Exception e) {
+            Log.e(classFunc, "addUserBookPosition", e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Saves position of reading
+     * @param username username
+     * @param bookId book id
+     * @param position position percent of html
+     */
+    public void saveUserBookPosition(String username, int bookId, Float position) {
+        Log.l(classFunc, "saveUserBookPosition", "Starting");
+
+        try (Connection connection = new DBConnection().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(SET_USER_BOOK_POSITION);
+            statement.setFloat(1, position);
+            statement.setString(2, username);
+            statement.setInt(3, bookId);
+
+            if (statement.executeUpdate() == 0) {
+                Log.l(classFunc, "saveUserBookPosition", "error saving position, username " + username +
+                        " , bookId " + bookId + " position " + position);
+                throw new RuntimeException("Error saving user book position relation");
+            }
+            connection.commit();
+            connection.close();
+        } catch (Exception e) {
+            Log.e(classFunc, "saveUserBookPosition", e.getMessage(), e);
+        }
     }
 }
 
