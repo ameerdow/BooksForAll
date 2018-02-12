@@ -10,6 +10,10 @@ public class UserBookLikeRelation {
         this.bookId = bookId;
     }
 
+    public UserBookLikeRelation(UserBookLikeRelation userBookLikeRelation) {
+        this.username = userBookLikeRelation.getUsername();
+        this.bookId = userBookLikeRelation.getBookId();
+    }
     public String getUsername() {
         return username;
     }

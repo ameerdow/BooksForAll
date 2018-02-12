@@ -289,6 +289,10 @@ public class UserBookRelationDAO {
             try (Connection connection = new DBConnection().getConnection()) {
 
                 PreparedStatement statement = connection.prepareStatement(ADD_USER_BOOK_PURCHASE);
+                statement.setString(1, user.getUsername());
+                statement.setInt(2, book.getID());
+                statement.setDouble(3, book.getPrice());
+                
                 if (statement.executeUpdate() == 0) {
                     throw new RuntimeException("Error purchasing book " + book.getID() + " for username " + user.getUsername());
                 }
@@ -495,8 +499,9 @@ public class UserBookRelationDAO {
 
     /**
      * Saves position of reading
+     *
      * @param username username
-     * @param bookId book id
+     * @param bookId   book id
      * @param position position percent of html
      */
     public void saveUserBookPosition(String username, int bookId, Float position) {

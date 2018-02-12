@@ -57,35 +57,6 @@ public class BookService {
         return bookDAO.getAllBooks();
     }
 
-    /**
-     * update book likes count
-     * @param id book id
-     * @param add true -> add like
-     *            false - reduce like
-     */
-    public void updateLikeCountToBookID(int id, Boolean add){
-        Log.l(classFunc, "updateLikeCountToBookID", "Starting");
-        BookDAO bookDAO = new BookDAO();
-        bookDAO.updateLikeCountToBookID(id, add);
-    }
-
-    /**
-     * update book review count
-     * @param id book id
-     * @param add true -> add review count
-     *            false - reduce review count
-     */
-    public void updateReviewCountToBookID(int id, Boolean add){
-        Log.l(classFunc, "updateLikeCountToBookID", "Starting");
-        BookDAO bookDAO = new BookDAO();
-        bookDAO.updateReviewCountToBookID(id, add);
-    }
-
-    /**
-     * Get all the purchases of specific book
-     * @param bookId book id
-     * @return list of UserBookPurchaseRelation object
-     */
     public List<UserBookPurchaseRelation> getAllPurchasesForBook(int bookId){
         Log.l(classFunc,"getAllReviewsForBook","Starting");
 

@@ -24,9 +24,8 @@ import java.io.PrintWriter;
                 "/users",
                 "/user/*",
                 "/user",
-                "/user/forget_password",
-                "/user/change_password",
                 "/login",
+                "/review",
                 "/logout",
                 "/search/user/*"
         }
@@ -55,9 +54,7 @@ public class UserServlet extends HttpServlet {
         Log.l(classFunc, "doGet", "Starting");
 
         PrintWriter printWriter = response.getWriter();
-
         UserService userService = new UserService();
-        
         Gson gson = new Gson();
 
         try {
@@ -148,7 +145,7 @@ public class UserServlet extends HttpServlet {
             }else if(uri.endsWith(SIGN_UP)) {
             	ClientRequest.SignUpRequest signUpRequest = gson.fromJson(postData, ClientRequest.SignUpRequest.class);
             	if(signUpRequest == null) {
-            		throw new RuntimeException("Error getting singup info");
+            		throw new RuntimeException("Error getting sign up info");
             	}else {
             		Address address = new Address(signUpRequest.getStreet(), signUpRequest.getNumber(), signUpRequest.getCity(), signUpRequest.getZip(), signUpRequest.getCountry());
             		User signUser = userService.addUser(signUpRequest.getUsername(), signUpRequest.getEmail(), signUpRequest.getPassword(),address ,

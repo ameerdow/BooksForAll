@@ -188,16 +188,17 @@ public class UserService {
      */
     public User getUserByUsername(String username) {
         Log.l(classFunc, "getUserByUsername", "Starting");
-        if(validateUsername(username))
+        if (validateUsername(username))
             return getUser(username);
         return new User();
     }
 
-    public List<User> searchUser(String username){
+    public List<User> searchUser(String username) {
         Log.l(classFunc, "getUserByUsername", "Starting");
         UserDAO userDAO = new UserDAO();
         return userDAO.searchUser(username);
     }
+
     /**
      * Get all books purchased by user
      *
@@ -256,26 +257,51 @@ public class UserService {
         Log.l(classFunc, "likeBook", "Starting");
 
         UserBookRelationDAO userBookRelationDAO = new UserBookRelationDAO();
-        userBookRelationDAO.addUserBookLike(
-                getUser(username),
-                getBook(bookId)
-        );
+        User user = new User(getUser(username));
+        Book book = new Book(getBook(bookId));
+
+        if (userBookRelationDAO.getUserBookLikeRelation(user, book) == null) {
+            userBookRelationDAO.addUserBookLike(
+                    getUser(username),
+                    getBook(bookId)
+            );
+            updateLikeCountToBookID(bookId,true);
+        } else {
+            unlikeBook(user, book);
+            updateLikeCountToBookID(bookId,false);
+        }
     }
+
+
+    /**
+     * update book likes count
+     * @param id book id
+     * @param add true -> add like
+     *            false - reduce like
+     */
+    private void updateLikeCountToBookID(int id, Boolean add){
+        Log.l(classFunc, "updateLikeCountToBookID", "Starting");
+        BookDAO bookDAO = new BookDAO();
+        bookDAO.updateLikeCountToBookID(id, add);
+    }
+
+    /**
+     * Get all the purchases of specific book
+     * @param bookId book id
+     * @return list of UserBookPurchaseRelation object
+     */
 
     /**
      * unlike book by user
      *
-     * @param username user unlike book
-     * @param bookId   book id was unlike
+     * @param user user unlike book
+     * @param book book id was unlike
      */
-    public void unlikeBook(String username, int bookId) {
+    private void unlikeBook(User user, Book book) {
         Log.l(classFunc, "unlikeBook", "Starting");
 
         UserBookRelationDAO userBookRelationDAO = new UserBookRelationDAO();
-        userBookRelationDAO.deleteUserBookLike(
-                getUser(username),
-                getBook(bookId)
-        );
+        userBookRelationDAO.deleteUserBookLike(user, book);
     }
 
     /**
@@ -287,9 +313,31 @@ public class UserService {
      */
     public void reviewBook(String username, int bookId, String review) {
         Log.l(classFunc, "reviewBook", "Starting");
+        if (validateUsername(username) && !(review.isEmpty()) && validatePurchase(username,bookId)) {
+            UserBookRelationDAO userBookRelationDAO = new UserBookRelationDAO();
+            userBookRelationDAO.addUserBookReview(getUser(username), getBook(bookId), review);
+            updateReviewCountToBookID(bookId, true);
+            return;
+        }
+        throw new RuntimeException("review validation failed");
+    }
 
+    /**
+     * update book review count
+     * @param id book id
+     * @param add true -> add review count
+     *            false - reduce review count
+     */
+    private void updateReviewCountToBookID(int id, Boolean add){
+        Log.l(classFunc, "updateLikeCountToBookID", "Starting");
+        BookDAO bookDAO = new BookDAO();
+        bookDAO.updateReviewCountToBookID(id, add);
+    }
+
+    private boolean validatePurchase(String username, int bookId) {
+        Log.l(classFunc,"validatePurchase","Starting");
         UserBookRelationDAO userBookRelationDAO = new UserBookRelationDAO();
-        userBookRelationDAO.addUserBookReview(getUser(username), getBook(bookId), review);
+        return userBookRelationDAO.getUserBookPurchaseRelation(getUser(username), getBook(bookId)) != null;
     }
 
     /**

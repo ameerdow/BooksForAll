@@ -168,6 +168,27 @@ public class ClientRequest {
 
     // book requests
 
+    public static class DeleteBookRequest {
+        private int bookId;
+        private String deleteStatus;
+
+        public DeleteBookRequest() {
+        }
+
+        public DeleteBookRequest(int bookId, String deleteStatus) {
+            this.bookId = bookId;
+            this.deleteStatus = deleteStatus;
+        }
+
+        public int getBookId() {
+            return bookId;
+        }
+
+        public String getDeleteStatus() {
+            return deleteStatus;
+        }
+    }
+
     public static class BuyBookRequest{
 
         private int bookId;
