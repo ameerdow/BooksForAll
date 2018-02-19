@@ -99,7 +99,7 @@ public class BookDAO {
      * @return Book Object of the given id
      */
     public Book getBookByID(int id) {
-        Log.l(classFunc, "getBooksByName", "Starting");
+        Log.l(classFunc, "getBookByID", "Starting");
 
         try (Connection connection = new DBConnection().getConnection()) {
 
@@ -126,6 +126,44 @@ public class BookDAO {
             Log.l(classFunc, "getBookByID", "Did not find book by id = " + id);
         } catch (Exception e) {
             Log.e(classFunc, "getBookByID", "Error getting book by id " + id, e);
+        }
+        return new Book();
+    }
+
+    /**
+     * Gets a book by its ID
+     *
+     * @param category - category of the book
+     * @return Book Object of the given id
+     */
+    public Book getBookByCategory(String category) {
+        Log.l(classFunc, "getBookByCategory", "Starting");
+
+        try (Connection connection = new DBConnection().getConnection()) {
+
+            PreparedStatement statement = connection.prepareStatement(SELECT_BOOK_BY_CATEGORY);
+            statement.setString(1, category);
+
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                return new Book(
+                        rs.getInt("ID"),
+                        rs.getString("NAME"),
+                        rs.getString("PHOTO"),
+                        rs.getDouble("PRICE"),
+                        rs.getString("DESCRIPTION"),
+                        rs.getInt("LIKES_NUM"),
+                        rs.getInt("REVIEWS_NUM"),
+                        rs.getString("DELETED"),
+                        rs.getString("FILE_PATH"),
+                        rs.getDate("SYS_CREATION_DATE"),
+                        rs.getDate("SYS_UPDATE_DATE")
+                );
+            }
+            Log.l(classFunc, "getBookByCategory", "Did not find book by  category= " + category);
+        } catch (Exception e) {
+            Log.e(classFunc, "getBookByCategory", "Error getting book by category " + category, e);
         }
         return new Book();
     }

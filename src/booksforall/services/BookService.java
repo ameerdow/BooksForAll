@@ -37,6 +37,16 @@ public class BookService {
     }
 
     /**
+     * Get book by id
+     * @param category book category
+     * @return Book object
+     */
+    public Book getBookByCategory(String category) {
+        Log.l(classFunc, "getBookById", "Starting");
+        BookDAO bookDAO = new BookDAO();
+        return bookDAO.getBookByCategory(category);
+    }
+    /**
      * Mark book as deleted/ not deleted
      * @param id book id
      * @param deleteStatus delete status

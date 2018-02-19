@@ -16,7 +16,7 @@ public class Constants {
 
 	/************************************
 	 * Tables names.
-	 **************************************/ 
+	 **************************************/
 
 	public static final String USERS = "USERS";
 	public static final String BOOKS = "BOOKS";
@@ -41,7 +41,7 @@ public class Constants {
 
 	public static final String CREATE_BOOKS_STATEMENT = "CREATE TABLE " + BOOKS + "( " + INC_ID + ", "
 			+ " NAME VARCHAR(10) NOT NULL UNIQUE, " + "PHOTO VARCHAR(255) NOT NULL, " + "PRICE DOUBLE NOT NULL, "
-			+ "DESCRIPTION VARCHAR(50) NOT NULL, " + "LIKES_NUM INTEGER, " + "REVIEWS_NUM INTEGER, "
+			+ "DESCRIPTION VARCHAR(50) NOT NULL, " + "CATEGORY VARCHAR(50) NOT NULL, " + "LIKES_NUM INTEGER, " + "REVIEWS_NUM INTEGER, "
 			+ "DELETED VARCHAR(1), " + "SYS_CREATION_DATE DATE NOT NULL, " + "SYS_UPDATE_DATE DATE,"
 			+ "FILE_PATH VARCHAR(500) NOT NULL" + " )";
 
@@ -88,6 +88,7 @@ public class Constants {
 	public static final String SELECT_ALL_BOOKS = " SELECT * FROM " + BOOKS;
 	public static final String SELECT_BOOKS_BY_BOOK_NAME = " SELECT * FROM " + BOOKS + " WHERE NAME LIKE '%?%'";
 	public static final String SELECT_BOOK_BY_ID = " SELECT * FROM " + BOOKS + " WHERE ID=?";
+	public static final String SELECT_BOOK_BY_CATEGORY = " SELECT * FROM " + BOOKS + " WHERE CATEGORY=?";
 
 	public static final String SET_DELETED_BOOK_BY_ID = " UPDATE " + BOOKS + " SET DELETED=? , SYS_UPDATE_DATE =? "
 			+ "WHERE ID=? ";

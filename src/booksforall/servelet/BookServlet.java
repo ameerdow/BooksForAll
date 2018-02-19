@@ -40,7 +40,8 @@ public class BookServlet extends HttpServlet {
     private static final String GET_ALL_BOOK_USER_PURCHASES = "/book/user/purchases/";
     private static final String GET_ALL_BOOK_USER_NOT_PURCHASES = "/book/user/not/purchases/";
     private static final String SEARCH_BOOKS = "/search/book/";
-    private static final String GET_BOOK_BY_ID = "/book/";
+    private static final String GET_BOOK_BY_ID = "/book/id/";
+    private static final String GET_BOOK_BY_CATEGORY = "/book/category";
     private static final String BUY_BOOK_BY_ID = "/book/buy/";
     private static final String LIKE_BOOK_BY_ID = "/book/like/";
     private static final String REVIEW_BOOK_BY_ID = "/book/review/";
@@ -90,12 +91,21 @@ public class BookServlet extends HttpServlet {
                 return;
             } else if (uri.contains(GET_BOOK_BY_ID)) {
                 String[] params = pathInfo.split("/");
-                if (params.length != 1) {
+                if (params.length != 2) {
                     Log.l(classFunc, "doGet", "No book id found to get");
                     throw new RuntimeException("No book id found to get");
                 }
-                int bookId = Integer.parseInt(params[0]);
+                int bookId = Integer.parseInt(params[1]);
                 printWriter.println(bookService.getBookById(bookId));
+                return;
+            } else if (uri.contains(GET_BOOK_BY_CATEGORY)) {
+                String[] params = pathInfo.split("/");
+                if (params.length != 2) {
+                    Log.l(classFunc, "doGet", "No book category found to get");
+                    throw new RuntimeException("No book category found to get");
+                }
+                String category = params[1];
+                printWriter.println(bookService.getBookByCategory(category));
                 return;
             } else if (uri.contains(GET_ALL_BOOK_LIKES)) {
                 String[] params = pathInfo.split("/");
@@ -194,12 +204,12 @@ public class BookServlet extends HttpServlet {
                 ClientRequest.ReviewBookRequest reviewBookRequest = gson.fromJson(postData, ClientRequest.ReviewBookRequest.class);
                 if (Helper.checkSession(request).isEmpty() || reviewBookRequest.getBookId() == 0 || reviewBookRequest.getReview().isEmpty())
                     throw new RuntimeException("username is empty or bookId is 0 or review is empty");
-                userService.reviewBook(Helper.checkSession(request), reviewBookRequest.getBookId(),reviewBookRequest.getReview());
-            } else if (uri.contains(SAVE_READ_BOOK_POSITION)){
+                userService.reviewBook(Helper.checkSession(request), reviewBookRequest.getBookId(), reviewBookRequest.getReview());
+            } else if (uri.contains(SAVE_READ_BOOK_POSITION)) {
                 ClientRequest.SetReadPositionRequest readPositionRequest = gson.fromJson(postData, ClientRequest.SetReadPositionRequest.class);
                 if (Helper.checkSession(request).isEmpty() || readPositionRequest.getBookId() == 0 || readPositionRequest.getPosition().isNaN())
                     throw new RuntimeException("username is empty or bookId is 0 or position is null");
-                userService.saveReadPosition(Helper.checkSession(request),readPositionRequest.getBookId(),readPositionRequest.getPosition());
+                userService.saveReadPosition(Helper.checkSession(request), readPositionRequest.getBookId(), readPositionRequest.getPosition());
             }
             throw new RuntimeException("no function found");
         } catch (RuntimeException e) {
