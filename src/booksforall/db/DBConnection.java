@@ -23,8 +23,8 @@ public class DBConnection {
             // Establish network connection to database
 
             return DriverManager.getConnection(URL, USERNAME, PASSWORD);
-        } catch (ClassNotFoundException ignore) {
-            throw new SQLException("Can't find class for driver: " + DRIVER);
+        } catch (ClassNotFoundException e) {
+            throw new SQLException("Can't find class for driver: " + DRIVER + ", " + e);
         } catch (IllegalAccessException ignore) {
             throw new SQLException("Can't access DB with username: " + USERNAME + " password: " + PASSWORD);
         } catch (InstantiationException ignore) {

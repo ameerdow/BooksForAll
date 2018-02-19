@@ -45,6 +45,7 @@ public class BookServlet extends HttpServlet {
     private static final String LIKE_BOOK_BY_ID = "/book/like/";
     private static final String REVIEW_BOOK_BY_ID = "/book/review/";
     private static final String DELETE_BOOK_BY_ID = "/book/delete";
+    private static final String SAVE_READ_BOOK_POSITION = "/book/position";
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -181,19 +182,24 @@ public class BookServlet extends HttpServlet {
                 return;
             } else if (uri.contains(BUY_BOOK_BY_ID)) {
                 ClientRequest.BuyBookRequest buyBookRequest = gson.fromJson(postData, ClientRequest.BuyBookRequest.class);
-                if (buyBookRequest.getUsername().isEmpty() || buyBookRequest.getBookId() == 0)
+                if (Helper.checkSession(request).isEmpty() || buyBookRequest.getBookId() == 0)
                     throw new RuntimeException("username is empty or bookId is 0");
-                userService.buyBook(buyBookRequest.getUsername(), buyBookRequest.getBookId());
+                userService.buyBook(Helper.checkSession(request), buyBookRequest.getBookId());
             } else if (uri.contains(LIKE_BOOK_BY_ID)) {
                 ClientRequest.LikeBookRequest likeBookRequest = gson.fromJson(postData, ClientRequest.LikeBookRequest.class);
-                if (likeBookRequest.getUsername().isEmpty() || likeBookRequest.getBookId() == 0)
+                if (Helper.checkSession(request).isEmpty() || likeBookRequest.getBookId() == 0)
                     throw new RuntimeException("username is empty or bookId is 0");
-                userService.likeBook(likeBookRequest.getUsername(), likeBookRequest.getBookId());
+                userService.likeBook(Helper.checkSession(request), likeBookRequest.getBookId());
             } else if (uri.contains(REVIEW_BOOK_BY_ID)) {
                 ClientRequest.ReviewBookRequest reviewBookRequest = gson.fromJson(postData, ClientRequest.ReviewBookRequest.class);
-                if (reviewBookRequest.getUsername().isEmpty() || reviewBookRequest.getBookId() == 0 || reviewBookRequest.getReview().isEmpty())
+                if (Helper.checkSession(request).isEmpty() || reviewBookRequest.getBookId() == 0 || reviewBookRequest.getReview().isEmpty())
                     throw new RuntimeException("username is empty or bookId is 0 or review is empty");
-                userService.reviewBook(reviewBookRequest.getUsername(), reviewBookRequest.getBookId(),reviewBookRequest.getReview());
+                userService.reviewBook(Helper.checkSession(request), reviewBookRequest.getBookId(),reviewBookRequest.getReview());
+            } else if (uri.contains(SAVE_READ_BOOK_POSITION)){
+                ClientRequest.SetReadPositionRequest readPositionRequest = gson.fromJson(postData, ClientRequest.SetReadPositionRequest.class);
+                if (Helper.checkSession(request).isEmpty() || readPositionRequest.getBookId() == 0 || readPositionRequest.getPosition().isNaN())
+                    throw new RuntimeException("username is empty or bookId is 0 or position is null");
+                userService.saveReadPosition(Helper.checkSession(request),readPositionRequest.getBookId(),readPositionRequest.getPosition());
             }
             throw new RuntimeException("no function found");
         } catch (RuntimeException e) {

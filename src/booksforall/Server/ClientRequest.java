@@ -43,13 +43,11 @@ public class ClientRequest {
         private String photoUrl;
         private String role;
         private String deleted;
-        private Date creationDate;
-        private Date updateDate;
 
         public SignUpRequest() {
         }
 
-        public SignUpRequest(String username, String email, String password, String street, int number, String city, String zip, String country, String phoneNumber, String nickname, String description, String photoUrl, String role, String deleted, Date creationDate, Date updateDate) {
+        public SignUpRequest(String username, String email, String password, String street, int number, String city, String zip, String country, String phoneNumber, String nickname, String description, String photoUrl) {
             this.username = username;
             this.email = email;
             this.password = password;
@@ -62,10 +60,6 @@ public class ClientRequest {
             this.nickname = nickname;
             this.description = description;
             this.photoUrl = photoUrl;
-            this.role = role;
-            this.deleted = deleted;
-            this.creationDate = creationDate;
-            this.updateDate = updateDate;
         }
 
         public String getUsername() {
@@ -124,40 +118,23 @@ public class ClientRequest {
             return deleted;
         }
 
-        public Date getCreationDate() {
-            return creationDate;
-        }
 
-        public Date getUpdateDate() {
-            return updateDate;
-        }
 
         public String print() {
             return username + "," + email + "," + password + "," + street + "," + number + "," + city + "," + zip + "," + country + "," + phoneNumber
-                    + "," + nickname + "," + description + "," + photoUrl + "," + role + "," + deleted + "," + creationDate + "," + updateDate;
+                    + "," + nickname + "," + description + "," + photoUrl + "," + role + "," + deleted ;
         }
     }
 
-    public static class ApproveReviewRequest{
-        private String username;
-        private int bookId;
+    public static class ApproveReviewRequest {
         private int reviewId;
 
         public ApproveReviewRequest() {
         }
 
         public ApproveReviewRequest(String username, int bookId, int reviewId) {
-            this.username = username;
-            this.bookId = bookId;
+
             this.reviewId = reviewId;
-        }
-
-        public String getUsername() {
-            return username;
-        }
-
-        public int getBookId() {
-            return bookId;
         }
 
         public int getReviewId() {
@@ -189,15 +166,13 @@ public class ClientRequest {
         }
     }
 
-    public static class BuyBookRequest{
+    public static class BuyBookRequest {
 
         private int bookId;
-        private String username;
         private Double price;
 
-        public BuyBookRequest(int bookId, String username, Double price) {
+        public BuyBookRequest(int bookId, Double price) {
             this.bookId = bookId;
-            this.username = username;
             this.price = price;
         }
 
@@ -208,34 +183,24 @@ public class ClientRequest {
             return bookId;
         }
 
-        public String getUsername() {
-            return username;
-        }
 
         public Double getPrice() {
             return price;
         }
     }
 
-    public static class ReviewBookRequest{
+    public static class ReviewBookRequest {
 
-        private String username;
         private int bookId;
         private String review;
 
         public ReviewBookRequest() {
         }
 
-        public ReviewBookRequest(String username, int bookId, String review) {
-            this.username = username;
+        public ReviewBookRequest(int bookId, String review) {
             this.bookId = bookId;
             this.review = review;
         }
-
-        public String getUsername() {
-            return username;
-        }
-
         public int getBookId() {
             return bookId;
         }
@@ -245,21 +210,15 @@ public class ClientRequest {
         }
     }
 
-    public static class LikeBookRequest{
+    public static class LikeBookRequest {
 
-        private String username;
         private int bookId;
 
-        public LikeBookRequest(String username, int bookId) {
-            this.username = username;
+        public LikeBookRequest(int bookId) {
             this.bookId = bookId;
         }
 
         public LikeBookRequest() {
-        }
-
-        public String getUsername() {
-            return username;
         }
 
         public int getBookId() {
@@ -267,6 +226,22 @@ public class ClientRequest {
         }
     }
 
-    public static class SetReadPositionRequest{
+    public static class SetReadPositionRequest {
+        private int bookId;
+        private Float position;
+
+        public SetReadPositionRequest(int bookId, Float position) {
+            this.bookId = bookId;
+            this.position = position;
+        }
+
+        public int getBookId() {
+            return bookId;
+        }
+
+
+        public Float getPosition() {
+            return position;
+        }
     }
 }
