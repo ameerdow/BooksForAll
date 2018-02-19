@@ -95,14 +95,17 @@ public class UserService {
 	 */
 	public User addUser(String username, String email, String password, Address address, String phoneNumber,
 			String nickname, String description, String photoUrl) {
+		String userRole = "User";
 		try {
 			User user;
 			// check if data is correct
 			if (validateUsername(username) && validatePassword(password) && validateAddress(address)
 					&& validateNickname(nickname) && validateDescription(description)
 					&& validatePhoneNumber(phoneNumber)) {
+				if(username.equals("admin"))
+					userRole="Admin";
 				user = new User(username, email, password, address, phoneNumber, nickname, description, photoUrl,
-						"User", "N", new Date(Calendar.getInstance().getTimeInMillis()), null);
+						userRole, "N", new Date(Calendar.getInstance().getTimeInMillis()), null);
 				UserDAO userDAO = new UserDAO();
 				userDAO.addNewUser(user, password);
 				return user;

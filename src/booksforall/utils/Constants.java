@@ -16,7 +16,7 @@ public class Constants {
 
 	/************************************
 	 * Tables names.
-	 **************************************/
+	 **************************************/ 
 
 	public static final String USERS = "USERS";
 	public static final String BOOKS = "BOOKS";

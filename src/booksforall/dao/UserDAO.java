@@ -201,7 +201,7 @@ public class UserDAO {
             Connection connection = new DBConnection().getConnection();
             PreparedStatement statement = connection.prepareStatement(SELECT_USER_WHERE_USERNAME_AND_PASSWORD);
             statement.setString(1, username);
-            statement.setString(1, password);
+            statement.setString(2, password);
 
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {

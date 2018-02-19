@@ -40,12 +40,12 @@ public class InitDatabase {
 	public static void initTables() {
 		Log.l("InitDatabase", "initTables", "Initializing tables");
 
-		// dropTable(USERS);
-		// dropTable(USERS_BOOKS_LIKE);
-		// dropTable(USERS_BOOKS_POSITION);
-		// dropTable(USERS_BOOKS_PURCHASE);
-		// dropTable(USERS_BOOKS_REVIEW);
-		// dropTable(BOOKS);
+		dropTable(USERS);
+		dropTable(USERS_BOOKS_LIKE);
+		dropTable(USERS_BOOKS_POSITION);
+		dropTable(USERS_BOOKS_PURCHASE);
+		dropTable(USERS_BOOKS_REVIEW);
+		dropTable(BOOKS);
 
 		createTable(CREATE_USERS_STATEMENT);
 		createTable(CREATE_BOOKS_STATEMENT);

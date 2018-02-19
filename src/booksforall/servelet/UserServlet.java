@@ -120,9 +120,11 @@ public class UserServlet extends HttpServlet {
 			if (uri.endsWith(LOGIN)) {
 				ClientRequest.LoginRequest loginRequest = gson.fromJson(postData, ClientRequest.LoginRequest.class);
 				if (loginRequest == null) {
-					throw new RuntimeException("Error getting login info");
+					throw new RuntimeException("Error getting login request info");
 				} else {
-					User loginUser = userService.login(loginRequest.getUsername(), loginRequest.getPassword());
+					User loginUser = new User(userService.login(loginRequest.getUsername(), loginRequest.getPassword()));
+					if(loginUser == null || loginUser.getUsername() == null || loginUser.getUsername().isEmpty())
+						throw new RuntimeException("Error getting login info");
 					Helper.setSession(request, loginUser.getUsername());
 					printWriter.println(gson.toJson(loginUser));
 					return;
