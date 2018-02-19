@@ -70,7 +70,7 @@ public class Constants {
 	public static final String SEARCH_USER = " SELECT * FROM " + USERS + " WHERE USERNAME LIKE '%?%' ";
 	public static final String INSERT_NEW_USER = "INSERT INTO " + USERS
 			+ " (USERNAME,EMAIL,PASSWORD,STREET,HOUSE_NUMBER,CITY,ZIP,COUNTRY,PHONE_NUMBER,NICKNAME,DESCRIPTION,PHOTO,ROLE,DELETED,SYS_CREATION_DATE,SYS_UPDATE_DATE)"
-			+ " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			+ " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 	public static final String UPDATE_PASSWORD = " UPDATE " + USERS + " SET PASSWORD=? , SYS_UPDATE_DATE =? "
 			+ "WHERE USERNAME=? AND PASSWORD=? ";
