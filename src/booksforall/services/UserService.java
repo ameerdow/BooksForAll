@@ -4,6 +4,7 @@ import booksforall.dao.BookDAO;
 import booksforall.dao.UserBookRelationDAO;
 import booksforall.dao.UserDAO;
 import booksforall.models.*;
+import booksforall.utils.Helper;
 import booksforall.utils.Log;
 
 import java.sql.Date;
@@ -309,14 +310,6 @@ public class UserService {
 	}
 
 	/**
-	 * Get all the purchases of specific book
-	 * 
-	 * @param bookId
-	 *            book id
-	 * @return list of UserBookPurchaseRelation object
-	 */
-
-	/**
 	 * unlike book by user
 	 *
 	 * @param user
@@ -382,7 +375,6 @@ public class UserService {
 	 */
 	public void approveReview(String username, int reviewId) {
 		Log.l(classFunc, "approveReview", "Starting");
-
 		User user = new User(getUser(username));
 		if (user.getRole().equals("Admin")) {
 			UserBookRelationDAO userBookRelationDAO = new UserBookRelationDAO();
@@ -412,5 +404,12 @@ public class UserService {
 		} else {
 			userBookRelationDAO.saveUserBookPosition(username, bookId, position);
 		}
+	}
+
+	public UserBookPositionRelation getReadPosition(String username, int bookId){
+		Log.l(classFunc, "getReadPosition", "Starting");
+		UserBookRelationDAO userBookRelationDAO = new UserBookRelationDAO();
+		return new UserBookPositionRelation(
+				userBookRelationDAO.getUserBookPosition(username, bookId));
 	}
 }

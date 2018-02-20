@@ -132,8 +132,7 @@ public class ClientRequest {
         public ApproveReviewRequest() {
         }
 
-        public ApproveReviewRequest(String username, int bookId, int reviewId) {
-
+        public ApproveReviewRequest(int reviewId) {
             this.reviewId = reviewId;
         }
 

@@ -47,6 +47,7 @@ public class BookServlet extends HttpServlet {
     private static final String REVIEW_BOOK_BY_ID = "/book/review/";
     private static final String DELETE_BOOK_BY_ID = "/book/delete";
     private static final String SAVE_READ_BOOK_POSITION = "/book/position";
+    private static final String GET_READ_BOOK_POSITION = "/book/position/";
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -152,8 +153,17 @@ public class BookServlet extends HttpServlet {
                 String username = params[3];
                 printWriter.println(userService.getNotPurchasedBooksByUsername(username));
                 return;
+            } else if(uri.contains(GET_READ_BOOK_POSITION)){
+                String[] params = pathInfo.split("/");
+                if(params.length != 3){
+                    Log.l(classFunc, "doGet", "No book id pr username found to get read position");
+                    throw new RuntimeException("No book id or username found to get position");
+                }
+                String username = Helper.checkSession(request);
+                int bookId = Integer.parseInt(params[2]);
+                printWriter.println(userService.getReadPosition(username,bookId));
+                return;
             }
-
             throw new RuntimeException("no function found,");
         } catch (RuntimeException e) {
             Log.e(classFunc, "doGet", e.getMessage(), e);
