@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="booksForAll">
 <head>
     <meta charset="UTF-8">
     <title>BooksForAll</title>
@@ -7,7 +7,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet">
 </head>
-<body>
+<body ng-controller="RegisterController">
 <!--<div id="homeNav" ng-show="true">-->
 <!--<nav class="header navbar navbar-default navbar-fixed-top container-fluid">-->
 <!--<div class="navbar-header header-color ">-->
@@ -34,135 +34,135 @@
         </div>
         <div class="user-signup-dialog">
             <div class="signup-dialog-left local-signup">
-                <form id="signup-post" action="/users/success" method="post">
+                <div id="signup-post">
                     <p class="signup-title">Using Books For All Account</p>
                     <div class="signup-container">
                         <div class="signup-message">
                             <div class="form-group">
                                 <div class="fg-line username">
-                                    <label for="username">Username</label>
+                                    <label for="inputUsernameRegister">Username</label>
                                 </div>
                                 <div class="fg-line input-signup">
-                                    <input type="text" id="username" class="form-control" placeholder="Username">
+                                    <input type="text" id="inputUsernameRegister" class="form-control" placeholder="Username" ng-model="inputUsernameRegister">
                                 </div>
                             </div>
                         </div>
                         <div class="signup-message">
                             <div class="form-group">
                                 <div class="fg-line username">
-                                    <label for="password">Password</label>
+                                    <label for="inputPasswordRegister1">Password</label>
                                 </div>
                                 <div class="fg-line input-signup">
-                                    <input type="text" id="password" class="form-control" placeholder="Password">
+                                    <input type="text" id="inputPasswordRegister1" class="form-control" placeholder="Password" ng-model="inputPasswordRegister1">
                                 </div>
                             </div>
                         </div>
                         <div class="signup-message">
                             <div class="form-group">
                                 <div class="fg-line username">
-                                    <label for="confirm_password">Confirm Password</label>
+                                    <label for="inputPasswordRegister2">Confirm Password</label>
                                 </div>
                                 <div class="fg-line input-signup">
-                                    <input type="text" id="confirm_password" class="form-control"
-                                           placeholder="Password">
+                                    <input type="text" id="inputPasswordRegister2" class="form-control"
+                                           placeholder="Password" ng-model="inputPasswordRegister2">
                                 </div>
                             </div>
                         </div>
                         <div class="signup-message">
                             <div class="form-group ">
                                 <div class="fg-line username">
-                                    <label for="email">Email</label>
+                                    <label for="inputEmailRegister">Email</label>
                                 </div>
                                 <div class="fg-line input-signup">
-                                    <input type="text" id="email" class="form-control" placeholder="Email">
+                                    <input type="text" id="inputEmailRegister" class="form-control" placeholder="Email" ng-model="inputEmailRegister">
                                 </div>
                             </div>
                         </div>
                         <div class="signup-message">
                             <div class="form-group ">
                                 <div class="fg-line username">
-                                    <label for="street">Street</label>
+                                    <label for="inputStreetRegister">Street</label>
                                 </div>
                                 <div class="fg-line input-signup">
-                                    <input type="text" id="street" class="form-control" placeholder="Street">
+                                    <input type="text" id="inputStreetRegister" class="form-control" placeholder="Street" ng-model="inputStreetRegister">
                                 </div>
                             </div>
                         </div>
                         <div class="signup-message">
                             <div class="form-group ">
                                 <div class="fg-line username">
-                                    <label for="houseNum">House #</label>
+                                    <label for="inputHouseRegister">House #</label>
                                 </div>
                                 <div class="fg-line input-signup">
-                                    <input type="text" id="houseNum" class="form-control" placeholder="House Number">
+                                    <input type="text" id="inputHouseRegister" class="form-control" placeholder="House Number" ng-model="inputHouseRegister">
                                 </div>
                             </div>
                         </div>
                         <div class="signup-message">
                             <div class="form-group ">
                                 <div class="fg-line username">
-                                    <label for="city">City</label>
+                                    <label for="inputCityRegister">City</label>
                                 </div>
                                 <div class="fg-line input-signup">
-                                    <input type="text" id="city" class="form-control" placeholder="City">
+                                    <input type="text" id="inputCityRegister" class="form-control" placeholder="City" ng-model="inputCityRegister">
                                 </div>
                             </div>
                         </div>
                         <div class="signup-message">
                             <div class="form-group ">
                                 <div class="fg-line username">
-                                    <label for="zip">Zip</label>
+                                    <label for="inputZipRegister">Zip</label>
                                 </div>
                                 <div class="fg-line input-signup">
-                                    <input type="text" id="zip" class="form-control" placeholder="Zip">
+                                    <input type="text" id="inputZipRegister" class="form-control" placeholder="Zip" ng-model="inputZipRegister">
                                 </div>
                             </div>
                         </div>
                         <div class="signup-message">
                             <div class="form-group ">
                                 <div class="fg-line username">
-                                    <label for="country">Country</label>
+                                    <label for="inputCountryRegister">Country</label>
                                 </div>
                                 <div class="fg-line input-signup">
-                                    <input type="text" id="country" class="form-control" placeholder="Country">
+                                    <input type="text" id="inputCountryRegister" class="form-control" placeholder="Country" ng-model="inputCountryRegister">
                                 </div>
                             </div>
                         </div>
                         <div class="signup-message">
                             <div class="form-group ">
                                 <div class="fg-line username">
-                                    <label for="phone">Phone</label>
+                                    <label for="inputPhoneRegister">Phone</label>
                                 </div>
                                 <div class="fg-line input-signup">
-                                    <input type="text" id="phone" class="form-control" placeholder="Phone Number">
+                                    <input type="text" id="inputPhoneRegister" class="form-control" placeholder="Phone Number" ng-model="inputPhoneRegister">
                                 </div>
                             </div>
                         </div>
                         <div class="signup-message">
                             <div class="form-group ">
                                 <div class="fg-line username">
-                                    <label for="nickname">Nickname</label>
+                                    <label for="inputNicknameRegister">Nickname</label>
                                 </div>
                                 <div class="fg-line input-signup">
-                                    <input type="text" id="nickname" class="form-control" placeholder="Nickname">
+                                    <input type="text" id="inputNicknameRegister" class="form-control" placeholder="Nickname" ng-model="inputNicknameRegister">
                                 </div>
                             </div>
                         </div>
                         <div class="signup-message">
                             <div class="form-group ">
                                 <div class="fg-line username">
-                                    <label for="description">Description</label>
+                                    <label for="inputDescriptionRegister">Description</label>
                                 </div>
                                 <div class="fg-line input-signup">
-                                    <input type="text" id="description" class="form-control" placeholder="Description">
+                                    <input type="text" id="inputDescriptionRegister" class="form-control" placeholder="Description" ng-model="inputDescriptionRegister">
                                 </div>
                             </div>
                         </div>
                         <div class="login-buttons">
-                            <button id="register_btn" class="btn btn-info waves-effect">Sign up</button>
+                            <button id="register_btn" class="btn btn-info waves-effect" ng-click="register()">Sign up</button>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -173,5 +173,7 @@
 <script src="js/bootstrap.min.js"></script>
 <!--Angular-->
 <script src="js/angular.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/Controllers/MainController.js"></script>
 </body>
 </html>

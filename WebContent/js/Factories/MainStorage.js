@@ -38,4 +38,9 @@ app.factory('MainStorage', function () {
             loading: false
         };
     };
+
+    return {
+        doTheThing: function methodThatDoesAThing() {
+        }
+    };
 });
