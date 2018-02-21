@@ -44,7 +44,7 @@
     float: left;
 }
 
-.login-btn{
+.signup-btn{
     font-size: 16px;
     color: #00bcd4;
     padding: 0 14px;
@@ -72,4 +72,112 @@
     height: 4px;
     background: #1ec3d8;
     color: #333;
+}
+
+.signup-container-main{
+    width: 600px;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.signup-container-main .user-signup-top{
+    padding: 50px 0 10px;
+    text-align: center;
+}
+
+.signup-container-main .title{
+    font-size: 52px;
+    color: #00BCD4;
+    line-height: 62px;
+    font-weight: bold;
+    margin: 0;
+    padding-bottom: 10px;
+}
+
+.signup-container-main .reader-info{
+    font-size: 28px;
+    color: #666;
+    line-height: 42px;
+    margin: 0;
+}
+
+.signup-container-main .user-signup-dialog{
+    padding: 30px 40px;
+    height: 150%;
+    width: 400px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,.2);
+    margin: 40px auto;
+}
+
+.signup-container-main .signup-dialog-left{
+    text-align: center;
+    width: 100%;
+    padding: 0 50px 0 6px;
+}
+
+.signup-container-main .local-signup{
+    padding-right: 0 !important;
+}
+
+.signup-container-main .signup-dialog-left .signup-title{
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+    line-height: 20px;
+    font-weight: bold;
+}
+
+.signup-container-main .form-group{
+    overflow: hidden;
+    margin-bottom: 0;
+    margin-top: 15px;
+}
+
+.signup-container-main .username-icon{
+    float: left;
+    width: 93%;
+}
+
+.signup-container-main .username{
+    padding-top: 5px;
+    width: 110px;
+    text-align: left;
+}
+
+.input-signup{
+    width: 160px;
+}
+.fg-line{
+    position: relative;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.signup-container{
+    margin-top: 30px;
+}
+
+.container-pos{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: linear-gradient(180deg,#fefefe,#fbfbfb, #efefef, #e8e8e8);
+}
+
+.signup-container-main .login-buttons{
+    padding-top: 10px;
+    text-align: center;
+}
+
+.signup-container-main .login-buttons .btn{
+    padding: 4px 82px;
+    line-height: 32px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 18px;
 }
