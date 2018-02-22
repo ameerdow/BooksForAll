@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html ng-app="booksForAll">
+<head>
+    <meta charset="uft-8">
+    <title>Login - BooksForAll</title>
+    <!--CSS-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
+    <!--JS-->
+    <script src="js/libs/jquery-3.2.1.js"></script>
+    <script src="js/libs/bootstrap.min.js"></script>
+    <script src="js/libs/angular.min.js"></script>
+    <script src="js/utils/server.js"></script>
+    <script src="js/controllers/login-controller.js"></script>
+    <script src="js/utils/directives.js"></script>
+</head>
+<body ng-controller="LoginCtrl" style="display: none">
+
+<nav class="header navbar navbar-default navbar-fixed-top container-fluid">
+    <div class="navbar-header header-color ">
+        <a href="index.html"><h1 class="logo">BooksForAll</h1></a>
+    </div>
+    <nav class="nav-bar nav-bar-header">
+        <a href="register.html">
+            <button class="btn btn-primary">
+                Register For Free
+            </button>
+        </a>
+    </nav>
+</nav>
+<div class="container-fluid">
+    <div class="top-banner flex-row">
+        <div class="spacer"></div>
+        <div class="login-layout">
+            <div class="login-title">Get started. it's free</div>
+            <div class="login-subtitle">Make BooksForAll reading more joyful</div>
+
+            <div class="alert alert-danger small-error" role="alert"
+                 ng-show="errorMessage != null && errorMessage.length > 0">
+                {{errorMessage}}
+            </div>
+
+            <div class="input-with-icon">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <input id="username" name="username" class="transparent-input" ng-disabled="loading"
+                       type="text" autocomplete placeholder="Username" ng-model="username"
+                       ng-enter="!isFieldsDisabled() && login()"/>
+            </div>
+            <div class="input-with-icon">
+                <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+                <input id="password" name="password" class="transparent-input" ng-disabled="loading"
+                       type="password" autocomplete placeholder="Password" ng-model="password"
+                       ng-enter="!isFieldsDisabled() && login()"/>
+            </div>
+            <button id="loginButton" ng-disabled="isFieldsDisabled()" class="btn btn-primary" ng-click="login()">
+                {{loading ? "Loading..." : "Login"}}
+            </button>
+        </div>
+    </div>
+    <div class="reviews-banner">
+        "Finally, an elegant yet powerful ePub reader on PC, it sure makes reading ebook more joyful" <span>by Matt. Florida</span>
+    </div>
+</div>
+</body>
+</html>

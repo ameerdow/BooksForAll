@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html ng-app="booksForAll">
+<head>
+    <meta charset="uft-8">
+    <title>Register - BooksForAll</title>
+    <!--CSS-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
+    <link href="css/register.css" rel="stylesheet">
+    <!--JS-->
+    <script src="js/libs/jquery-3.2.1.js"></script>
+    <script src="js/libs/bootstrap.min.js"></script>
+    <script src="js/libs/angular.min.js"></script>
+    <script src="js/utils/constants.js"></script>
+    <script src="js/utils/server.js"></script>
+    <script src="js/controllers/register-controller.js"></script>
+    <script src="js/utils/directives.js"></script>
+</head>
+<body ng-controller="RegisterController" style="display: none">
+
+<nav class="header navbar navbar-default navbar-fixed-top container-fluid">
+    <div class="navbar-header header-color ">
+        <a href="index.html"><h1 class="logo">BooksForAll</h1></a>
+    </div>
+    <nav class="nav-bar nav-bar-header">
+        <a href="login.html">
+            <button class="btn btn-primary">
+                Login
+            </button>
+        </a>
+    </nav>
+</nav>
+<div class="container-fluid register-container">
+    <div class="register-layout">
+        <div class="login-title">Register Now</div>
+        <div class="login-subtitle">It's free</div>
+
+        <div class="alert alert-danger small-error" role="alert"
+             ng-show="errorMessage != null && errorMessage.length > 0">
+            <pre>{{errorMessage}}</pre>
+        </div>
+
+        <div class="input-with-icon">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            <input name="username" class="transparent-input" ng-disabled="loading"
+                   pattern="[0-9A-Za-z]{1,10}"
+                   type="text" autocomplete placeholder="Username (required)" ng-model="username"/>
+        </div>
+        <div class="input-with-icon">
+            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+            <input name="password" class="transparent-input" ng-disabled="loading"
+                   type="password" autocomplete placeholder="Password (required)" ng-model="password"/>
+        </div>
+        <div class="input-with-icon">
+            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+            <input name="password" class="transparent-input" ng-disabled="loading"
+                   type="password" autocomplete placeholder="Confirm Password" ng-model="confirmPassword"/>
+        </div>
+
+        <hr/>
+
+        <div class="input-with-icon">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            <input name="nickname" class="transparent-input" ng-disabled="loading"
+                   type="text" autocomplete placeholder="Nickname (required)" ng-model="nickname"/>
+        </div>
+
+        <div class="input-with-icon">
+            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+            <input name="email" class="transparent-input" ng-disabled="loading"
+                   type="email" autocomplete placeholder="Email (optional)" ng-model="email"/>
+        </div>
+
+        <div class="input-with-icon">
+            <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+            <input name="phone" class="transparent-input" ng-disabled="loading"
+                   type="number" autocomplete placeholder="Phone (optional)" ng-model="phone"/>
+        </div>
+
+        <div class="input-with-icon">
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            <textarea title="description" placeholder="More info (optional)"
+                      name="description" class="transparent-input"
+                      ng-disabled="loading" ng-model="description"></textarea>
+        </div>
+
+        <hr/>
+
+        <div class="input-with-icon">
+            <select title="country" name="country" ng-model="country" class="select-input">
+                <option selected value="">Select Country</option>
+                <option ng-repeat="country in countries" value="{{country}}">{{country}}</option>
+            </select>
+        </div>
+
+        <div class="input-with-icon">
+            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+            <input name="city" class="transparent-input" ng-disabled="loading"
+                   type="text" autocomplete placeholder="City (optional)" ng-model="city"/>
+        </div>
+
+        <div class="input-with-icon">
+            <span class="glyphicon glyphicon-road" aria-hidden="true"></span>
+            <input name="street" class="transparent-input" ng-disabled="loading"
+                   type="text" autocomplete placeholder="Street Name (optional)" ng-model="streetName"/>
+        </div>
+
+        <div class="input-with-icon">
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            <input name="houseNumber" class="transparent-input" ng-disabled="loading"
+                   type="number" autocomplete placeholder="House Number (optional)" ng-model="houseNumber"/>
+        </div>
+
+        <div class="input-with-icon">
+            <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
+            <input name="zipcode" class="transparent-input" ng-disabled="loading"
+                   type="number" autocomplete placeholder="ZipCode (optional)" ng-model="zipcode"/>
+        </div>
+
+
+        <button id="loginButton" ng-disabled="isFieldsDisabled()" class="btn btn-primary" ng-click="register()">
+            {{loading ? "Loading..." : "Register"}}
+        </button>
+    </div>
+</div>
+</body>
+</html>

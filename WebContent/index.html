@@ -1,179 +1,44 @@
 <!DOCTYPE html>
-<html ng-app="booksForAll">
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="uft-8">
     <title>BooksForAll</title>
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/app.css" rel="stylesheet">
+    <link href="css/books-for-all-css.css" rel="stylesheet">
+    <link href="css/david.css" rel="stylesheet">
+    <base href="http://localhost:63343/WebContent/">
 </head>
-<body ng-controller="RegisterController">
-<!--<div id="homeNav" ng-show="true">-->
-<!--<nav class="header navbar navbar-default navbar-fixed-top container-fluid">-->
-<!--<div class="navbar-header header-color ">-->
-<!--<h1 class="logo">BooksForAll</h1>-->
-<!--</div>-->
-<!--<nav class="nav-bar nav-bar-header">-->
-<!--<a href="/" class="item-bar">Home</a>-->
-<!--<a href="/price" class="item-bar ">Books</a>-->
-<!--<span class="item-line"></span>-->
+<body ng-controller="MainCtrl">
 
-<!--<a href="/users/signup" class="signup-btn">Sign in</a>-->
-<!--<a href="/users/register" class="item-btn register-btn item-float">Sign Up For Free</a>-->
+<nav class="header navbar navbar-default navbar-fixed-top container-fluid">
+    <div class="navbar-header header-color ">
+        <a href="index.html"><h1 class="logo">BooksForAll</h1></a>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="top-banner flex-row">
+        <div class="spacer"></div>
+        <div class="login-layout">
+            <div class="login-title">Get started. it's free</div>
+            <div class="login-subtitle">Make BookForAll reading more joyful</div>
 
-<!--</nav>-->
-<!--</nav>-->
-<!--</div>-->
-
-
-<div id="signupPage" class="container-pos">
-    <div class="signup-container-main">
-        <div class="user-signup-top">
-            <h1 class="title">Books For All</h1>
-            <p class="reader-info">An ebook reader cares about your feelings</p>
+            <input id="username" name="username" class="transparent-input"
+                   type="text" autocomplete placeholder="Username"/>
+            <input id="password" name="password" class="transparent-input"
+                   type="password" autocomplete placeholder="Password"/>
+            <button id="loginButton" class="btn btn-primary">Login</button>
         </div>
-        <div class="user-signup-dialog">
-            <div class="signup-dialog-left local-signup">
-                <div id="signup-post">
-                    <p class="signup-title">Using Books For All Account</p>
-                    <div class="signup-container">
-                        <div class="signup-message">
-                            <div class="form-group">
-                                <div class="fg-line username">
-                                    <label for="inputUsernameRegister">Username</label>
-                                </div>
-                                <div class="fg-line input-signup">
-                                    <input type="text" id="inputUsernameRegister" class="form-control" placeholder="Username" ng-model="inputUsernameRegister">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="signup-message">
-                            <div class="form-group">
-                                <div class="fg-line username">
-                                    <label for="inputPasswordRegister1">Password</label>
-                                </div>
-                                <div class="fg-line input-signup">
-                                    <input type="text" id="inputPasswordRegister1" class="form-control" placeholder="Password" ng-model="inputPasswordRegister1">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="signup-message">
-                            <div class="form-group">
-                                <div class="fg-line username">
-                                    <label for="inputPasswordRegister2">Confirm Password</label>
-                                </div>
-                                <div class="fg-line input-signup">
-                                    <input type="text" id="inputPasswordRegister2" class="form-control"
-                                           placeholder="Password" ng-model="inputPasswordRegister2">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="signup-message">
-                            <div class="form-group ">
-                                <div class="fg-line username">
-                                    <label for="inputEmailRegister">Email</label>
-                                </div>
-                                <div class="fg-line input-signup">
-                                    <input type="text" id="inputEmailRegister" class="form-control" placeholder="Email" ng-model="inputEmailRegister">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="signup-message">
-                            <div class="form-group ">
-                                <div class="fg-line username">
-                                    <label for="inputStreetRegister">Street</label>
-                                </div>
-                                <div class="fg-line input-signup">
-                                    <input type="text" id="inputStreetRegister" class="form-control" placeholder="Street" ng-model="inputStreetRegister">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="signup-message">
-                            <div class="form-group ">
-                                <div class="fg-line username">
-                                    <label for="inputHouseRegister">House #</label>
-                                </div>
-                                <div class="fg-line input-signup">
-                                    <input type="text" id="inputHouseRegister" class="form-control" placeholder="House Number" ng-model="inputHouseRegister">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="signup-message">
-                            <div class="form-group ">
-                                <div class="fg-line username">
-                                    <label for="inputCityRegister">City</label>
-                                </div>
-                                <div class="fg-line input-signup">
-                                    <input type="text" id="inputCityRegister" class="form-control" placeholder="City" ng-model="inputCityRegister">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="signup-message">
-                            <div class="form-group ">
-                                <div class="fg-line username">
-                                    <label for="inputZipRegister">Zip</label>
-                                </div>
-                                <div class="fg-line input-signup">
-                                    <input type="text" id="inputZipRegister" class="form-control" placeholder="Zip" ng-model="inputZipRegister">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="signup-message">
-                            <div class="form-group ">
-                                <div class="fg-line username">
-                                    <label for="inputCountryRegister">Country</label>
-                                </div>
-                                <div class="fg-line input-signup">
-                                    <input type="text" id="inputCountryRegister" class="form-control" placeholder="Country" ng-model="inputCountryRegister">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="signup-message">
-                            <div class="form-group ">
-                                <div class="fg-line username">
-                                    <label for="inputPhoneRegister">Phone</label>
-                                </div>
-                                <div class="fg-line input-signup">
-                                    <input type="text" id="inputPhoneRegister" class="form-control" placeholder="Phone Number" ng-model="inputPhoneRegister">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="signup-message">
-                            <div class="form-group ">
-                                <div class="fg-line username">
-                                    <label for="inputNicknameRegister">Nickname</label>
-                                </div>
-                                <div class="fg-line input-signup">
-                                    <input type="text" id="inputNicknameRegister" class="form-control" placeholder="Nickname" ng-model="inputNicknameRegister">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="signup-message">
-                            <div class="form-group ">
-                                <div class="fg-line username">
-                                    <label for="inputDescriptionRegister">Description</label>
-                                </div>
-                                <div class="fg-line input-signup">
-                                    <input type="text" id="inputDescriptionRegister" class="form-control" placeholder="Description" ng-model="inputDescriptionRegister">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="login-buttons">
-                            <button id="register_btn" class="btn btn-info waves-effect" ng-click="register()">Sign up</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    </div>
+    <div class="reviews-banner">
+        "Finally, an elegant yet powerful ePub reader on PC, it sure makes reading ebook more joyful" <span>by Matt. Florida</span>
     </div>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="js/jquery-3.2.1.js"></script>
+<script src="js/libs/jquery-3.2.1.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
+<script src="js/libs/bootstrap.min.js"></script>
 <!--Angular-->
-<script src="js/angular.min.js"></script>
-<script src="js/app.js"></script>
-<script src="js/Controllers/MainController.js"></script>
+<script src="js/libs/angular.min.js"></script>
 </body>
 </html>

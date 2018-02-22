@@ -1,34 +1,30 @@
-.header{
+.header {
     height: 50px;
-    background: white;
-    top: 0;
-    left: 0;
-    right:0;
-    z-index: 999;
+    box-shadow: 0 7px 12px -7px grey;
 }
 
 .logo {
     line-height: 50px;
     font-size: 20px;
     font-weight: bold;
-    color: #00bcd4;
+    color: #337ab7;
     cursor: pointer;
     margin-top: 2px;
     margin-left: 20px;
 }
 
-.container-fluid{
+.container-fluid {
     padding-left: 0;
     padding-right: 0;
 }
 
-.nav-bar-header{
+.nav-bar-header {
     float: right;
     line-height: 50px;
     margin-right: 10px;
 }
 
-.item-bar{
+.item-bar {
     position: relative;
     font-size: 16px;
     padding: 0 18px;
@@ -36,7 +32,7 @@
     float: left;
 }
 
-.item-line{
+.item-line {
     width: 1px;
     height: 18px;
     background: #d6d6d6;
@@ -44,7 +40,7 @@
     float: left;
 }
 
-.signup-btn{
+.signup-btn {
     font-size: 16px;
     color: #00bcd4;
     padding: 0 14px;
@@ -52,7 +48,7 @@
     float: left;
 }
 
-.register-btn{
+.register-btn {
     color: #fff;
     font-size: 14px;
     height: 28px;
@@ -63,7 +59,7 @@
     float: left;
 }
 
-.nav-header-mouse-on{
+.nav-header-mouse-on {
     content: '';
     position: absolute;
     left: 14px;
@@ -74,7 +70,7 @@
     color: #333;
 }
 
-.signup-container-main{
+.signup-container-main {
     width: 600px;
     height: 100%;
     margin: 0 auto;
@@ -82,12 +78,12 @@
     z-index: 2;
 }
 
-.signup-container-main .user-signup-top{
+.signup-container-main .user-signup-top {
     padding: 50px 0 10px;
     text-align: center;
 }
 
-.signup-container-main .title{
+.signup-container-main .title {
     font-size: 52px;
     color: #00BCD4;
     line-height: 62px;
@@ -96,33 +92,33 @@
     padding-bottom: 10px;
 }
 
-.signup-container-main .reader-info{
+.signup-container-main .reader-info {
     font-size: 28px;
     color: #666;
     line-height: 42px;
     margin: 0;
 }
 
-.signup-container-main .user-signup-dialog{
+.signup-container-main .user-signup-dialog {
     padding: 30px 40px;
     height: 150%;
     width: 400px;
     background: #fff;
-    box-shadow: 0 2px 10px rgba(0,0,0,.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .2);
     margin: 40px auto;
 }
 
-.signup-container-main .signup-dialog-left{
+.signup-container-main .signup-dialog-left {
     text-align: center;
     width: 100%;
     padding: 0 50px 0 6px;
 }
 
-.signup-container-main .local-signup{
+.signup-container-main .local-signup {
     padding-right: 0 !important;
 }
 
-.signup-container-main .signup-dialog-left .signup-title{
+.signup-container-main .signup-dialog-left .signup-title {
     text-align: center;
     font-size: 16px;
     color: #666;
@@ -130,54 +126,208 @@
     font-weight: bold;
 }
 
-.signup-container-main .form-group{
+.signup-container-main .form-group {
     overflow: hidden;
     margin-bottom: 0;
     margin-top: 15px;
 }
 
-.signup-container-main .username-icon{
+.signup-container-main .username-icon {
     float: left;
     width: 93%;
 }
 
-.signup-container-main .username{
+.signup-container-main .username {
     padding-top: 5px;
     width: 110px;
     text-align: left;
 }
 
-.input-signup{
+.input-signup {
     width: 160px;
 }
-.fg-line{
+
+.fg-line {
     position: relative;
     vertical-align: top;
     display: inline-block;
 }
 
-.signup-container{
+.signup-container {
     margin-top: 30px;
 }
 
-.container-pos{
+.container-pos {
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: linear-gradient(180deg,#fefefe,#fbfbfb, #efefef, #e8e8e8);
+    background: linear-gradient(180deg, #fefefe, #fbfbfb, #efefef, #e8e8e8);
 }
 
-.signup-container-main .login-buttons{
+.signup-container-main .login-buttons {
     padding-top: 10px;
     text-align: center;
 }
 
-.signup-container-main .login-buttons .btn{
+.signup-container-main .login-buttons .btn {
     padding: 4px 82px;
     line-height: 32px;
     margin-top: 20px;
     margin-bottom: 20px;
     font-size: 18px;
+}
+
+/*a:hover {*/
+/*text-decoration: none !important;*/
+/*}*/
+
+/*button {*/
+/*outline: none !important;*/
+/*border: 0;*/
+/*border-radius: 1px;*/
+/*}*/
+
+/*button:hover {*/
+/*opacity: .8;*/
+/*}*/
+
+/*button:active {*/
+/*opacity: .7;*/
+/*}*/
+
+.top-banner {
+    background: url('../imgs/banner.jpg');
+    width: 100%;
+    min-height: 550px;
+    margin-top: 50px;
+    background-size: cover;
+    height: calc(100vh - 137px);
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.spacer {
+    flex: 1;
+}
+
+.login-layout {
+    height: 400px;
+    background: rgba(0, 0, 0, .5);
+    border: 3px solid rgba(100, 100, 100, .4);
+    width: 500px;
+    margin-right: 200px;
+    margin-top: 90px;
+}
+
+.reviews-banner {
+    height: 87px;
+    background: rgba(0, 0, 0, .9);
+    text-align: center;
+    line-height: 87px;
+    font-family: cursive;
+    font-size: 20px;
+    color: #e8e8e8;
+}
+
+.reviews-banner > span {
+    font-size: 15px;
+    color: #aaa;
+    position: relative;
+    top: 9px;
+}
+
+.login-title {
+    color: white;
+    font-size: 34px;
+    margin: 27px 18px;
+}
+
+.login-subtitle {
+    color: white;
+    font-size: 26px;
+    font-weight: 100;
+    border-bottom: 1px solid rgba(255, 255, 255, .3);
+    padding-bottom: 22px;
+    margin: -18px 18px 30px;
+}
+
+.transparent-input {
+    display: block;
+    width: 90%;
+    margin: 20px auto 0px;
+    background: rgba(255, 255, 255, .8);
+    color: black;
+    border: 0;
+    padding: 12px 16px;
+    border-radius: 2px;
+    outline: none;
+}
+
+#loginButton {
+    width: 90%;
+    margin: auto;
+    display: block;
+    margin-top: 23px;
+    height: 50px;
+}
+
+.small-error {
+    width: 90%;
+    text-align: center;
+    font-size: 12px;
+    line-height: 23px;
+    margin: -22px auto -10px;
+    padding: 0px;
+}
+
+.small-error > pre {
+    background: transparent;
+    color: darkred;
+    margin-bottom: 0;
+    text-align: left;
+    font-size: 11px;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon > .glyphicon {
+    position: absolute;
+    right: 7%;
+    top: 14px;
+    font-size: 17px;
+    color: rgba(48, 116, 176, .6);
+}
+
+.register-container {
+    background: #f1f1f1;
+    padding-top: 80px;
+}
+
+.register-layout {
+    background: rgba(0, 0, 0, .5);
+    border: 3px solid rgba(100, 100, 100, .4);
+    width: 450px;
+    padding-bottom: 18px;
+    margin: auto auto 24px;
+}
+
+.select-input {
+    display: block;
+    width: 90%;
+    margin: 20px auto 0px;
+    background: rgba(255, 255, 255, .8);
+    color: black;
+    border: 0;
+    padding: 12px 16px;
+    outline: none;
+    height: 45px;
+    -webkit-appearance: none;
+    border-radius: 2px;
 }
