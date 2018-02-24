@@ -22,9 +22,9 @@ public class BooksForAll {
 
     private BooksForAll() {
         InitDatabase.initTables();
-        UserService service = new UserService();
-        Address address = new Address("admin",1,"admin","1234567","admin");
-        service.addUser("admin", "admin@email.com", "passw0rd", address, "0123456789", "nickname", "description", "photoUrl");
+         UserService service = new UserService();
+         Address address = new Address("admin",1,"admin","1234567","admin");
+         service.addUser("admin", "admin@email.com", "passw0rd", address, "0546597762", "nickname", "description", "photoUrl");
     }
 
 }

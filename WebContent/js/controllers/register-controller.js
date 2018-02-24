@@ -2,98 +2,96 @@ window.app = window.app || angular.module('booksForAll', []);
 
 window.app.controller('RegisterController', ['$scope', function ($scope) {
 
-    // wait till controller loaded to prevent displayed unstructured angular data
-    $("body").css("display", "block");
-
-
-    $scope.country = "";
     $scope.countries = Constants.countries;
+
+    $scope.username = "";
+    $scope.password = "";
+    $scope.confirmPassword = "";
+    $scope.nickname = "";
+    $scope.email = "";
+    $scope.phone = "";
+    $scope.country = "";
+    $scope.city = "";
+    $scope.streetName = "";
+    $scope.houseNumber = "";
+    $scope.zipcode = "";
+    $scope.photoUrl = "";
+    $scope.description = "";
+    $scope.loading = false;
+
+    Server.getUserData(function (response, error) {
+        if (error != null) {
+            // not logged in
+            // wait till controller loaded to prevent displayed unstructured angular data
+            $("body").css("display", "block");
+        } else {
+            if (response.role === "User") {
+                window.location = "index.html";
+            } else {
+                window.location = "admin.html";
+            }
+        }
+    });
 
     /**
      * register the user
      */
-    $scope.register = function Register() {
-        console.log('register');
-
-
-        var data = {
-            inputUsernameRegister: $scope.inputUsernameRegister,
-            inputPasswordRegister1: $scope.inputPasswordRegister1,
-            inputPasswordRegister2: $scope.inputPasswordRegister2,
-            inputEmailRegister: $scope.inputEmailRegister,
-            inputStreetRegister: $scope.inputStreetRegister,
-            inputHouseRegister: $scope.inputHouseRegister,
-            inputCityRegister: $scope.inputCityRegister,
-            inputZipRegister: $scope.inputZipRegister,
-            inputCountryRegister: $scope.inputCountryRegister,
-            inputPhoneRegister: $scope.inputPhoneRegister,
-            inputNicknameRegister: $scope.inputNicknameRegister,
-            inputDescriptionRegister: $scope.inputDescriptionRegister
-        };
-
-        if (validatePassword(data.inputPasswordRegister1, data.inputPasswordRegister2) && validateUsername(data.inputUsernameRegister)
-            && validateNickname(data.inputNicknameRegister) && validateDescription(data.inputDescriptionRegister)) {
-            Server.register(data.inputUsernameRegister, data.inputEmailRegister, data.inputEmailRegister, data.inputStreetRegister, data.inputHouseRegister, data.inputCityRegister,
-                data.inputZipRegister, data.inputCountryRegister, data.inputPhoneRegister, data.inputNicknameRegister, data.inputDescriptionRegister, "", function (response, error) {
-                    if (error != null) {
-                        alert(error.message);
-                        return;
-                    } else {
-                        // login after register
-                        Server.login(data.inputUsernameRegister, data.inputPasswordRegister1, function (response, error) {
-                            if (error != null) {
-                                alert("Error Logging in");
-                                console.log("RegisterController, Login: ", error.message);
-                            } else {
-                                window.location = "index.html";
-                            }
-                        })
-                    }
-                });
+    $scope.register = function register() {
+        $scope.errorMessage = 0;
+        var errorMessage = checkValid("username", "- Username must not be empty and up to 10 characters");
+        errorMessage += checkValid("email", "- Invalid email address");
+        errorMessage += checkValid("password", "- Password must be up to 8 characters");
+        if ($scope.password !== $scope.confirmPassword) {
+            errorMessage += "\n- Passwords does not matches";
         }
+        errorMessage += checkValid("nickname", "- Nickname must be up to 20 characters contains letters and digits");
+
+        if ($('#phone').val().match(/((^(05)\d{8}$)|(^(02|03|04|08|09)\d{7}$))/) == null) {
+            errorMessage += "\n- Invalid phone number"
+        }
+        if ($scope.country.length === 0) {
+            errorMessage += "\n- Select your country"
+        }
+        errorMessage += checkValid("city", "- Invalid city name at least 3 characters");
+        errorMessage += checkValid("street", "- Street must not be empty");
+        errorMessage += checkValid("houseNumber", "- House number must not be empty and contains only digits");
+        errorMessage += checkValid("zipcode", "- ZipCode must be 7 digits");
+
+        if (errorMessage.replace("\n", "").length !== 0) {
+            $scope.errorMessage = errorMessage.substring(1);
+            $(window).scrollTop(0);
+            return;
+        }
+
+        $scope.loading = true;
+
+        Server.register($scope.username, $scope.email, $scope.password, $scope.streetName, $scope.houseNumber,
+            $scope.city, $scope.zipcode, $scope.country, $scope.phone, $scope.nickname, $scope.description,
+            $scope.photoUrl, function (response, error) {
+                if (error != null) {
+                    $scope.$apply(function () {
+                        $scope.errorMessage = error.message;
+                    });
+                } else {
+                    // login after register
+                    Server.login($scope.username, $scope.password, function (response, error) {
+                        if (error != null) {
+                            console.log("RegisterController, Login: ", error.message);
+                            window.location = "login.html";
+                        } else {
+                            window.location = "index.html";
+                        }
+                    })
+                }
+            });
+
     };
 
-    var validatePassword = function (password, confirmPassword) {
-        if (password != confirmPassword) {
-            alert("Confirm password does not match");
-            return false;
+    function checkValid(id, message) {
+        var input = $("#" + id)[0];
+        if (input.value.length === 0 || !input.validity.valid) {
+            return "\n" + message;
         }
-        if (password == null || password.length > 8 || password.length == 0) {
-            alert("Please choose another password, must be less than 8 chars");
-            return false;
-        }
-        return true;
-    };
-
-    var validateUsername = function (username) {
-        if (username.indexOf(" ") != -1) {
-            alert("Username must not contain spaces, try: " + username.replace(/ /g, "_"));
-            return false;
-        }
-        if (username == null || username.length > 10 || username.length == 0) {
-            alert("Please choose another username, must be less than 10 chars");
-            return false;
-        }
-        return true;
-    };
-
-    var validateNickname = function (nickname) {
-        if (nickname.indexOf(" ") != -1) {
-            alert("Nickname must not contain spaces, try: " + nickname.replace(/ /g, "_"));
-            return false;
-        }
-        if (nickname == null || nickname.length > 20 || nickname.length == 0) {
-            alert("Please choose another nickname, must be less than 10 chars");
-            return false;
-        }
-        return true;
-    };
-
-    var validateDescription = function (description) {
-        if (description.length > 50) {
-            alert("Please choose another description, must be less than 50 chars");
-            return false;
-        }
-        return true;
+        return "";
     }
 }]);

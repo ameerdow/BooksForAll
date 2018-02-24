@@ -14,8 +14,8 @@
     <script src="js/libs/angular.min.js"></script>
     <script src="js/utils/constants.js"></script>
     <script src="js/utils/server.js"></script>
-    <script src="js/controllers/register-controller.js"></script>
     <script src="js/utils/directives.js"></script>
+    <script src="js/controllers/register-controller.js"></script>
 </head>
 <body ng-controller="RegisterController" style="display: none">
 
@@ -43,50 +43,44 @@
 
         <div class="input-with-icon">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-            <input name="username" class="transparent-input" ng-disabled="loading"
-                   pattern="[0-9A-Za-z]{1,10}"
-                   type="text" autocomplete placeholder="Username (required)" ng-model="username"/>
+            <input id="username" name="username" class="transparent-input" ng-disabled="loading"
+                   pattern="[0-9A-Za-z]{1,10}" type="text" autocomplete placeholder="Username"
+                   ng-model="username"/>
         </div>
         <div class="input-with-icon">
             <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-            <input name="password" class="transparent-input" ng-disabled="loading"
-                   type="password" autocomplete placeholder="Password (required)" ng-model="password"/>
+            <input id="password" name="password" class="transparent-input" ng-disabled="loading"
+                   type="password" autocomplete placeholder="Password"
+                   pattern="[0-9A-Za-z]{1,8}" ng-model="password"/>
         </div>
         <div class="input-with-icon">
             <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-            <input name="password" class="transparent-input" ng-disabled="loading"
-                   type="password" autocomplete placeholder="Confirm Password" ng-model="confirmPassword"/>
+            <input id="confirmPassword" name="password" class="transparent-input" ng-disabled="loading"
+                   type="password" autocomplete placeholder="Confirm Password"
+                   ng-model="confirmPassword"/>
         </div>
-
-        <hr/>
 
         <div class="input-with-icon">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-            <input name="nickname" class="transparent-input" ng-disabled="loading"
-                   type="text" autocomplete placeholder="Nickname (required)" ng-model="nickname"/>
+            <input id="nickname" name="nickname" class="transparent-input" ng-disabled="loading"
+                   type="text" autocomplete placeholder="Nickname"
+                   pattern="[A-Za-z0-9 ]{1,20}" ng-model="nickname"/>
         </div>
+        <hr/>
 
         <div class="input-with-icon">
             <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-            <input name="email" class="transparent-input" ng-disabled="loading"
-                   type="email" autocomplete placeholder="Email (optional)" ng-model="email"/>
+            <input id="email" name="email" class="transparent-input" ng-disabled="loading"
+                   type="email" autocomplete placeholder="Email" ng-model="email"/>
         </div>
 
         <div class="input-with-icon">
             <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
-            <input name="phone" class="transparent-input" ng-disabled="loading"
-                   type="number" autocomplete placeholder="Phone (optional)" ng-model="phone"/>
-        </div>
-
-        <div class="input-with-icon">
-            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-            <textarea title="description" placeholder="More info (optional)"
-                      name="description" class="transparent-input"
-                      ng-disabled="loading" ng-model="description"></textarea>
+            <input id="phone" name="phone" class="transparent-input" ng-disabled="loading"
+                   type="text" autocomplete placeholder="Phone" ng-model="phone"/>
         </div>
 
         <hr/>
-
         <div class="input-with-icon">
             <select title="country" name="country" ng-model="country" class="select-input">
                 <option selected value="">Select Country</option>
@@ -96,30 +90,46 @@
 
         <div class="input-with-icon">
             <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-            <input name="city" class="transparent-input" ng-disabled="loading"
-                   type="text" autocomplete placeholder="City (optional)" ng-model="city"/>
+            <input id="city" name="city" class="transparent-input" ng-disabled="loading"
+                   type="text" autocomplete placeholder="City"
+                   pattern="[A-Za-z ]{3,255}" ng-model="city"/>
         </div>
 
         <div class="input-with-icon">
             <span class="glyphicon glyphicon-road" aria-hidden="true"></span>
-            <input name="street" class="transparent-input" ng-disabled="loading"
-                   type="text" autocomplete placeholder="Street Name (optional)" ng-model="streetName"/>
+            <input id="street" name="street" class="transparent-input" ng-disabled="loading"
+                   type="text" autocomplete placeholder="Street Name"
+                   pattern="[A-Za-z ]{3,255}" ng-model="streetName"/>
         </div>
 
         <div class="input-with-icon">
             <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-            <input name="houseNumber" class="transparent-input" ng-disabled="loading"
-                   type="number" autocomplete placeholder="House Number (optional)" ng-model="houseNumber"/>
+            <input id="houseNumber" name="houseNumber" class="transparent-input" ng-disabled="loading"
+                   pattern="[0-9]{1,255}" type="number" autocomplete placeholder="House Number"
+                   ng-model="houseNumber"/>
         </div>
 
         <div class="input-with-icon">
             <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
-            <input name="zipcode" class="transparent-input" ng-disabled="loading"
-                   type="number" autocomplete placeholder="ZipCode (optional)" ng-model="zipcode"/>
+            <input id="zipcode" name="zipcode" class="transparent-input" ng-disabled="loading"
+                   type="number" autocomplete placeholder="ZipCode"
+                   pattern="[0-9]{7}" ng-model="zipcode"/>
         </div>
 
+        <hr/>
+        <div class="input-with-icon">
+            <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+            <input id="photoUrl" name="photoUrl" class="transparent-input" ng-disabled="loading"
+                   type="text" autocomplete placeholder="Photo Url (optional)" ng-model="photoUrl"/>
+        </div>
+        <div class="input-with-icon">
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            <textarea title="description" placeholder="More info (optional)"
+                      name="description" class="transparent-input"
+                      ng-disabled="loading" ng-model="description"></textarea>
+        </div>
 
-        <button id="loginButton" ng-disabled="isFieldsDisabled()" class="btn btn-primary" ng-click="register()">
+        <button id="loginButton" ng-disabled="loading" class="btn btn-primary" ng-click="register()">
             {{loading ? "Loading..." : "Register"}}
         </button>
     </div>

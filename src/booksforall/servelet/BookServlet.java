@@ -67,6 +67,7 @@ public class BookServlet extends HttpServlet {
         final String DELETE = "Y";
         PrintWriter printWriter = response.getWriter();
         UserService userService = new UserService();
+        response.setHeader("Access-Control-Allow-Origin", "*");
         BookService bookService = new BookService();
         Gson gson = new Gson();
 
@@ -189,6 +190,7 @@ public class BookServlet extends HttpServlet {
 
             String uri = request.getRequestURI();
             UserService userService = new UserService();
+            response.setHeader("Access-Control-Allow-Origin", "*");
             BookService bookService = new BookService();
             Log.l(classFunc, "doPost", String.format("POST Request URI: %s", uri));
             response.setContentType(JSON);

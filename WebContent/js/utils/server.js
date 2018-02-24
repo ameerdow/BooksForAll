@@ -3,13 +3,13 @@ const Server = {};
 const GET = "GET";
 const POST = "POST";
 
-const proj = "/BooksForAll"
+const proj = "http://192.168.1.23:8080/BooksForAll";
 
 // Get requests
 
 const GET_ALL_USERS = "/users";
 const GET_USER_BY_USERNAME = "/user/{username}";
-const GET_LOGGED_IN_USER = "user";
+const GET_LOGGED_IN_USER = "/user";
 const SEARCH_USER = "/search/user/{searchText}";
 const GET_ALL_BOOKS = "/books";
 const GET_ALL_BOOK_LIKES = "/book/likes/{bookId}";
@@ -46,6 +46,10 @@ const call = function (method, url, data, callback) {
         $.ajax({
             method: GET,
             url: getUrl(url),
+            headers: {
+                "cookies": "JSESSIONID=22D2879E724FC0C1A435C5D5C985DB8C",
+                "Access-Control-Allow-Origin": "*"
+            },
             success: function (response) {
                 console.log("Server", "call |RESPONSE|:", method, url, response);
                 callback(response);
@@ -70,14 +74,8 @@ const call = function (method, url, data, callback) {
                 console.log("Server", "call |RESPONSE|:", method, url, response);
                 callback(response);
             }, error: function (error) {
-                var err;
-                try {
-                    err = JSON.parse(error.responseText);
-                } catch (e) {
-                    err = error.responseText;
-                }
-                console.log("Server", "call |ERROR|:", method, url, err);
-                callback(null, err);
+                console.log("Server", "call |ERROR|:", method, url, error);
+                callback(null, error);
             }
         })
     } else {
@@ -227,7 +225,7 @@ Server.approveReview = function (reviewId, callback) {
  * @param callback
  */
 Server.deleteUser = function (username, callback) {
-    call(POST, DELETE_USER_BY_USERNAME,{
+    call(POST, DELETE_USER_BY_USERNAME, {
         username: username
     }, callback);
 };

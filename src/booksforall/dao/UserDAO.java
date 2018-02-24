@@ -226,12 +226,11 @@ public class UserDAO {
                         rs.getString("DELETED"),
                         rs.getDate("SYS_CREATION_DATE"),
                         rs.getDate("SYS_UPDATE_DATE"));
-            } else
-                throw new RuntimeException("Username - " + username + " - not found");
+            }
         } catch (Exception e) {
             Log.e(classFunc, "getUserByUsernameAndPassword", "Error getting user by username and password", e);
         }
-        return new User();
+        throw new RuntimeException("Username - " + username + " - not found");
     }
 
     /**

@@ -2,8 +2,20 @@ window.app = window.app || angular.module('booksForAll', []);
 
 app.controller('LoginCtrl', ['$scope', function LoginCtrl($scope) {
 
-    // wait till controller loaded to prevent displayed unstructured angular data
-    $("body").css("display", "block");
+    Server.getUserData(function (response, error) {
+        if (error != null) {
+            // not logged in
+            // wait till controller loaded to prevent displayed unstructured angular data
+            $("body").css("display", "block");
+        } else {
+            if (response.role === "User") {
+                window.location = "index.html";
+            } else {
+                window.location = "admin.html";
+            }
+        }
+    });
+
 
     $scope.username = "";
     $scope.password = "";

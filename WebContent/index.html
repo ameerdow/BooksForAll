@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="uft-8">
-    <title>BooksForAll</title>
-    <!-- Bootstrap -->
+    <meta charset="UTF-8">
+    <title>Admin - Books For All</title>
+    <!--CSS-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/books-for-all-css.css" rel="stylesheet">
-    <link href="css/david.css" rel="stylesheet">
-    <base href="http://localhost:63343/WebContent/">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
+    <!--JS-->
+    <script src="js/libs/jquery-3.2.1.js"></script>
+    <script src="js/libs/bootstrap.min.js"></script>
+    <script src="js/libs/angular.min.js"></script>
+    <script src="js/utils/server.js"></script>
+    <script src="js/utils/directives.js"></script>
+    <script src="js/controllers/main-controller.js"></script>
 </head>
 <body ng-controller="MainCtrl">
 
@@ -15,30 +21,14 @@
     <div class="navbar-header header-color ">
         <a href="index.html"><h1 class="logo">BooksForAll</h1></a>
     </div>
+    <nav class="nav-bar nav-bar-header">
+        <a href="login.html">
+            <button class="btn btn-primary" ng-click="logout()">
+                Logout
+            </button>
+        </a>
+    </nav>
 </nav>
-<div class="container-fluid">
-    <div class="top-banner flex-row">
-        <div class="spacer"></div>
-        <div class="login-layout">
-            <div class="login-title">Get started. it's free</div>
-            <div class="login-subtitle">Make BookForAll reading more joyful</div>
 
-            <input id="username" name="username" class="transparent-input"
-                   type="text" autocomplete placeholder="Username"/>
-            <input id="password" name="password" class="transparent-input"
-                   type="password" autocomplete placeholder="Password"/>
-            <button id="loginButton" class="btn btn-primary">Login</button>
-        </div>
-    </div>
-    <div class="reviews-banner">
-        "Finally, an elegant yet powerful ePub reader on PC, it sure makes reading ebook more joyful" <span>by Matt. Florida</span>
-    </div>
-</div>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="js/libs/jquery-3.2.1.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/libs/bootstrap.min.js"></script>
-<!--Angular-->
-<script src="js/libs/angular.min.js"></script>
 </body>
 </html>

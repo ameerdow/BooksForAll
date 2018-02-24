@@ -59,7 +59,7 @@ public class Constants {
 			+ " )";
 
 	public static final String CREATE_USERS_BOOKS_LIKE_STATEMENT = "CREATE TABLE " + USERS_BOOKS_LIKE + "( "
-			+ "USERNAME VARCHAR(10) NOT NULL," + "BOOK_ID INTEGER NOT NULL" + " NICKNAME VARCHAR(20) NOT NULL )";
+			+ "USERNAME VARCHAR(10) NOT NULL," + "BOOK_ID INTEGER NOT NULL, " + " NICKNAME VARCHAR(20) NOT NULL )";
 
 	/************************************
 	 * User Statements.

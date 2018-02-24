@@ -3,18 +3,28 @@ var app = angular.module('booksForAll');
 app.factory('MainStorage', function () {
     var classFunc = "MainStorage";
     this.store = {
-        selectedBook: {
-            book: null,
-            reviews: [],
-            loading: false,
-            position: ""
-        },
+        selectedBook: null,
+        // {
+        //     book: null,
+        //     reviews: [],
+        //     loading: false,
+        //     position: ""
+        // }
         registerButton: false,
         loginButton: false,
         searchedBook: [],
         searchBookText: "",
         addNewReview: false,
-        books: []
+        books: [],
+        // [{
+        //     book:{},
+        //     reviews:[{
+        //     }],
+        //     likes:[{
+        //     }]
+        // }]
+        searchedUsers: {},
+        getUserDetails: {}
     };
 
 

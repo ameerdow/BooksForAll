@@ -66,7 +66,7 @@ public class UserService {
     private boolean validateUsername(String username) {
         if (username.isEmpty() || username.equals("") || username.length() > 10)
             return false;
-        Pattern p = Pattern.compile("[^a-z0-9]", Pattern.CASE_INSENSITIVE);
+        Pattern p = Pattern.compile("[a-z0-9]*", Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(username);
         return m.matches();
     }
@@ -87,30 +87,27 @@ public class UserService {
     public User addUser(String username, String email, String password, Address address, String phoneNumber,
                         String nickname, String description, String photoUrl) {
         String userRole = "User";
-        try {
-            User user;
-            // check if data is correct
-            if (validateUsername(username) && validatePassword(password) && validateAddress(address)
-                    && validateNickname(nickname) && validateDescription(description)
-                    && validatePhoneNumber(phoneNumber)) {
-                if (username.equals("admin"))
-                    userRole = "Admin";
-                user = new User(username, email, password, address, phoneNumber, nickname, description, photoUrl,
-                        userRole, "N", new Date(Calendar.getInstance().getTimeInMillis()), null);
-                UserDAO userDAO = new UserDAO();
-                userDAO.addNewUser(user, password);
-                return user;
-            }
-        } catch (Exception e) {
-            Log.e("UserSrive", "addUser", e.getMessage(), e);
+
+        User user;
+        // check if data is correct
+        if (validateUsername(username) && validatePassword(password) && validateAddress(address)
+                && validateNickname(nickname) && validateDescription(description)
+                && validatePhoneNumber(phoneNumber)) {
+            if (username.equals("admin"))
+                userRole = "Admin";
+            user = new User(username, email, password, address, phoneNumber, nickname, description, photoUrl,
+                    userRole, "N", new Date(Calendar.getInstance().getTimeInMillis()), null);
+            UserDAO userDAO = new UserDAO();
+            userDAO.addNewUser(user, password);
+            return user;
         }
-        return new User();
+        throw new RuntimeException("invalid user data");
     }
 
     private boolean validateNickname(String nickname) {
         if (nickname.isEmpty() || nickname.equals("") || nickname.length() > 20)
             return false;
-        Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+        Pattern p = Pattern.compile("[a-z0-9 ]*", Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(nickname);
         return m.matches();
     }
@@ -118,7 +115,7 @@ public class UserService {
     private boolean validatePhoneNumber(String phoneNumber) {
         if (phoneNumber.isEmpty() || phoneNumber.length() > 10 || phoneNumber.length() < 9)
             return false;
-        Pattern p = Pattern.compile("^[0-9]");
+        Pattern p = Pattern.compile("((^(05)\\d{8}$)|(^(02|03|04|08|09)\\d{7}$))");
         Matcher m = p.matcher(phoneNumber);
         return m.matches();
     }
@@ -130,7 +127,7 @@ public class UserService {
     private boolean validateAddress(Address address) {
         if (address.getZip().length() == 7 && address.getCity().length() > 3 && address.getStreet().length() > 3
                 && address.getNumber() > 0) {
-            Pattern p = Pattern.compile("^[a-z ]", Pattern.CASE_INSENSITIVE);
+            Pattern p = Pattern.compile("[a-z ]*", Pattern.CASE_INSENSITIVE);
             Matcher m = p.matcher(address.getStreet());
             Matcher m1 = p.matcher(address.getCity());
             return m.matches() && m1.matches();
@@ -168,7 +165,7 @@ public class UserService {
             return userDAO.getUserByUsernameAndPassword(username, password);
         } else {
             Log.lt(classFunc, "login", "validation failed to username " + username + " or password " + password);
-            return new User();
+            throw new RuntimeException("validation failed to username " + username + " or password " + password);
         }
     }
 
@@ -193,7 +190,7 @@ public class UserService {
         Log.l(classFunc, "getUserByUsername", "Starting");
         if (validateUsername(username))
             return getUser(username);
-        return new User();
+        throw new RuntimeException("User " + username + " not found");
     }
 
     public List<User> searchUser(String username) {
