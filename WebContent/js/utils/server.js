@@ -46,10 +46,6 @@ const call = function (method, url, data, callback) {
         $.ajax({
             method: GET,
             url: getUrl(url),
-            headers: {
-                "cookies": "JSESSIONID=22D2879E724FC0C1A435C5D5C985DB8C",
-                "Access-Control-Allow-Origin": "*"
-            },
             success: function (response) {
                 console.log("Server", "call |RESPONSE|:", method, url, response);
                 callback(response);
@@ -60,6 +56,9 @@ const call = function (method, url, data, callback) {
                     err = JSON.parse(error.responseText);
                 } catch (e) {
                     err = error.responseText;
+                }
+                if (err == null) {
+                    err = error;
                 }
                 console.log("Server", "call |ERROR|:", method, url, err);
                 callback(null, err);

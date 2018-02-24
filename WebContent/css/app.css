@@ -1,3 +1,6 @@
+html, body{
+    background: #f1f1f1;
+}
 .header {
     height: 50px;
     box-shadow: 0 7px 12px -7px grey;
