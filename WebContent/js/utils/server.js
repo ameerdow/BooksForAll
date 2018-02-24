@@ -3,7 +3,7 @@ const Server = {};
 const GET = "GET";
 const POST = "POST";
 
-const proj = "http://192.168.0.107:8080/BooksForAll";
+const proj = "/BooksForAll";
 
 // Get requests
 

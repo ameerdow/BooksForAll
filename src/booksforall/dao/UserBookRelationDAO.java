@@ -389,13 +389,13 @@ public class UserBookRelationDAO {
                 booksList.add(new Book(
                         rs.getInt("ID"),
                         rs.getString("NAME"),
-                        rs.getString("PHOTO"),
                         rs.getDouble("PRICE"),
                         rs.getString("DESCRIPTION"),
                         rs.getInt("LIKES_NUM"),
                         rs.getInt("REVIEWS_NUM"),
                         rs.getString("DELETED"),
                         rs.getString("FILE_PATH"),
+                        rs.getString("ICON_PATH"),
                         rs.getDate("SYS_CREATION_DATE"),
                         rs.getDate("SYS_UPDATE_DATE")
                 ));
@@ -425,13 +425,13 @@ public class UserBookRelationDAO {
                 booksList.add(new Book(
                         rs.getInt("ID"),
                         rs.getString("NAME"),
-                        rs.getString("PHOTO"),
                         rs.getDouble("PRICE"),
                         rs.getString("DESCRIPTION"),
                         rs.getInt("LIKES_NUM"),
                         rs.getInt("REVIEWS_NUM"),
                         rs.getString("DELETED"),
                         rs.getString("FILE_PATH"),
+                        rs.getString("ICON_PATH"),
                         rs.getDate("SYS_CREATION_DATE"),
                         rs.getDate("SYS_UPDATE_DATE")
                 ));

@@ -6,10 +6,12 @@ import booksforall.models.User;
 import booksforall.services.UserService;
 import booksforall.utils.Log;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.lang.reflect.Type;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class BooksForAll {
 
     private BooksForAll() {
         InitDatabase.initTables();
-
+        initUsers();
     }
 
 
@@ -49,6 +51,7 @@ public class BooksForAll {
             for (int i = 0; i < users.size(); i++) {
                 User user = users.get(i);
                 service.addUser(user.getUsername(), user.getEmail(), user.getPassword(), user.getAddress(), user.getPhoneNumber(), user.getNickname(), user.getDescription(), user.getPhotoUrl());
+//                System.out.println(user);
             }
         }
     }
@@ -57,11 +60,23 @@ public class BooksForAll {
     private List<User> getMockUsers() {
         Gson gson = new Gson();
         try {
-            JsonReader reader = new JsonReader(new FileReader("/data/mock-data.json"));
-            return gson.fromJson(reader, User.class);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            String filepath = getClass().getClassLoader().getResource("booksforall/main/data/mock-data.json").getPath();
+            JsonReader reader = new JsonReader(new FileReader(filepath));
+            Type type = new TypeToken<List<User>>(){}.getType();
+            return gson.fromJson(reader, type);
+        } catch (Exception e) {
+            System.out.println(e);
         }
         return null;
+    }
+
+
+    public static void main(String[] args ){
+        try {
+            BooksForAll booksForAll = BooksForAll.getInstance();
+
+        }catch (Exception ignore){
+
+        }
     }
 }

@@ -35,7 +35,6 @@ public class BookDAO {
                 booksList.add(new Book(
                         rs.getInt("ID"),
                         rs.getString("NAME"),
-                        rs.getString("PHOTO"),
                         rs.getDouble("PRICE"),
                         rs.getString("DESCRIPTION"),
                         rs.getInt("LIKES_NUM"),
@@ -76,7 +75,6 @@ public class BookDAO {
                 booksList.add(new Book(
                         rs.getInt("ID"),
                         rs.getString("NAME"),
-                        rs.getString("PHOTO"),
                         rs.getDouble("PRICE"),
                         rs.getString("DESCRIPTION"),
                         rs.getInt("LIKES_NUM"),
@@ -114,7 +112,6 @@ public class BookDAO {
                 return new Book(
                         rs.getInt("ID"),
                         rs.getString("NAME"),
-                        rs.getString("PHOTO"),
                         rs.getDouble("PRICE"),
                         rs.getString("DESCRIPTION"),
                         rs.getInt("LIKES_NUM"),
@@ -153,7 +150,6 @@ public class BookDAO {
                 return new Book(
                         rs.getInt("ID"),
                         rs.getString("NAME"),
-                        rs.getString("PHOTO"),
                         rs.getDouble("PRICE"),
                         rs.getString("DESCRIPTION"),
                         rs.getInt("LIKES_NUM"),

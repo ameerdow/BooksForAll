@@ -52,8 +52,8 @@ public class UserDAO {
                         rs.getString("PHOTO"),
                         rs.getString("ROLE"),
                         rs.getString("DELETED"),
-                        rs.getDate("SYS_CREATION_DATE"),
-                        rs.getDate("SYS_UPDATE_DATE")
+                        rs.getString("SYS_CREATION_DATE"),
+                        rs.getString("SYS_UPDATE_DATE")
                 );
             } else {
                 Log.l(classFunc, "getUserByUsername", "username : " + username + " was not found in DB");
@@ -99,8 +99,8 @@ public class UserDAO {
                                 rs.getString("PHOTO"),
                                 rs.getString("ROLE"),
                                 rs.getString("DELETED"),
-                                rs.getDate("SYS_CREATION_DATE"),
-                                rs.getDate("SYS_UPDATE_DATE")
+                                rs.getString("SYS_CREATION_DATE"),
+                                rs.getString("SYS_UPDATE_DATE")
                         ));
                     }
                     return users;
@@ -224,8 +224,8 @@ public class UserDAO {
                         rs.getString("PHOTO"),
                         rs.getString("ROLE"),
                         rs.getString("DELETED"),
-                        rs.getDate("SYS_CREATION_DATE"),
-                        rs.getDate("SYS_UPDATE_DATE"));
+                        rs.getString("SYS_CREATION_DATE"),
+                        rs.getString("SYS_UPDATE_DATE"));
             }
         } catch (Exception e) {
             Log.e(classFunc, "getUserByUsernameAndPassword", "Error getting user by username and password", e);
@@ -304,8 +304,8 @@ public class UserDAO {
                         rs.getString("PHOTO"),
                         rs.getString("ROLE"),
                         rs.getString("DELETED"),
-                        rs.getDate("SYS_CREATION_DATE"),
-                        rs.getDate("SYS_UPDATE_DATE")
+                        rs.getString("SYS_CREATION_DATE"),
+                        rs.getString("SYS_UPDATE_DATE")
                 ));
             }
         } catch (Exception e) {

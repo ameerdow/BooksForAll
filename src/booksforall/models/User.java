@@ -14,14 +14,14 @@ public class User {
     private String photoUrl;
     private String role;
     private String deleted;
-    private Date creationDate;
-    private Date updateDate;
+    private String creationDate;
+    private String updateDate;
 
 
     public User() {
     }
 
-    public User(String username, String email,String password, Address address, String phoneNumber, String nickname, String description, String photoUrl, String role, String deleted, Date creationDate, Date updateDate) {
+    public User(String username, String email,String password, Address address, String phoneNumber, String nickname, String description, String photoUrl, String role, String deleted, String creationDate, String updateDate) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -123,19 +123,19 @@ public class User {
         this.deleted = deleted;
     }
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 
-    public Date getUpdateDate() {
+    public String getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
     }
 

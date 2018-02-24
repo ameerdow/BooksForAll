@@ -96,12 +96,12 @@ public class UserService {
             if (username.equals("admin"))
                 userRole = "Admin";
             user = new User(username, email, password, address, phoneNumber, nickname, description, photoUrl,
-                    userRole, "N", new Date(Calendar.getInstance().getTimeInMillis()), null);
+                    userRole, "N","", null);
             UserDAO userDAO = new UserDAO();
             userDAO.addNewUser(user, password);
             return user;
         }
-        throw new RuntimeException("invalid user data");
+        return null;
     }
 
     private boolean validateNickname(String nickname) {
