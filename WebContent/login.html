@@ -11,6 +11,8 @@
     <script src="js/libs/jquery-3.2.1.js"></script>
     <script src="js/libs/bootstrap.min.js"></script>
     <script src="js/libs/angular.min.js"></script>
+    <script src="js/utils/constants.js"></script>
+    <script src="js/utils/utils.js"></script>
     <script src="js/utils/server.js"></script>
     <script src="js/utils/directives.js"></script>
     <script src="js/controllers/login-controller.js"></script>
@@ -34,10 +36,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><p class="navbar-text">Signed in as {{user != null && user.username}}</p></li>
                 <li>
-                    <a href="register.html">
-                        <button class="btn navbar-btn btn-primary" ng-click="logout()">
+                    <a href="register.html" class="nav-button-link">
+                        <button class="btn navbar-btn btn-primary">
                             Register For Free
                         </button>
                     </a>

@@ -3,7 +3,7 @@ const Server = {};
 const GET = "GET";
 const POST = "POST";
 
-const proj = "/BooksForAll";
+const proj = "http://192.168.0.107:8080/BooksForAll";
 
 // Get requests
 
@@ -20,11 +20,12 @@ const GET_ALL_BOOK_USER_NOT_PURCHASES = "/book/user/not/purchases/{username}";
 const SEARCH_BOOKS = "/search/book/{searchText}";
 const GET_BOOK_BY_ID = "/book/id/{bookId}";
 const GET_BOOK_BY_CATEGORY = "/book/category/{category}";
-
+const GET_PENDING_REVIEWS = "/review/pending";
 
 // Post requests
 
-const APPROVE_REVIEW = "/review";
+const APPROVE_REVIEW = "/review/approve";
+const REJECT_REVIEW = "/review/reject";
 const SIGN_UP = "/user";
 const LOGIN = "/login";
 const LOGOUT = "/logout";
@@ -51,17 +52,8 @@ const call = function (method, url, data, callback) {
                 callback(response);
             },
             error: function (error) {
-                var err;
-                try {
-                    err = JSON.parse(error.responseText);
-                } catch (e) {
-                    err = error.responseText;
-                }
-                if (err == null) {
-                    err = error;
-                }
-                console.log("Server", "call |ERROR|:", method, url, err);
-                callback(null, err);
+                console.log("Server", "call |ERROR|:", method, url, error);
+                callback(null, error.responseText);
             }
         });
     } else if (method == POST) {
@@ -74,7 +66,7 @@ const call = function (method, url, data, callback) {
                 callback(response);
             }, error: function (error) {
                 console.log("Server", "call |ERROR|:", method, url, error);
-                callback(null, error);
+                callback(null, error.responseText);
             }
         })
     } else {
@@ -219,6 +211,27 @@ Server.approveReview = function (reviewId, callback) {
 };
 
 /**
+ * reject review
+ * @param reviewId review id
+ * @param callback
+ */
+// TODO: not implemented
+Server.rejectReview = function (reviewId, callback) {
+    call(POST, REJECT_REVIEW, {
+        reviewId: reviewId
+    }, callback);
+};
+
+/**
+ * get pending reviews for admin
+ * @param callback
+ */
+// TODO: not implemented
+Server.rejectReview = function (callback) {
+    call(GET, GET_PENDING_REVIEWS, {}, callback);
+};
+
+/**
  * delete user
  * @param username
  * @param callback
@@ -293,7 +306,7 @@ Server.buyBook = function (bookId, price, callback) {
  * @param bookId
  * @param callback
  */
-Server.buyBook = function (bookId, callback) {
+Server.likeBook = function (bookId, callback) {
     call(POST, LIKE_BOOK_BY_ID, {
         bookId: bookId
     }, callback);
@@ -305,7 +318,7 @@ Server.buyBook = function (bookId, callback) {
  * @param review
  * @param callback
  */
-Server.buyBook = function (bookId, review, callback) {
+Server.reviewBook = function (bookId, review, callback) {
     call(POST, REVIEW_BOOK_BY_ID, {
         bookId: bookId,
         review: review
@@ -317,7 +330,7 @@ Server.buyBook = function (bookId, review, callback) {
  * @param position
  * @param callback
  */
-Server.buyBook = function (bookId, position, callback) {
+Server.saveReadPositionBook = function (bookId, position, callback) {
     call(POST, SAVE_READ_BOOK_POSITION, {
         bookId: bookId,
         position: position
@@ -328,6 +341,8 @@ Server.buyBook = function (bookId, position, callback) {
  * Logout from the server
  * @param callback
  */
-Server.logOut = function (callback) {
-    call(POST, LOGOUT, {}, callback);
+Server.logOut = function () {
+    call(POST, LOGOUT, {}, function () {
+        window.location = "login.html";
+    });
 };

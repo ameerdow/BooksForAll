@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html ng-app="booksForAll" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books For All</title>
+    <!--CSS-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
+    <!--JS-->
+    <script src="js/libs/jquery-3.2.1.js"></script>
+    <script src="js/libs/bootstrap.min.js"></script>
+    <script src="js/libs/angular.min.js"></script>
+    <script src="js/utils/constants.js"></script>
+    <script src="js/utils/utils.js"></script>
+    <script src="js/utils/server.js"></script>
+    <script src="js/utils/directives.js"></script>
+    <script src="js/controllers/book-controller.js"></script>
+</head>
+<body ng-controller="BookCtrl">
+
+<nav class="navbar navbar-default" ng-include="'navbar.html'"></nav>
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="index.html">BookForAll</a></li>
+        <li><a href='{{book.purchased ? "my-books.html" : "index.html"}}'>{{book.purchased ? "My Books" :
+            "Explore"}}</a></li>
+        <li class="active">{{book.name}}</li>
+    </ol>
+
+    <div class="book-row">
+        <div class="book-info">
+            <img src="{{book.iconPath}}"/>
+            <div class="book-details">
+                <div class="key-value"><b>Name:</b>{{book.name}}</div>
+                <div class="key-value"><b>Price:</b>{{book.price}}</div>
+                <div class="key-value"><b>Description:</b>{{book.description}}</div>
+                <div class="key-value"><b>Likes:</b>{{book.likesCount}}</div>
+            </div>
+        </div>
+        <div class="book-reviews">
+            <button class="reviews-button"
+                    ng-click="toggledReviews[book.ID] = toggledReviews[book.ID] == null || !toggledReviews[book.ID]">
+                Reviews ({{book.reviewCount}})
+            </button>
+            <div class="reviews-list" ng-show="toggledReviews[book.ID] != null && toggledReviews[book.ID]">
+                <div class="review" ng-repeat="review in book.reviews">
+                    <div class="reviewer" ng-show="user.role == 'User'">{{review.nickname}}</div>
+                    <div class="reviewer btn-link" ng-show="user.role != 'User'"
+                         ng-click="openUserDetails(review.username)">{{review.nickname}}
+                    </div>
+                    <div class="review-text">{{review.review}}</div>
+                </div>
+            </div>
+        </div>
+
+        <br/>
+        <button class="btn {{isLiked() ? 'btn-default' : 'btn-primary'}}" ng-show="book.purchased"
+                ng-click="likeBook()">
+            {{isLiked() ? "Unlike" : "Like"}}
+        </button>
+        <button class="btn btn-primary" ng-show="book.purchased" data-toggle="modal" data-target="#reviewModal">
+            Review
+        </button>
+    </div>
+
+    <div class="book-not-purchased-container ng-hide" ng-show="!book.purchased">
+        <div class="book-data" ng-include="book.filePrePath"></div>
+        <div class="book-overlay"></div>
+        <div class="book-purchase">
+            <input id="cardholder" name="cardholder" class="transparent-input"
+                   type="text" autocomplete placeholder="Card Holder Name" ng-model="cardholder"/>
+            <input id="ccno" name="ccno" class="transparent-input"
+                   type="text" autocomplete placeholder="Card Number" ng-model="ccno"/>
+            <input id="expire" name="expire" class="transparent-input"
+                   type="text" autocomplete placeholder="Expiry Date (MM/YY)" ng-model="expire"/>
+            <button class="btn btn-primary" ng-click="purchase()">
+                Buy Now only for {{book.price}}$
+            </button>
+        </div>
+    </div>
+    <div class="book-purchased-container ng-hide" ng-show="book.purchased" ng-include="book.filePath"
+         onload="bookHtmlLoaded()">
+
+    </div>
+
+    <div id="progress" class="progress"></div>
+
+</div>
+
+<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="reviewModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="reviewModalLabel">Add new review</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="message-text" class="control-label">Review Text:</label>
+                    <textarea class="form-control" id="message-text"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Send Review</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

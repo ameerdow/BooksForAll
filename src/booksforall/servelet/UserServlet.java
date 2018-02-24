@@ -27,6 +27,8 @@ public class UserServlet extends HttpServlet {
     private static final String GET_USER_BY_USERNAME = "/user/";
     private static final String GET_LOGGED_IN_USER = "/user";
     private static final String APPROVE_REVIEW = "/review";
+    private static final String REJECT_REVIEW = "/review";
+    private static final String GET_PENDING_REVIEW = "/review";
     private static final String SIGN_UP = "/user";
     private static final String LOGIN = "/login";
     private static final String LOGOUT = "/logout";
@@ -46,6 +48,7 @@ public class UserServlet extends HttpServlet {
         response.setHeader("Access-Control-Allow-Origin", "*");
         UserService userService = new UserService();
         Gson gson = new Gson();
+        response.setContentType(JSON);
 
         try {
             String uri = request.getRequestURI();
@@ -56,7 +59,6 @@ public class UserServlet extends HttpServlet {
 
             if (uri.contains(GET_ALL_USERS)) {
                 Helper.checkSession(request);
-                response.setContentType(JSON);
                 printWriter.println(gson.toJson(userService.getAllUsers()));
                 return;
             } else if (uri.contains(SEARCH_USER)) {
@@ -67,12 +69,10 @@ public class UserServlet extends HttpServlet {
                     throw new RuntimeException("No user found for search");
                 }
                 String userToSearch = params[1];
-                response.setContentType(JSON);
                 printWriter.println(gson.toJson(userService.searchUser(userToSearch)));
                 return;
             } else if (uri.contains(GET_LOGGED_IN_USER)) {
                 String username = Helper.checkSession(request);
-                response.setContentType(JSON);
                 printWriter.println(gson.toJson(userService.getUserByUsername(username)));
                 return;
             } else if (uri.contains(GET_USER_BY_USERNAME)) {
@@ -83,7 +83,6 @@ public class UserServlet extends HttpServlet {
                     throw new RuntimeException("No user found to get");
                 }
                 String username = params[0];
-                response.setContentType(JSON);
                 printWriter.println(gson.toJson(userService.getUserByUsername(username)));
                 return;
             } else if (uri.contains(GET_USERNAME_BOOK_PURCHASE)) {
@@ -94,8 +93,12 @@ public class UserServlet extends HttpServlet {
                     throw new RuntimeException("No user book purchase relation found to get");
                 }
                 int bookId = Integer.parseInt(params[0]);
-                response.setContentType(JSON);
+
                 printWriter.println(gson.toJson(userService.getUserBookPurchase(username, bookId)));
+                return;
+            } else if(uri.contains(GET_PENDING_REVIEW)){
+                String username = Helper.checkSession(request);
+                printWriter.println(gson.toJson(userService.getPendingReviews(username)));
                 return;
             }
 
@@ -165,6 +168,15 @@ public class UserServlet extends HttpServlet {
                     throw new RuntimeException("Error getting approve review info");
                 } else {
                     userService.approveReview(Helper.checkSession(request), approveReviewRequest.getReviewId());
+                    return;
+                }
+            }else if (uri.endsWith(REJECT_REVIEW)) {
+                ClientRequest.ApproveReviewRequest approveReviewRequest = gson.fromJson(postData,
+                        ClientRequest.ApproveReviewRequest.class);
+                if (approveReviewRequest == null) {
+                    throw new RuntimeException("Error getting approve review info");
+                } else {
+                    userService.rejectReview(Helper.checkSession(request), approveReviewRequest.getReviewId());
                     return;
                 }
             } else if (uri.contains(DELETE_USER_BY_USERNAME)) {

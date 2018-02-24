@@ -1,6 +1,7 @@
 package booksforall.servelet;
 
 import booksforall.Server.ClientRequest;
+import booksforall.models.*;
 import booksforall.services.BookService;
 import booksforall.services.UserService;
 import booksforall.utils.Helper;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Servlet implementation class BookServlet
@@ -98,7 +101,29 @@ public class BookServlet extends HttpServlet {
                     throw new RuntimeException("No book id found to get");
                 }
                 int bookId = Integer.parseInt(params[1]);
-                printWriter.println(bookService.getBookById(bookId));
+
+                Book book = bookService.getBookById(bookId);
+
+                List<ReviewResponse> reviewsList = new ArrayList<>();
+                List<UserDetails> likers = new ArrayList<>();
+
+                List<UserBookLikeRelation> likeRelations = bookService.getAllBookLikes(bookId);
+                for (UserBookLikeRelation userBookLikeRelation :
+                        likeRelations) {
+                    likers.add(new UserDetails(userBookLikeRelation.getUsername(),userBookLikeRelation.getNickname()));
+                }
+
+                List<UserBookReviewRelation> reviewRelations = bookService.getAllReviewsForBook(bookId);
+                for (UserBookReviewRelation reviewRelation :
+                        reviewRelations) {
+
+                    reviewsList.add(new ReviewResponse(reviewRelation.getUsername(), userService.getUserByUsername(reviewRelation.getUsername()).getNickname(), reviewRelation.getReview()));
+                }
+
+                book.setUserDetailsList(likers);
+                book.setReviews(reviewsList);
+
+                printWriter.println(book);
                 return;
             } else if (uri.contains(GET_BOOK_BY_CATEGORY)) {
                 String[] params = pathInfo.split("/");

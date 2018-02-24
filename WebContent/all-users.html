@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="booksForAll" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Users - Books For All</title>
+    <!--CSS-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
+    <!--JS-->
+    <script src="js/libs/jquery-3.2.1.js"></script>
+    <script src="js/libs/bootstrap.min.js"></script>
+    <script src="js/libs/angular.min.js"></script>
+    <script src="js/utils/constants.js"></script>
+    <script src="js/utils/utils.js"></script>
+    <script src="js/utils/server.js"></script>
+    <script src="js/utils/directives.js"></script>
+    <script src="js/controllers/all-users-controller.js"></script>
+</head>
+<body ng-controller="AllUsersCtrl">
+
+<nav class="navbar navbar-default" ng-include="'navbar.html'"></nav>
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="index.html">BookForAll</a></li>
+        <li class="admin-tab">Admin</li>
+        <li class="active">All Users</li>
+    </ol>
+</div>
+
+</body>
+</html>

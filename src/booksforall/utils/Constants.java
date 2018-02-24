@@ -118,6 +118,10 @@ public class Constants {
             + " (USERNAME,BOOK_ID,REVIEW,APPROVED,SYS_CREATION_DATE VALUES (?,?,?,?,?)";
     public static final String APPROVE_USER_BOOK_REVIEW = "UPDATE " + USERS_BOOKS_REVIEW
             + " SET APPROVED = 'Y' WHERE ID = ?";
+    public static final String REJECT_USER_BOOK_REVIEW = "UPDATE " + USERS_BOOKS_REVIEW
+            + " SET APPROVED = 'N' WHERE ID = ?";
+    public static final String GET_USER_PENDING_BOOK_REVIEW = "SELECT * FROM " + USERS_BOOKS_REVIEW
+            + " WHERE APPROVED = 'P' AND ID = ?";
     public static final String SELECT_BOOK_REVIEWS = "SELECT * FROM " + USERS_BOOKS_REVIEW + " WHERE BOOK_ID = ?";
     public static final String GET_REVIEW_BY_ID = "SELECT * FROM " + USERS_BOOKS_REVIEW + " WHERE ID = ?";
 

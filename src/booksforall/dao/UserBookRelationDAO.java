@@ -183,7 +183,7 @@ public class UserBookRelationDAO {
                 connection.commit();
                 ResultSet generatedKeys = statement.getGeneratedKeys();
                 if (generatedKeys.next())
-                    return new UserBookReviewRelation(generatedKeys.getInt(1), user.getUsername(), book.getID(), review, "N", date);
+                    return new UserBookReviewRelation(generatedKeys.getInt(1), user.getUsername(), book.getID(), review, "N", date.toString());
                 else
                     throw new SQLException("Creating review failed, no ID obtained.");
             }
@@ -204,7 +204,6 @@ public class UserBookRelationDAO {
         try (Connection connection = new DBConnection().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(APPROVE_USER_BOOK_REVIEW);
             statement.setInt(1, bookReviewRelation.getId());
-
             if (statement.executeUpdate() == 0) {
                 throw new SQLException("Error Approving review");
             }
@@ -212,6 +211,53 @@ public class UserBookRelationDAO {
         } catch (Exception e) {
             Log.e(classFunc, "approveUserBookReview", e.getMessage(), e);
         }
+    }
+
+    /**
+     * reject user review
+     *
+     * @param bookReviewRelation user book relation object
+     */
+    public void rejectUserBookReview(UserBookReviewRelation bookReviewRelation) {
+        Log.l(classFunc, "rejectUserBookReview", "Starting");
+
+        try (Connection connection = new DBConnection().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(REJECT_USER_BOOK_REVIEW);
+            statement.setInt(1, bookReviewRelation.getId());
+
+            if (statement.executeUpdate() == 0) {
+                throw new SQLException("Error Approving review");
+            }
+            connection.commit();
+        } catch (Exception e) {
+            Log.e(classFunc, "rejectUserBookReview", e.getMessage(), e);
+        }
+    }
+    /**
+     * get pending reviews
+     *
+     */
+    public List<UserBookReviewRelation> getPendingReview() {
+        Log.l(classFunc, "rejectUserBookReview", "Starting");
+        List<UserBookReviewRelation> reviewRelations = new ArrayList<>();
+        try (Connection connection = new DBConnection().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(GET_USER_PENDING_BOOK_REVIEW);
+            ResultSet rs = statement.executeQuery();
+
+            while(rs.next()){
+                reviewRelations.add(new UserBookReviewRelation(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6)
+                ));
+            }
+        } catch (Exception e) {
+            Log.e(classFunc, "rejectUserBookReview", e.getMessage(), e);
+        }
+        return reviewRelations;
     }
 
     /**
@@ -235,7 +281,7 @@ public class UserBookRelationDAO {
                         rs.getInt("BOOK_ID"),
                         rs.getString("REVIEW"),
                         rs.getString("APPROVED"),
-                        rs.getDate("SYS_CREATION_DATE")
+                        rs.getString("SYS_CREATION_DATE")
                 );
             }
         } catch (Exception e) {
@@ -268,7 +314,7 @@ public class UserBookRelationDAO {
                         rs.getInt(3),
                         rs.getString(4),
                         rs.getString(5),
-                        rs.getDate(6)
+                        rs.getString(6)
                 ));
             }
         } catch (Exception e) {

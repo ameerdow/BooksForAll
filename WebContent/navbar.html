@@ -1,0 +1,31 @@
+<div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><h1 class="logo">BooksForAll</h1></a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li><a href="index.html">Explore</a></li>
+            <li><a href="my-books.html">My Books</a></li>
+            <li class="admin-tab" ng-show="user.role=='Admin'"><a href="all-users.html">All Users</a></li>
+            <li class="admin-tab" ng-show="user.role=='Admin'"><a href="all-purchases.html">All Purchases</a></li>
+            <li class="admin-tab" ng-show="user.role=='Admin'"><a href="approve-reviews.html">Approve Reviews</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><p class="navbar-text">Signed in as {{user != null && user.username}}</p></li>
+            <li>
+                <button class="btn navbar-btn btn-primary" ng-click="logout()">
+                    Logout
+                </button>
+            </li>
+        </ul>
+    </div><!-- /.navbar-collapse -->
+</div>

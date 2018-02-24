@@ -2,7 +2,7 @@
 <html ng-app="booksForAll" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin - User - Books For All</title>
+    <title>All Purchases - Books For All</title>
     <!--CSS-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
@@ -11,27 +11,46 @@
     <script src="js/libs/jquery-3.2.1.js"></script>
     <script src="js/libs/bootstrap.min.js"></script>
     <script src="js/libs/angular.min.js"></script>
+    <script src="js/utils/constants.js"></script>
+    <script src="js/utils/utils.js"></script>
     <script src="js/utils/server.js"></script>
     <script src="js/utils/directives.js"></script>
-    <script src="js/controllers/admin-controller.js"></script>
+    <script src="js/controllers/user-controller.js"></script>
 </head>
-<body ng-controller="AdminCtrl">
+<body ng-controller="UserCtrl">
 
-<nav class="header navbar navbar-default navbar-fixed-top container-fluid">
-    <div class="navbar-header header-color ">
-        <a href="users.html"><h1 class="logo">BooksForAll</h1></a>
+<nav class="navbar navbar-default" ng-include="'navbar.html'"></nav>
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="index.html">BookForAll</a></li>
+        <li class="admin-tab">Admin</li>
+        <li><a href="all-users.html">All Users</a></li>
+        <li class="active">{{selectedUser.username}}</li>
+    </ol>
+
+    <div class="section">User Details</div>
+    <div class="key-value"><b>Username:</b>{{selectedUser.username}}</div>
+    <div class="key-value"><b>Nickname:</b>{{selectedUser.nickname}}</div>
+    <div class="key-value"><b>Role:</b>{{selectedUser.role}}</div>
+    <div class="key-value"><b>Email:</b>{{selectedUser.email}}</div>
+    <div class="key-value"><b>Phone:</b>{{selectedUser.phoneNumber}}</div>
+    <div class="key-value"><b>Description:</b>{{selectedUser.description}}</div>
+    <div class="key-value"><b>Country:</b>{{selectedUser.address.country}}</div>
+    <div class="key-value"><b>City:</b>{{selectedUser.address.city}}</div>
+    <div class="key-value"><b>Street:</b>{{selectedUser.address.street}}</div>
+    <div class="key-value"><b>Number:</b>{{selectedUser.address.number}}</div>
+    <div class="key-value"><b>Zip:</b>{{selectedUser.address.zip}}</div>
+    <br/>
+
+    <div class="section">Purchased Books</div>
+    <br/>
+    <div class="books-snippet">
+        <div class="book-small" ng-repeat="book in books" ng-click="openBookById(book)">
+            <img src="{{book.iconPath}}"/>
+            <br/>
+            {{book.name}}
+        </div>
     </div>
-    <nav class="nav-bar nav-bar-header">
-        <a href="login.html">
-            <button class="btn btn-primary" ng-click="logout()">
-                Logout
-            </button>
-        </a>
-    </nav>
-</nav>
-
-<div class="container" data-ng-init="initUserDetails()">
-
 </div>
 
 </body>

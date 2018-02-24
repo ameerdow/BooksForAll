@@ -3,42 +3,49 @@ window.app = window.app || angular.module('booksForAll', []);
 app.controller('MainCtrl', ['$scope', function MainCtrl($scope) {
 
     $scope.user = null;
+    checkUserData($scope);
+    $scope.logout = Server.logout;
 
-    // Server.getUserData(function (response, error) {
-    //     if (error != null) {
-    //         // not logged in
-    //         window.location = "login.html";
-    //     } else {
-    //         if (response.role !== "User") {
-    //             window.location = "users.html";
-    //         }
-    // wait till controller loaded to prevent displayed unstructured angular data
-    $scope.user = {
-        "username": "admin",
-        "email": "admin@email.com",
-        "password": "passw0rd",
-        "address": {"street": "admin", "number": 1, "city": "admin", "zip": "1234567", "country": "admin"},
-        "phoneNumber": "0546597762",
-        "nickname": "nickname",
-        "description": "description",
-        "photoUrl": "photoUrl",
-        "role": "Admin",
-        "deleted": "N",
-        "creationDate": "Feb 24, 2018"
+    $scope.searchText = "";
+
+    // $scope.featuredBooks = [];
+    $scope.featuredBooks = [{
+        ID: 1,
+        name: "The City That Was",
+        iconPath: "books/1.jpg"
+    }, {
+        ID: 2,
+        name: "David And Ameer",
+        iconPath: "books/2.jpg"
+    }, {
+        ID: 3,
+        name: "Book 3",
+        iconPath: "books/3.jpg"
+    }, {
+        ID: 4,
+        name: "Book 4",
+        iconPath: "books/4.jpg"
+    }];
+
+    // load sample books to display
+    Server.getAllBooks(function (books, error) {
+        if (error != null) {
+            alert(error);
+        } else {
+            $scope.$apply(function () {
+                $scope.featuredBooks = books.length > 4 ? books.splice(0, 4) : books;
+            })
+        }
+    });
+
+    $scope.search = function () {
+        if ($scope.searchText.trim().length > 0) {
+            window.location.href = "book-results.html?q=" + encodeURIComponent($scope.searchText);
+        }
     };
-    $("body").css("display", "block");
-    //     }
-    // });
 
-    $scope.logout = function Logout() {
-        Server.logOut(function (response, error) {
-            if (error != null) {
-                alert.errorMessage(error);
-            } else {
-                window.location = "login.html";
-            }
-        });
-    };
-
+    $scope.openBookById = function (book) {
+        window.location.href = "book.html?bookId=" + book.ID;
+    }
 
 }]);

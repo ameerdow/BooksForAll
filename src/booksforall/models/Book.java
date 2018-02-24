@@ -1,6 +1,7 @@
 package booksforall.models;
 
 import java.util.Date;
+import java.util.List;
 
 public class Book {
 
@@ -12,9 +13,14 @@ public class Book {
     private int reviewCount;
     private String deleted;
     private String filePath;
-    private String iconPath;
     private Date creationDate;
     private Date updateDate;
+    private String iconPath;
+
+    // transit
+    private List<UserDetails> likers;
+    private List<ReviewResponse> reviews;
+    private Boolean isPurchased;
 
     public Book() {
     }
@@ -133,5 +139,21 @@ public class Book {
 
     public void setIconPath(String iconPath) {
         this.iconPath = iconPath;
+    }
+
+    public List<UserDetails> getUserDetailsList() {
+        return likers;
+    }
+
+    public void setUserDetailsList(List<UserDetails> likers) {
+        this.likers = likers;
+    }
+
+    public List<ReviewResponse> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ReviewResponse> reviews) {
+        this.reviews = reviews;
     }
 }

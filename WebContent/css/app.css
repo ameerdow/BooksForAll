@@ -4,6 +4,8 @@ html, body {
 
 body {
     display: none;
+    background: url('../imgs/bg.png');
+    background-size: 20px;
 }
 
 .header {
@@ -197,9 +199,9 @@ body {
     background: url('../imgs/banner.jpg');
     width: 100%;
     min-height: 550px;
-    margin-top: 50px;
+    margin-top: -20px;
     background-size: cover;
-    height: calc(100vh - 137px);
+    height: calc(100vh - 139px);
 }
 
 .flex-row {
@@ -351,7 +353,553 @@ body {
     margin-right: -4px;
 }
 
+.nav-button-link {
+    padding: 0 !important;
+}
 
-.container .data{
-    margin-top: 100px;
+.center-content {
+    text-align: center;
+}
+
+.large-search-input {
+    height: 42px;
+    border-radius: 4px;
+    border: 1px solid gainsboro;
+    padding: 4px 16px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    width: 600px;
+}
+
+.section {
+    margin-top: 20px;
+    margin-bottom: 8px;
+    padding-left: 24px;
+    color: #777;
+    font-size: 22px;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+
+.key-value {
+    padding-left: 48px;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.key-value b {
+    width: 200px;
+    margin-right: 4px;
+}
+
+.books-snippet {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 800px;
+    margin: 40px auto 80px;
+}
+
+.book-small {
+    width: 200px;
+    overflow: hidden;
+    margin: 8px;
+    box-shadow: 0px 7px 9px -6px grey, 0px 0px 12px -6px;
+    border-radius: 3px;
+    line-height: 40px;
+    text-align: center;
+    font-weight: bold;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    -webkit-transition: all ease-in-out 200ms;
+    -moz-transition: all ease-in-out 200ms;
+    -ms-transition: all ease-in-out 200ms;
+    -o-transition: all ease-in-out 200ms;
+    transition: all ease-in-out 200ms;
+}
+
+.book-small:hover {
+    opacity: 0.9;
+    box-shadow: 0px 10px 12px -6px grey, 0px 0px 16px -6px;
+    -webkit-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    transform: scale(1.02);
+}
+
+.book-small img {
+    height: 270px;
+    box-shadow: 0 0 19px -4px;
+    width: 185px;
+}
+
+h1, h2 {
+    text-align: center;
+    clear: both;
+    margin-top: 2.5em;
+    margin-bottom: 1em;
+}
+
+h1 {
+    line-height: 1;
+}
+
+h2.chap {
+    margin-bottom: 0;
+}
+
+h2 + p {
+    margin-top: 1.5em;
+}
+
+h2 .subhead {
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.transnote h2 {
+    margin-top: .5em;
+    margin-bottom: 1em;
+}
+
+.subhead {
+    text-indent: 0;
+    text-align: center;
+    font-size: smaller;
+}
+
+p {
+    text-indent: 1.75em;
+    margin-top: .51em;
+    margin-bottom: .24em;
+    text-align: justify;
+}
+
+.caption p {
+    text-align: center;
+    text-indent: 0;
+}
+
+p.center {
+    text-indent: 0;
+}
+
+.p0 {
+    margin-top: 0em;
+}
+
+.p1 {
+    margin-top: 1em;
+}
+
+.p2 {
+    margin-top: 2em;
+}
+
+.p4 {
+    margin-top: 4em;
+}
+
+.b0 {
+    margin-bottom: 0;
+}
+
+.b1 {
+    margin-bottom: 1em;
+}
+
+.vspace {
+    line-height: 1.5;
+}
+
+.in0 {
+    text-indent: 0;
+}
+
+.in1 {
+    padding-left: 1em;
+}
+
+.in4 {
+    padding-left: 4em;
+}
+
+.in8 {
+    padding-left: 8em;
+}
+
+.larger {
+    font-size: 125%;
+}
+
+.large {
+    font-size: 150%;
+}
+
+.xxlarge {
+    font-size: 200%;
+}
+
+.xxlarge1 {
+    font-size: 250%;
+}
+
+p.section {
+    text-indent: 0;
+    margin-top: 2em;
+}
+
+p.section:first-letter {
+    float: left;
+    margin: .11em .25em 0 0;
+    font-size: 250%;
+    line-height: 0.7em;
+    text-indent: 0;
+    clear: both;
+    color: #DC143C;
+}
+
+p.section.i .dc {
+    margin-left: -.25em;
+}
+
+p.section.a .dc {
+    margin-left: -.75em;
+}
+
+p.section .dc {
+    margin-left: -.55em;;
+}
+
+p.section.b .dc {
+    margin-left: -.65em;
+}
+
+p.section.s .dc {
+    margin-left: -.65em;
+}
+
+p.section.r .dc {
+    margin-left: -.75em;
+}
+
+p.section.al .dc {
+    margin-left: -1em;
+}
+
+p .dc {
+    font-size: 110%;
+}
+
+.dc, .upper-case {
+    text-transform: uppercase;
+}
+
+img.drop-cap {
+    float: left;
+    margin: -1em 0.5em -.5em 0;
+}
+
+.illdc {
+    max-width: 6.25em;
+}
+
+p.drop-cap:first-letter {
+    color: transparent;
+    visibility: hidden;
+    display: none;
+    margin-left: -0.9em;
+}
+
+span.left1 {
+    margin-left: -1.5em;
+}
+
+span.left2 {
+    margin-left: -1.9em;
+}
+
+span.left3 {
+    margin-left: -2.1em;
+}
+
+span.left4 {
+    margin-left: -2.3em;
+}
+
+.center {
+    text-align: center;
+}
+
+.smcap {
+    font-variant: small-caps;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.tdl {
+    text-align: left;
+    vertical-align: top;
+    padding-right: 1em;
+    padding-left: 1.5em;
+    text-indent: -1.5em;
+}
+
+.tdc {
+    text-align: center;
+}
+
+.tdc.chap {
+    font-size: 120%;
+    padding-top: 1.5em;
+    page-break-after: avoid;
+}
+
+.tdc.chapsub {
+    padding-top: .5em;
+    padding-bottom: .5em;
+    font-size: 110%;
+    page-break-before: avoid;
+    page-break-after: avoid;
+}
+
+.tdr {
+    text-align: right;
+    vertical-align: bottom;
+    padding-left: .73em;
+    white-space: nowrap;
+}
+
+#loi td {
+    padding-bottom: .5em;
+}
+
+.tdl.in4 {
+    padding-left: 3.7em;
+}
+
+.tdl.in1 {
+    padding-left: 1em;
+}
+
+.pagenum {
+    position: absolute;
+    right: 4px;
+    text-indent: 0em;
+    text-align: right;
+    font-size: 70%;
+    font-weight: normal;
+    font-variant: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: normal;
+    color: #acacac;
+    border: 1px solid #acacac;
+    background: #ffffff;
+    padding: 1px 2px;
+}
+
+.figcenter {
+    margin: 2em auto 2em auto;
+    text-align: center;
+    page-break-inside: avoid;
+    max-width: 100%;
+}
+
+.figleft {
+    float: left;
+    clear: left;
+    margin-left: 0;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    margin-right: 1em;
+    padding: 0;
+    text-align: center;
+    min-width: 20%;
+    max-width: 50%;
+    page-break-inside: avoid;
+}
+
+img {
+    padding: 1em 0 .5em 0;
+    max-width: 100%;
+    height: auto;
+}
+
+.caption {
+    text-align: center;
+    margin-top: 0;
+    font-size: 90%;
+}
+
+.sni {
+    text-indent: 0;
+    text-align: center;
+    vertical-align: middle;
+    max-width: 50%;
+    padding: 0;
+    margin: .4em 1em .2em 0;
+    float: left;
+    clear: left;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 110%;
+    color: #DC143C; /*crimson */
+    page-break-inside: avoid;
+}
+
+.transnote {
+    background-color: #cccccc;
+    border: thin dotted;
+    font-family: sans-serif, serif;
+    margin-top: 4em;
+    margin-bottom: 2em;
+    padding: 1em;
+}
+
+.covernote {
+    visibility: hidden;
+    display: none;
+}
+
+.sigright {
+    margin-right: 2em;
+    text-align: right;
+}
+
+.gesperrt {
+    letter-spacing: 0.2em;
+    margin-right: -0.2em;
+}
+
+.bbox {
+    border: .08em solid black;
+    padding: .5em 1em;
+}
+
+.red {
+    color: #DC143C;
+}
+
+.no-data {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 100;
+}
+
+.books-results {
+    margin-top: -28px;
+}
+
+.book-row {
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    padding: 16px 48px;
+    margin-bottom: 8px;
+}
+
+.book-info {
+    background: #fafafa;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    height: 120px;
+}
+
+.book-info:hover {
+    background: #f1f1f1;
+}
+
+.book-info img {
+    width: auto;
+    height: 100%;
+    padding: 0;
+}
+
+.book-details .key-value {
+    padding-left: 16px;
+    color: black;
+}
+
+.reviews-button {
+    width: 100%;
+    border: 0;
+    background: #f1f1f1;
+    line-height: 29px;
+    color: #3074b0;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.reviews-button:hover {
+    background: #e8e8e8;
+}
+
+.reviews-list {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 6px 16px;
+}
+
+.review {
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    padding-bottom: 6px;
+}
+
+.review .reviewer {
+    font-weight: bold;
+}
+
+.book-purchased-container, .book-not-purchased-container {
+    width: 80%;
+    margin: auto;
+    position: relative;
+    min-height: 700px;
+}
+
+.progress {
+    position: fixed;
+    bottom: -20px;
+    height: 3px;
+    width: 0;
+    background: #3172ad;
+    left: 0;
+}
+
+.book-data {
+    max-height: 2000px;
+    overflow: hidden;
+    position: relative;
+}
+
+.book-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(transparent, white);
+}
+
+.book-purchase {
+    position: absolute;
+    bottom: 50px;
+    width: 100%;
+    text-align: center;
+}
+
+.book-purchase .transparent-input {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    max-width: 300px;
+    margin-bottom: 10px;
+}
+
+.admin-tab, .admin-tab * {
+    color: darkred !important;
+    font-weight: bold;
 }

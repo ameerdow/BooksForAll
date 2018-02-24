@@ -11,87 +11,42 @@
     <script src="js/libs/jquery-3.2.1.js"></script>
     <script src="js/libs/bootstrap.min.js"></script>
     <script src="js/libs/angular.min.js"></script>
+    <script src="js/utils/constants.js"></script>
+    <script src="js/utils/utils.js"></script>
     <script src="js/utils/server.js"></script>
     <script src="js/utils/directives.js"></script>
     <script src="js/controllers/main-controller.js"></script>
 </head>
 <body ng-controller="MainCtrl">
 
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.html"><h1 class="logo">BooksForAll</h1></a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Link</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li><p class="navbar-text">Signed in as {{user != null && user.username}}</p></li>
-                <li>
-                    <button class="btn navbar-btn btn-primary" ng-click="logout()">
-                        Logout
-                    </button>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </div>
-</nav>
-<!--<nav class="header navbar navbar-default navbar-fixed-top">-->
-<!--<div class="navbar-header header-color ">-->
-<!--<a href="index.html"><h1 class="logo">BooksForAll</h1></a>-->
-<!--</div>-->
-<!--<form class="navbar-form navbar-left" role="search">-->
-<!--<div class="form-group">-->
-<!--<input type="text" class="form-control" placeholder="Search books">-->
-<!--</div>-->
-<!--<button type="submit" class="btn btn-default">Search</button>-->
-<!--</form>-->
-
-<!--<nav class="nav-bar nav-bar-header">-->
-<!--<p class="navbar-text">Signed in as {{user != null && user.username}}</p>-->
-<!--<a href="login.html">-->
-<!--<button class="btn btn-primary" ng-click="logout()">-->
-<!--Logout-->
-<!--</button>-->
-<!--</a>-->
-<!--</nav>-->
-<!--</nav>-->
+<nav class="navbar navbar-default" ng-include="'navbar.html'"></nav>
 <div class="container">
     <ol class="breadcrumb">
         <li><a href="index.html">BookForAll</a></li>
-        <li class="active">Home</li>
+        <li class="active">Explore</li>
     </ol>
+
+    <div class="center-content">
+        <input name="search" type="text" ng-model="searchText" class="large-search-input"
+               placeholder="Type to search books" ng-enter="search()"/>
+    </div>
+    <div class="center-content">
+        <button class="btn btn-primary" ng-click="search()">
+            Search Books
+        </button>
+    </div>
+    <br/>
+    <br/>
+    <div class="section">Latest Books</div>
+    <div class="books-snippet">
+        <div class="book-small" ng-repeat="book in featuredBooks" ng-click="openBookById(book)">
+            <img src="{{book.iconPath}}"/>
+            <br/>
+            {{book.name}}
+        </div>
+    </div>
 </div>
+
 
 </body>
 </html>

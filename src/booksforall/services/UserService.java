@@ -354,6 +354,35 @@ public class UserService {
                     .approveUserBookReview(new UserBookReviewRelation(userBookRelationDAO.getReviewByID(reviewId)));
         }
     }
+    /**
+     * reject review
+     *
+     * @param username username to approve
+     * @param reviewId review id to approve
+     */
+    public void rejectReview(String username, int reviewId) {
+        Log.l(classFunc, "rejectReview", "Starting");
+        User user = new User(getUser(username));
+        if (user.getRole().equals("Admin")) {
+            UserBookRelationDAO userBookRelationDAO = new UserBookRelationDAO();
+            userBookRelationDAO
+                    .rejectUserBookReview(new UserBookReviewRelation(userBookRelationDAO.getReviewByID(reviewId)));
+        }
+    }
+    /**
+     * get pending review
+     *
+     * @param username username to approve
+     */
+    public List<UserBookReviewRelation> getPendingReviews(String username) {
+        Log.l(classFunc, "getPendingReviews", "Starting");
+        User user = new User(getUser(username));
+        if (user.getRole().equals("Admin")) {
+            UserBookRelationDAO userBookRelationDAO = new UserBookRelationDAO();
+            return userBookRelationDAO.getPendingReview();
+        }
+        return null;
+    }
 
     /**
      * Saves the reading postion after leaving the book html

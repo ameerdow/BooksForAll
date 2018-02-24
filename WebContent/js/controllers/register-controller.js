@@ -1,6 +1,6 @@
 window.app = window.app || angular.module('booksForAll', []);
 
-window.app.controller('RegisterCtrl', ['$scope', function ($scope) {
+window.app.controller('RegisterCtrl', ['$scope', function RegisterCtrl($scope) {
 
     $scope.countries = Constants.countries;
 
@@ -25,11 +25,7 @@ window.app.controller('RegisterCtrl', ['$scope', function ($scope) {
             // wait till controller loaded to prevent displayed unstructured angular data
             $("body").css("display", "block");
         } else {
-            if (response.role === "User") {
-                window.location = "index.html";
-            } else {
-                window.location = "../../users.html";
-            }
+            window.location = "index.html";
         }
     });
 

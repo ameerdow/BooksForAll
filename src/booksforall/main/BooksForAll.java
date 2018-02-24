@@ -3,6 +3,7 @@ package booksforall.main;
 import booksforall.db.InitDatabase;
 import booksforall.models.Address;
 import booksforall.models.User;
+import booksforall.models.UserBookReviewRelation;
 import booksforall.services.UserService;
 import booksforall.utils.Log;
 import com.google.gson.Gson;
@@ -30,28 +31,32 @@ public class BooksForAll {
     }
 
     private BooksForAll() {
-        InitDatabase.initTables();
-        initUsers();
+//        InitDatabase.initTables();
+        initMockData();
     }
 
 
-    private void initUsers() {
+    private void initMockData() {
         Log.l(classFunc, "initUsers", "Starting");
 
         UserService service = new UserService();
 
         //adding admin user
         Address address = new Address("street ", 1, "admin", "1234567", "admin");
-        service.addUser("admin", "admin@email.com", "passw0rd", address, "0546597762", "nickname", "description", "photoUrl");
+//        service.addUser("admin", "admin@email.com", "passw0rd", address, "0546597762", "nickname", "description", "photoUrl");
 
         List<User> users = getMockUsers();
-
+        List<UserBookReviewRelation> userBookReviewRelations = getMockReviews();
         if (users != null) {
             // adding 20 user to the system
-            for (int i = 0; i < users.size(); i++) {
-                User user = users.get(i);
+            for (User user : users) {
                 service.addUser(user.getUsername(), user.getEmail(), user.getPassword(), user.getAddress(), user.getPhoneNumber(), user.getNickname(), user.getDescription(), user.getPhotoUrl());
-//                System.out.println(user);
+            }
+        }
+
+        if(userBookReviewRelations != null){
+            for(UserBookReviewRelation reviewRelation: userBookReviewRelations){
+                service.reviewBook(reviewRelation.getUsername(),reviewRelation.getBookId(),reviewRelation.getReview());
             }
         }
     }
@@ -63,6 +68,19 @@ public class BooksForAll {
             String filepath = getClass().getClassLoader().getResource("booksforall/main/data/mock-data.json").getPath();
             JsonReader reader = new JsonReader(new FileReader(filepath));
             Type type = new TypeToken<List<User>>(){}.getType();
+            return gson.fromJson(reader, type);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    private List<UserBookReviewRelation> getMockReviews() {
+        Gson gson = new Gson();
+        try {
+            String filepath = getClass().getClassLoader().getResource("booksforall/main/data/mock-review.json").getPath();
+            JsonReader reader = new JsonReader(new FileReader(filepath));
+            Type type = new TypeToken<List<UserBookReviewRelation>>(){}.getType();
             return gson.fromJson(reader, type);
         } catch (Exception e) {
             System.out.println(e);

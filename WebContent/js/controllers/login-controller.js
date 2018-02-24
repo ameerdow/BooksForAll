@@ -8,11 +8,7 @@ app.controller('LoginCtrl', ['$scope', function LoginCtrl($scope) {
             // wait till controller loaded to prevent displayed unstructured angular data
             $("body").css("display", "block");
         } else {
-            if (response.role === "User") {
-                window.location = "index.html";
-            } else {
-                window.location = "../../users.html";
-            }
+            window.location = "index.html";
         }
     });
 

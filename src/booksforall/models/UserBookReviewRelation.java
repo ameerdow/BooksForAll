@@ -1,6 +1,6 @@
 package booksforall.models;
 
-import java.util.Date;
+//import java.util.Date;
 
 public class UserBookReviewRelation {
 
@@ -9,12 +9,12 @@ public class UserBookReviewRelation {
     private int bookId;
     private String review;
     private String approved;
-    private Date creationDate;
+    private String creationDate;
 
     public UserBookReviewRelation() {
     }
 
-    public UserBookReviewRelation(Integer id, String username, int bookId, String review, String approved, Date creationDate) {
+    public UserBookReviewRelation(Integer id, String username, int bookId, String review, String approved, String creationDate) {
         this.id = id;
         this.username = username;
         this.bookId = bookId;
@@ -57,7 +57,7 @@ public class UserBookReviewRelation {
         return approved;
     }
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
