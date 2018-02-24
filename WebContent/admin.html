@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Books For All</title>
+    <!--CSS-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
+    <!--JS-->
+    <script src="js/libs/jquery-3.2.1.js"></script>
+    <script src="js/libs/bootstrap.min.js"></script>
+    <script src="js/libs/angular.min.js"></script>
+    <script src="js/utils/server.js"></script>
+    <script src="js/controllers/login-controller.js"></script>
+    <script src="js/utils/directives.js"></script>
+</head>
+<body ng-controller="MainController">
+
+<nav class="header navbar navbar-default navbar-fixed-top container-fluid">
+    <div class="navbar-header header-color ">
+        <a href="index.html"><h1 class="logo">BooksForAll</h1></a>
+    </div>
+    <nav class="nav-bar nav-bar-header">
+        <a href="login.html">
+            <button class="btn btn-primary" ng-click="logout()">
+                Logout
+            </button>
+        </a>
+    </nav>
+</nav>
+
+</body>
+</html>

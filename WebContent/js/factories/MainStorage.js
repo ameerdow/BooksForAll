@@ -14,7 +14,15 @@ app.factory('MainStorage', function () {
         searchedBook: [],
         searchBookText: "",
         addNewReview: false,
-        books: []
+        books: [{
+            book:{},
+            reviews:[{
+            }],
+            likes:[{
+            }]
+        }],
+        searchedUsers: {},
+        getUserDetails: {}
     };
 
 

@@ -31,6 +31,7 @@ public class UserServlet extends HttpServlet {
 	private static final String LOGIN = "/login";
 	private static final String LOGOUT = "/logout";
 	private static final String SEARCH_USER = "/search/user/";
+	private static final String DELETE_USER_BY_USERNAME = "/user/delete";
 
 	private final String JSON = "application/json";
 
@@ -156,7 +157,7 @@ public class UserServlet extends HttpServlet {
 					userService.approveReview(Helper.checkSession(request), approveReviewRequest.getReviewId());
 					return;
 				}
-			}
+			} else
 
 			throw new RuntimeException("no function found");
 		} catch (RuntimeException e) {

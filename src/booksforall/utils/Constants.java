@@ -59,7 +59,7 @@ public class Constants {
 			+ " )";
 
 	public static final String CREATE_USERS_BOOKS_LIKE_STATEMENT = "CREATE TABLE " + USERS_BOOKS_LIKE + "( "
-			+ "USERNAME VARCHAR(10) NOT NULL," + "BOOK_ID INTEGER NOT NULL" + " )";
+			+ "USERNAME VARCHAR(10) NOT NULL," + "BOOK_ID INTEGER NOT NULL" + " NICKNAME VARCHAR(20) NOT NULL )";
 
 	/************************************
 	 * User Statements.
@@ -106,7 +106,7 @@ public class Constants {
 	 **************************************/
 
 	public static final String ADD_USER_BOOK_LIKE = " INSERT INTO " + USERS_BOOKS_LIKE
-			+ " (USERNAME,BOOK_ID) VALUES (?,?)";
+			+ " (USERNAME,BOOK_ID,NICKNAME) VALUES (?,?,?)";
 	public static final String DELETE_USER_BOOK_LIKE = " DELETE FROM " + USERS_BOOKS_LIKE
 			+ " WHERE USERNAME=? AND BOOK_ID=?";
 	public static final String SELECT_USER_BOOK_LIKE = " SELECT FROM " + USERS_BOOKS_LIKE

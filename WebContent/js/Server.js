@@ -3,6 +3,8 @@ const Server = {};
 const GET = "GET";
 const POST = "POST";
 
+const proj = "/BooksForAll"
+
 // Get requests
 
 const GET_ALL_USERS = "/users";
@@ -33,12 +35,16 @@ const DELETE_BOOK_BY_ID = "/book/delete";
 const SAVE_READ_BOOK_POSITION = "/book/position";
 
 
+var getUrl = function(url){
+  return proj + url;
+};
+
 const call = function (method, url, data, callback) {
     console.log("Server", "call |data|:", method, url, data);
     if (method == GET) {
         $.ajax({
             method: GET,
-            url: url,
+            url: getUrl(url),
             success: function (response) {
                 console.log("Server", "call |RESPONSE|:", method, url, response);
                 callback(response);
@@ -57,7 +63,7 @@ const call = function (method, url, data, callback) {
     } else if (method == POST) {
         $.ajax({
             method: POST,
-            url: url,
+            url: getUrl(url),
             data: JSON.stringify(data),
             success: function (response) {
                 console.log("Server", "call |RESPONSE|:", method, url, response);

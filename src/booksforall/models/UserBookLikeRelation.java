@@ -4,10 +4,12 @@ public class UserBookLikeRelation {
 
     private String username;
     private int bookId;
+    private String nickname;
 
-    public UserBookLikeRelation(String username, int bookId) {
+    public UserBookLikeRelation(String username, int bookId, String nickname) {
         this.username = username;
         this.bookId = bookId;
+        this.nickname = nickname;
     }
 
     public UserBookLikeRelation(UserBookLikeRelation userBookLikeRelation) {
@@ -20,5 +22,9 @@ public class UserBookLikeRelation {
 
     public int getBookId() {
         return bookId;
+    }
+
+    public String getNickname() {
+        return nickname;
     }
 }

@@ -51,8 +51,6 @@ window.app.controller('RegisterController', ['$scope', function ($scope) {
                     }
                 });
         }
-
-
     };
 
     var validatePassword = function (password, confirmPassword) {

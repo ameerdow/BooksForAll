@@ -29,6 +29,7 @@ public class UserBookRelationDAO {
             PreparedStatement statement = connection.prepareStatement(ADD_USER_BOOK_LIKE);
             statement.setString(1, user.getUsername());
             statement.setInt(2, book.getID());
+            statement.setString(3, user.getNickname());
 
             if (statement.executeUpdate() == 0) {
                 throw new SQLException("Could not add new user ( " + user.getUsername() + " book " + book.getID() + " relation like");
@@ -87,7 +88,8 @@ public class UserBookRelationDAO {
             if (rs.next()) {
                 return new UserBookLikeRelation(
                         rs.getString("USERNAME"),
-                        rs.getInt("BOOK_ID")
+                        rs.getInt("BOOK_ID"),
+                        rs.getString("NICKNAME")
                 );
             } else
                 throw new RuntimeException("There was not relations for user " + user.getUsername() + " and book " + book.getID());
@@ -116,7 +118,8 @@ public class UserBookRelationDAO {
             while (rs.next()) {
                 userBookLikeRelationList.add(new UserBookLikeRelation(
                         rs.getString("USERNAME"),
-                        rs.getInt("BOOK_ID")
+                        rs.getInt("BOOK_ID"),
+                        rs.getString("NICKNAME")
                 ));
             }
         } catch (Exception e) {
@@ -143,7 +146,8 @@ public class UserBookRelationDAO {
             while (rs.next()) {
                 userBookLikeRelationList.add(new UserBookLikeRelation(
                         rs.getString("USERNAME"),
-                        rs.getInt("BOOK_ID")
+                        rs.getInt("BOOK_ID"),
+                        rs.getString("NICKNAME")
                 ));
             }
         } catch (Exception e) {
