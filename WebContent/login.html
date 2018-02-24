@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html ng-app="booksForAll">
+<html ng-app="booksForAll" lang="en">
 <head>
-    <meta charset="uft-8">
-    <title>Login - BooksForAll</title>
+    <meta charset="UTF-8">
+    <title>Login - Books For All</title>
     <!--CSS-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
@@ -17,19 +17,36 @@
 </head>
 <body ng-controller="LoginCtrl" style="display: none">
 
-<nav class="header navbar navbar-default navbar-fixed-top container-fluid">
-    <div class="navbar-header header-color ">
-        <a href="index.html"><h1 class="logo">BooksForAll</h1></a>
-    </div>
-    <nav class="nav-bar nav-bar-header">
-        <a href="register.html">
-            <button class="btn btn-primary">
-                Register For Free
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
             </button>
-        </a>
-    </nav>
+            <a class="navbar-brand" href="index.html"><h1 class="logo">BooksForAll</h1></a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><p class="navbar-text">Signed in as {{user != null && user.username}}</p></li>
+                <li>
+                    <a href="register.html">
+                        <button class="btn navbar-btn btn-primary" ng-click="logout()">
+                            Register For Free
+                        </button>
+                    </a>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div>
 </nav>
-<div class="container-fluid">
+<div class="container-fluid no-padding">
     <div class="top-banner flex-row">
         <div class="spacer"></div>
         <div class="login-layout">

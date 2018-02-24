@@ -303,11 +303,14 @@ public class UserService {
      */
     public void reviewBook(String username, int bookId, String review) {
         Log.l(classFunc, "reviewBook", "Starting");
-        if (validateUsername(username) && !(review.isEmpty()) && validatePurchase(username, bookId)) {
-            UserBookRelationDAO userBookRelationDAO = new UserBookRelationDAO();
-            userBookRelationDAO.addUserBookReview(getUser(username), getBook(bookId), review);
-            updateReviewCountToBookID(bookId, true);
-            return;
+        if (validateUsername(username) && !(review.isEmpty())) {
+            UserBookPurchaseRelation userBookPurchaseRelation = getUserBookPurchase(username, bookId);
+            if (userBookPurchaseRelation != null && !(userBookPurchaseRelation.getUsername().isEmpty())) {
+                UserBookRelationDAO userBookRelationDAO = new UserBookRelationDAO();
+                userBookRelationDAO.addUserBookReview(getUser(username), getBook(bookId), review);
+                updateReviewCountToBookID(bookId, true);
+                return;
+            }
         }
         throw new RuntimeException("review validation failed");
     }
@@ -324,10 +327,16 @@ public class UserService {
         bookDAO.updateReviewCountToBookID(id, add);
     }
 
-    private boolean validatePurchase(String username, int bookId) {
+    /**
+     * get purchase relation
+     * @param username username
+     * @param bookId book id
+     * @return UserBookPurchaseRelation object
+     */
+    public UserBookPurchaseRelation getUserBookPurchase(String username, int bookId) {
         Log.l(classFunc, "validatePurchase", "Starting");
         UserBookRelationDAO userBookRelationDAO = new UserBookRelationDAO();
-        return userBookRelationDAO.getUserBookPurchaseRelation(getUser(username), getBook(bookId)) != null;
+        return userBookRelationDAO.getUserBookPurchaseRelation(getUser(username), getBook(bookId));
     }
 
     /**

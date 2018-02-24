@@ -1,6 +1,6 @@
 window.app = window.app || angular.module('booksForAll', []);
 
-window.app.controller('RegisterController', ['$scope', function ($scope) {
+window.app.controller('RegisterCtrl', ['$scope', function ($scope) {
 
     $scope.countries = Constants.countries;
 
@@ -28,7 +28,7 @@ window.app.controller('RegisterController', ['$scope', function ($scope) {
             if (response.role === "User") {
                 window.location = "index.html";
             } else {
-                window.location = "admin.html";
+                window.location = "../../users.html";
             }
         }
     });

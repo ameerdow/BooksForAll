@@ -11,7 +11,7 @@ app.controller('LoginCtrl', ['$scope', function LoginCtrl($scope) {
             if (response.role === "User") {
                 window.location = "index.html";
             } else {
-                window.location = "admin.html";
+                window.location = "../../users.html";
             }
         }
     });

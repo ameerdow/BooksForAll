@@ -1,17 +1,100 @@
 window.app = window.app || angular.module('booksForAll', []);
 
 const classFunc = "AdminCtrl";
-app.controller('AdminCtrl', ['$scope', 'MainStorage', function LoginCtrl($scope, $storage) {
+app.controller('AdminCtrl', ['$scope', function LoginCtrl($scope) {
 
-    Server.getUserData(function (response, error) {
-        if (error != null) {
-            // not logged in
-            window.location = "login.html";
-        } else {
-            // wait till controller loaded to prevent displayed unstructured angular data
-            $("body").css("display", "block");
+    $scope.user = null;
+
+    // Server.getUserData(function (response, error) {
+    //     if (error != null) {
+    //         // not logged in
+    //         window.location = "login.html";
+    //     } else {
+    //         if (response.role === "User") {
+    //             window.location = "index.html";
+    //         }
+    //         // wait till controller loaded to prevent displayed unstructured angular data
+    //         $("body").css("display", "block");
+    //     }
+    // });
+
+    $scope.user = {
+        "username": "admin",
+        "email": "admin@email.com",
+        "password": "passw0rd",
+        "address": {"street": "admin", "number": 1, "city": "admin", "zip": "1234567", "country": "admin"},
+        "phoneNumber": "0546597762",
+        "nickname": "nickname",
+        "description": "description",
+        "photoUrl": "photoUrl",
+        "role": "Admin",
+        "deleted": "N",
+        "creationDate": "Feb 24, 2018"
+    };
+    $("body").css("display", "block");
+
+    $scope.users = [
+        {
+            "username": "admin1",
+            "email": "admin@email.com",
+            "password": "passw0rd",
+            "address": {"street": "admin", "number": 1, "city": "admin", "zip": "1234567", "country": "admin"},
+            "phoneNumber": "0546597762",
+            "nickname": "nickname",
+            "description": "description",
+            "photoUrl": "photoUrl",
+            "role": "Admin",
+            "deleted": "N",
+            "creationDate": "Feb 24, 2018"
+        }, {
+            "username": "admin2",
+            "email": "admin@email.com",
+            "password": "passw0rd",
+            "address": {"street": "admin", "number": 1, "city": "admin", "zip": "1234567", "country": "admin"},
+            "phoneNumber": "0546597762",
+            "nickname": "nickname",
+            "description": "description",
+            "photoUrl": "photoUrl",
+            "role": "Admin",
+            "deleted": "N",
+            "creationDate": "Feb 24, 2018"
+        }, {
+            "username": "admin3",
+            "email": "admin@email.com",
+            "password": "passw0rd",
+            "address": {"street": "admin", "number": 1, "city": "admin", "zip": "1234567", "country": "admin"},
+            "phoneNumber": "0546597762",
+            "nickname": "nickname",
+            "description": "description",
+            "photoUrl": "photoUrl",
+            "role": "Admin",
+            "deleted": "N",
+            "creationDate": "Feb 24, 2018"
         }
-    });
+    ];
+
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+
+    $scope.initUserDetails = function InitUserDetails() {
+        var username = getParameterByName("username", window.location.href);
+        $scope.userDetails = GetUserDetails(username);
+    };
+
+    
+    $scope.goToUserDetails = function GoToUserDetails(user) {
+        location.href = "user.html?username=" + user.username;
+    };
+
 
     $scope.logout = function Logout() {
         Server.logOut(function (response, error) {
@@ -32,7 +115,7 @@ app.controller('AdminCtrl', ['$scope', 'MainStorage', function LoginCtrl($scope,
             } else {
                 $scope.$apply(function () {
                     console.log("user search returned object : ", response);
-                    $storage.store.searchedUsers = response;
+                    return response;
                 });
             }
         });
@@ -46,7 +129,7 @@ app.controller('AdminCtrl', ['$scope', 'MainStorage', function LoginCtrl($scope,
             } else {
                 $scope.apply(function () {
                     console.log("search user details obj : ", response);
-                    $storage.store.getUserDetails = response;
+                    return response;
                 });
             }
         });
@@ -61,7 +144,7 @@ app.controller('AdminCtrl', ['$scope', 'MainStorage', function LoginCtrl($scope,
             } else {
                 $scope.apply(function () {
                     console.log("search user details obj : ", response);
-                    $storage.store.books = response;
+                    return response;
                 });
             }
         })

@@ -32,6 +32,7 @@ public class UserServlet extends HttpServlet {
     private static final String LOGOUT = "/logout";
     private static final String SEARCH_USER = "/search/user/";
     private static final String DELETE_USER_BY_USERNAME = "/user/delete";
+    private static final String GET_USERNAME_BOOK_PURCHASE = "/user/purchase/";
 
     private final String JSON = "application/json";
 
@@ -84,6 +85,17 @@ public class UserServlet extends HttpServlet {
                 String username = params[0];
                 response.setContentType(JSON);
                 printWriter.println(gson.toJson(userService.getUserByUsername(username)));
+                return;
+            } else if (uri.contains(GET_USERNAME_BOOK_PURCHASE)) {
+                String username = Helper.checkSession(request);
+                String[] params = pathInfo.split("/");
+                if (params.length != 1) {
+                    Log.l(classFunc, "doGet", "No user book purchase relation found to get");
+                    throw new RuntimeException("No user book purchase relation found to get");
+                }
+                int bookId = Integer.parseInt(params[0]);
+                response.setContentType(JSON);
+                printWriter.println(gson.toJson(userService.getUserBookPurchase(username, bookId)));
                 return;
             }
 

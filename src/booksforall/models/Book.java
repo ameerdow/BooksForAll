@@ -13,13 +13,14 @@ public class Book {
     private int reviewCount;
     private String deleted;
     private String filePath;
+    private String iconPath;
     private Date creationDate;
     private Date updateDate;
 
     public Book() {
     }
 
-    public Book(Integer ID, String name,String photo, Double price, String description, int likesCount, int reviewCount, String deleted, String filePath, Date creationDate, Date updateDate) {
+    public Book(Integer ID, String name,String photo, Double price, String description, int likesCount, int reviewCount, String deleted, String filePath,String iconPath, Date creationDate, Date updateDate) {
         this.ID = ID;
         this.name = name;
         this.photo = photo;
@@ -29,6 +30,7 @@ public class Book {
         this.reviewCount = reviewCount;
         this.deleted = deleted;
         this.filePath = filePath;
+        this.iconPath = iconPath;
         this.creationDate = creationDate;
         this.updateDate = updateDate;
     }
@@ -43,6 +45,7 @@ public class Book {
         this.reviewCount = book.getReviewCount();
         this.deleted = book.getDeleted();
         this.filePath = book.getFilePath();
+        this.iconPath = book.getIconPath();
         this.creationDate = book.getCreationDate();
         this.updateDate = book.getUpdateDate();
     }
@@ -133,5 +136,13 @@ public class Book {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public String getIconPath() {
+        return iconPath;
+    }
+
+    public void setIconPath(String iconPath) {
+        this.iconPath = iconPath;
     }
 }

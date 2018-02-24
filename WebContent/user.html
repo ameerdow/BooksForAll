@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="booksForAll" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin - Books For All</title>
+    <title>Admin - User - Books For All</title>
     <!--CSS-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
@@ -19,7 +19,7 @@
 
 <nav class="header navbar navbar-default navbar-fixed-top container-fluid">
     <div class="navbar-header header-color ">
-        <a href="admin.html"><h1 class="logo">BooksForAll</h1></a>
+        <a href="users.html"><h1 class="logo">BooksForAll</h1></a>
     </div>
     <nav class="nav-bar nav-bar-header">
         <a href="login.html">
@@ -29,6 +29,10 @@
         </a>
     </nav>
 </nav>
+
+<div class="container" data-ng-init="initUserDetails()">
+
+</div>
 
 </body>
 </html>

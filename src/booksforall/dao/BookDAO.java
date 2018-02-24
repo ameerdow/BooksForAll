@@ -42,6 +42,7 @@ public class BookDAO {
                         rs.getInt("REVIEWS_NUM"),
                         rs.getString("DELETED"),
                         rs.getString("FILE_PATH"),
+                        rs.getString("ICON_PATH"),
                         rs.getDate("SYS_CREATION_DATE"),
                         rs.getDate("SYS_UPDATE_DATE")
                 ));
@@ -82,6 +83,7 @@ public class BookDAO {
                         rs.getInt("REVIEWS_NUM"),
                         rs.getString("DELETED"),
                         rs.getString("FILE_PATH"),
+                        rs.getString("ICON_PATH"),
                         rs.getDate("SYS_CREATION_DATE"),
                         rs.getDate("SYS_UPDATE_DATE")
                 ));
@@ -119,6 +121,7 @@ public class BookDAO {
                         rs.getInt("REVIEWS_NUM"),
                         rs.getString("DELETED"),
                         rs.getString("FILE_PATH"),
+                        rs.getString("ICON_PATH"),
                         rs.getDate("SYS_CREATION_DATE"),
                         rs.getDate("SYS_UPDATE_DATE")
                 );
@@ -157,6 +160,7 @@ public class BookDAO {
                         rs.getInt("REVIEWS_NUM"),
                         rs.getString("DELETED"),
                         rs.getString("FILE_PATH"),
+                        rs.getString("ICON_PATH"),
                         rs.getDate("SYS_CREATION_DATE"),
                         rs.getDate("SYS_UPDATE_DATE")
                 );
