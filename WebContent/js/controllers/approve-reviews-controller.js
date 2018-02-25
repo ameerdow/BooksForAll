@@ -43,12 +43,12 @@ app.controller('ApproveReviewsCtrl', ['$scope', function ($scope) {
     // }, 500);
 
     $scope.rejectReview = function (review) {
-        Server.approveReview(review.ID, function (s, error) {
+        Server.rejectReview(review.id, function (s, error) {
             window.location.reload(true);
         });
     };
     $scope.approveReview = function (review) {
-        Server.approveReview(review.ID, function (s, error) {
+        Server.approveReview(review.id, function (s, error) {
             window.location.reload(true);
         });
     };

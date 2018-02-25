@@ -125,7 +125,7 @@ public class Constants {
     public static final String REJECT_USER_BOOK_REVIEW = "UPDATE " + USERS_BOOKS_REVIEW
             + " SET APPROVED = 'N' WHERE ID = ?";
     public static final String GET_USER_PENDING_BOOK_REVIEW = "SELECT * FROM " + USERS_BOOKS_REVIEW
-            + " WHERE 1=1";
+            + " WHERE APPROVED='P'";
     public static final String SELECT_BOOK_REVIEWS = "SELECT * FROM " + USERS_BOOKS_REVIEW + " WHERE BOOK_ID = ?";
     public static final String GET_REVIEW_BY_ID = "SELECT * FROM " + USERS_BOOKS_REVIEW + " WHERE ID = ?";
 

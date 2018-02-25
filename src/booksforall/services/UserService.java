@@ -6,9 +6,7 @@ import booksforall.dao.UserDAO;
 import booksforall.models.*;
 import booksforall.utils.Log;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -96,7 +94,7 @@ public class UserService {
             if (username.equals("admin"))
                 userRole = "Admin";
             user = new User(username, email, password, address, phoneNumber, nickname, description, photoUrl,
-                    userRole, "N","", null);
+                    userRole, "N", "", null);
             UserDAO userDAO = new UserDAO();
             userDAO.addNewUser(user, password);
             return user;
@@ -304,13 +302,12 @@ public class UserService {
     public void reviewBook(String username, int bookId, String review) {
         Log.l(classFunc, "reviewBook", "Starting");
         if (validateUsername(username) && !(review.isEmpty())) {
-            UserBookPurchaseRelation userBookPurchaseRelation = getUserBookPurchase(username, bookId);
-            if (userBookPurchaseRelation != null && !(userBookPurchaseRelation.getUsername().isEmpty())) {
-                UserBookRelationDAO userBookRelationDAO = new UserBookRelationDAO();
-                userBookRelationDAO.addUserBookReview(getUser(username), getBook(bookId), review);
-                updateReviewCountToBookID(bookId, true);
-                return;
-            }
+//            UserBookPurchaseRelation userBookPurchaseRelation = getUserBookPurchase(username, bookId);
+//            if (userBookPurchaseRelation != null && !(userBookPurchaseRelation.getUsername().isEmpty())) {
+            UserBookRelationDAO userBookRelationDAO = new UserBookRelationDAO();
+            userBookRelationDAO.addUserBookReview(getUser(username), getBook(bookId), review);
+            updateReviewCountToBookID(bookId, true);
+            return;
         }
         System.out.println("review validation failed, " + review);
     }
@@ -329,8 +326,9 @@ public class UserService {
 
     /**
      * get purchase relation
+     *
      * @param username username
-     * @param bookId book id
+     * @param bookId   book id
      * @return UserBookPurchaseRelation object
      */
     public UserBookPurchaseRelation getUserBookPurchase(String username, int bookId) {
@@ -354,6 +352,7 @@ public class UserService {
                     .approveUserBookReview(new UserBookReviewRelation(userBookRelationDAO.getReviewByID(reviewId)));
         }
     }
+
     /**
      * reject review
      *
@@ -369,6 +368,7 @@ public class UserService {
                     .rejectUserBookReview(new UserBookReviewRelation(userBookRelationDAO.getReviewByID(reviewId)));
         }
     }
+
     /**
      * get pending review
      *

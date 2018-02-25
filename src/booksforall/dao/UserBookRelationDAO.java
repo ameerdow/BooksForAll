@@ -182,7 +182,7 @@ public class UserBookRelationDAO {
 			statement.setString(1, user.getUsername());
 			statement.setInt(2, book.getID());
 			statement.setString(3, review);
-			statement.setString(4, "N");
+			statement.setString(4, "P");
 
 			if (statement.executeUpdate() == 0) {
 				throw new SQLException("Could not add new user ( " + user.getUsername() + " book " + book.getID()
