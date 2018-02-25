@@ -152,7 +152,7 @@ public class UserDAO {
             throw new RuntimeException("Username already exists");
         } catch (Exception e) {
             Log.e(classFunc, "addNewUser", "Exception, Error adding user :" + user.getUsername() + ", " + e.getMessage(), e);
-            throw new RuntimeException(e);
+            
         }
     }
 

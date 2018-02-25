@@ -183,7 +183,6 @@ public class UserBookRelationDAO {
 			statement.setInt(2, book.getID());
 			statement.setString(3, review);
 			statement.setString(4, "N");
-			statement.setDate(5, date);
 
 			if (statement.executeUpdate() == 0) {
 				throw new SQLException("Could not add new user ( " + user.getUsername() + " book " + book.getID()
@@ -378,8 +377,7 @@ public class UserBookRelationDAO {
 					return new UserBookPurchaseRelation(rs.getString("USERNAME"), rs.getInt("BOOK_ID"),
 							rs.getDouble("PRICE"), rs.getDate("SYS_CREATION_DATE"));
 				} else {
-					throw new RuntimeException(
-							"no purchase found for username " + user.getUsername() + " and book " + book.getID());
+					
 				}
 			} catch (Exception e) {
 				Log.e(classFunc, "getUserBookPurchaseRelation", e.getMessage(), e);
@@ -431,8 +429,8 @@ public class UserBookRelationDAO {
 			while (rs.next()) {
 				booksList.add(new Book(rs.getInt("ID"), rs.getString("NAME"), rs.getDouble("PRICE"),
 						rs.getString("DESCRIPTION"), rs.getInt("LIKES_NUM"), rs.getInt("REVIEWS_NUM"),
-						rs.getString("DELETED"), rs.getString("FILE_PATH"), rs.getString("ICON_PATH"),
-						rs.getDate("SYS_CREATION_DATE"), rs.getDate("SYS_UPDATE_DATE")));
+						rs.getString("DELETED"), rs.getString("FILE_PATH"), rs.getString("FILE_PRE_PATH"),
+						rs.getString("ICON_PATH"), rs.getDate("SYS_CREATION_DATE"), rs.getDate("SYS_UPDATE_DATE")));
 			}
 		} catch (Exception e) {
 			Log.e(classFunc, "getAllBooksNotPurchasedByUserID", e.getMessage(), e);
@@ -454,13 +452,14 @@ public class UserBookRelationDAO {
 
 		try (Connection connection = new DBConnection().getConnection()) {
 			PreparedStatement statement = connection.prepareStatement(GET_ALL_BOOKS_PURCHASED_BY_USER);
+			statement.setString(1, user.getUsername());
 			ResultSet rs = statement.executeQuery();
 
 			while (rs.next()) {
 				booksList.add(new Book(rs.getInt("ID"), rs.getString("NAME"), rs.getDouble("PRICE"),
 						rs.getString("DESCRIPTION"), rs.getInt("LIKES_NUM"), rs.getInt("REVIEWS_NUM"),
-						rs.getString("DELETED"), rs.getString("FILE_PATH"), rs.getString("ICON_PATH"),
-						rs.getDate("SYS_CREATION_DATE"), rs.getDate("SYS_UPDATE_DATE")));
+						rs.getString("DELETED"), rs.getString("FILE_PATH"), rs.getString("FILE_PRE_PATH"),
+						rs.getString("ICON_PATH"), rs.getDate("SYS_CREATION_DATE"), rs.getDate("SYS_UPDATE_DATE")));
 			}
 		} catch (Exception e) {
 			Log.e(classFunc, "getAllBooksPurchasedByUserID", e.getMessage(), e);

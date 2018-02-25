@@ -2,8 +2,10 @@ package booksforall.main;
 
 import booksforall.db.InitDatabase;
 import booksforall.models.Address;
+import booksforall.models.Book;
 import booksforall.models.User;
 import booksforall.models.UserBookReviewRelation;
+import booksforall.services.BookService;
 import booksforall.services.UserService;
 import booksforall.utils.Log;
 import com.google.gson.Gson;
@@ -40,12 +42,14 @@ public class BooksForAll {
         Log.l(classFunc, "initUsers", "Starting");
 
         UserService service = new UserService();
+        BookService bookService = new BookService();
 
         //adding admin user
         Address address = new Address("street ", 1, "admin", "1234567", "admin");
         service.addUser("admin", "admin@email.com", "passw0rd", address, "0546597762", "nickname", "description", "photoUrl");
 
         List<User> users = getMockUsers();
+
         List<UserBookReviewRelation> userBookReviewRelations = getMockReviews();
         if (users != null) {
             // adding 20 user to the system
@@ -53,7 +57,7 @@ public class BooksForAll {
                 service.addUser(user.getUsername(), user.getEmail(), user.getPassword(), user.getAddress(), user.getPhoneNumber(), user.getNickname(), user.getDescription(), user.getPhotoUrl());
             }
         }
-
+        bookService.addBook();
         if(userBookReviewRelations != null){
             for(UserBookReviewRelation reviewRelation: userBookReviewRelations){
                 service.reviewBook(reviewRelation.getUsername(),reviewRelation.getBookId(),reviewRelation.getReview());
@@ -87,7 +91,6 @@ public class BooksForAll {
         }
         return null;
     }
-
 
     public static void main(String[] args ){
         try {

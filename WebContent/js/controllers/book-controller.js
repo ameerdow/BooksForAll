@@ -38,7 +38,7 @@ app.controller('BookCtrl', ['$scope', function BookCtrl($scope) {
     //             "filePath": "books/1.html",
     //             "filePrePath": "books/1-pre.html",
     //             "iconPath": "books/1.jpg",
-    //             "purchased": true,
+    //             "isPurchased": true,
     //             "position": 0,
     //             "likers": [{username: "admin", nickname: "admin"}, {username: "ameerdow", nickname: "ameerdow1"}],
     //             "reviews": [{
@@ -59,18 +59,21 @@ app.controller('BookCtrl', ['$scope', function BookCtrl($scope) {
     // }, 500);
 
     $scope.bookHtmlLoaded = function () {
-        if ($scope.book.purchased) {
-            $("html, body").animate({scrollTop: ($('body').height() * (parseFloat($scope.book.position) / 100)) + "px"}, 1000);
+        if ($scope.book.isPurchased) {
+            setTimeout(function () {
+                $("html, body").animate({scrollTop: ($('body').height() * (parseFloat($scope.book.position) / 100)) + "px"}, 1000);
+            },1000)
+
         }
 
         setTimeout(function () {
             window.addEventListener("scroll", function () {
-                if ($scope.book.purchased) {
+                if ($scope.book.isPurchased) {
                     $("#progress").css("width", ((window.scrollY * 100) / $('body').height()) + "%");
                 }
             });
 
-            if ($scope.book.purchased) {
+            if ($scope.book.isPurchased) {
                 setInterval(function () {
                     Server.saveReadPositionBook($scope.bookId, ((window.scrollY * 100) / $('body').height()), function () {
                     });
@@ -96,15 +99,20 @@ app.controller('BookCtrl', ['$scope', function BookCtrl($scope) {
 
     $scope.likeBook = function () {
         Server.likeBook($scope.bookId, function (response, error) {
-            if (error != null) {
-                alert(error);
-                return;
-            }
             window.location.reload(true);
         });
     };
 
-    $scope.reviewBook = function () {
+    $scope.reviewBook = function (text) {
+        Server.reviewBook($scope.bookId, text, function (response, error) {
 
+            window.location.reload(true);
+        })
     };
+
+    $scope.purchase = function () {
+        Server.buyBook($scope.bookId, $scope.book.price, function (response, error) {
+            window.location.reload(true);
+        })
+    }
 }]);

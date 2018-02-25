@@ -35,6 +35,15 @@ public class BookService {
         BookDAO bookDAO = new BookDAO();
         return bookDAO.getBookByID(id);
     }
+    /**
+     * add book
+     * @return Book object
+     */
+    public void addBook() {
+        Log.l(classFunc, "addBook", "Starting");
+        BookDAO bookDAO = new BookDAO();
+        bookDAO.addBook();
+    }
 
     /**
      * Get book by id

@@ -23,7 +23,7 @@
 <div class="container">
     <ol class="breadcrumb">
         <li><a href="index.html">BookForAll</a></li>
-        <li><a href='{{book.purchased ? "my-books.html" : "index.html"}}'>{{book.purchased ? "My Books" :
+        <li><a href='{{book.isPurchased ? "my-books.html" : "index.html"}}'>{{book.isPurchased ? "My Books" :
             "Explore"}}</a></li>
         <li class="active">{{book.name}}</li>
     </ol>
@@ -55,16 +55,16 @@
         </div>
 
         <br/>
-        <button class="btn {{isLiked() ? 'btn-default' : 'btn-primary'}}" ng-show="book.purchased"
+        <button class="btn {{isLiked() ? 'btn-default' : 'btn-primary'}}" ng-show="book.isPurchased"
                 ng-click="likeBook()">
             {{isLiked() ? "Unlike" : "Like"}}
         </button>
-        <button class="btn btn-primary" ng-show="book.purchased" data-toggle="modal" data-target="#reviewModal">
+        <button class="btn btn-primary" ng-show="book.isPurchased" data-toggle="modal" data-target="#reviewModal">
             Review
         </button>
     </div>
 
-    <div class="book-not-purchased-container ng-hide" ng-show="!book.purchased">
+    <div class="book-not-purchased-container ng-hide" ng-show="!book.isPurchased">
         <div class="book-data" ng-include="book.filePrePath"></div>
         <div class="book-overlay"></div>
         <div class="book-purchase">
@@ -79,7 +79,7 @@
             </button>
         </div>
     </div>
-    <div class="book-purchased-container ng-hide" ng-show="book.purchased" ng-include="book.filePath"
+    <div class="book-purchased-container ng-hide" ng-show="book.isPurchased" ng-include="book.filePath"
          onload="bookHtmlLoaded()">
 
     </div>
@@ -99,12 +99,12 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="message-text" class="control-label">Review Text:</label>
-                    <textarea class="form-control" id="message-text"></textarea>
+                    <textarea class="form-control" id="message-text" ng-model="reviewText"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send Review</button>
+                <button type="button" class="btn btn-primary" ng-click="reviewBook(reviewText)">Send Review</button>
             </div>
         </div>
     </div>

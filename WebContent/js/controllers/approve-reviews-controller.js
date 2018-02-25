@@ -44,19 +44,11 @@ app.controller('ApproveReviewsCtrl', ['$scope', function ($scope) {
 
     $scope.rejectReview = function (review) {
         Server.approveReview(review.ID, function (s, error) {
-            if (error != null) {
-                alert(error);
-                return;
-            }
             window.location.reload(true);
         });
     };
     $scope.approveReview = function (review) {
         Server.approveReview(review.ID, function (s, error) {
-            if (error != null) {
-                alert(error);
-                return;
-            }
             window.location.reload(true);
         });
     };

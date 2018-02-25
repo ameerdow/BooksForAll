@@ -76,10 +76,6 @@ app.controller('UserCtrl', ['$scope', function ($scope) {
 
     $scope.deleteUser = function () {
         Server.deleteUser($scope.selectedUser.username, function (response, error) {
-            if (error != null) {
-                alert(error);
-                return;
-            }
             window.location = "all-users.html";
         })
     };

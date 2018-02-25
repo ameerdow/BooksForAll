@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet(name = "UserServlet", description = "User servlet manage all user operations", urlPatterns = {"/users",
-        "/user/*", "/user", "/login", "/review", "/logout", "/search/user/*"})
+        "/user/*", "/user", "/login", "/review/*", "/logout", "/search/user/*"})
 
 public class UserServlet extends HttpServlet {
 

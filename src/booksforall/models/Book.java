@@ -13,6 +13,7 @@ public class Book {
     private int reviewCount;
     private String deleted;
     private String filePath;
+    private String filePrePath;
     private Date creationDate;
     private Date updateDate;
     private String iconPath;
@@ -21,11 +22,12 @@ public class Book {
     private List<UserDetails> likers;
     private List<ReviewResponse> reviews;
     private Boolean isPurchased;
+    private Float position;
 
     public Book() {
     }
 
-    public Book(Integer ID, String name, Double price, String description, int likesCount, int reviewCount, String deleted, String filePath,String iconPath, Date creationDate, Date updateDate) {
+    public Book(Integer ID, String name, Double price, String description, int likesCount, int reviewCount, String deleted, String filePath,String filePrePath, String iconPath, Date creationDate, Date updateDate) {
         this.ID = ID;
         this.name = name;
         this.price = price;
@@ -34,12 +36,13 @@ public class Book {
         this.reviewCount = reviewCount;
         this.deleted = deleted;
         this.filePath = filePath;
+        this.filePrePath = filePrePath;
         this.iconPath = iconPath;
         this.creationDate = creationDate;
         this.updateDate = updateDate;
     }
 
-    public Book(Book book){
+    public Book(Book book) {
         this.ID = book.getID();
         this.name = book.getName();
         this.price = book.getPrice();
@@ -156,4 +159,28 @@ public class Book {
     public void setReviews(List<ReviewResponse> reviews) {
         this.reviews = reviews;
     }
+
+    public Boolean getPurchased() {
+        return isPurchased;
+    }
+
+    public void setPurchased(Boolean purchased) {
+        isPurchased = purchased;
+    }
+
+    public String getFilePrePath() {
+        return filePrePath;
+    }
+
+    public void setFilePrePath(String filePrePath) {
+        this.filePrePath = filePrePath;
+    }
+
+	public Float getPosition() {
+		return position;
+	}
+
+	public void setPosition(Float position) {
+		this.position = position;
+	}
 }

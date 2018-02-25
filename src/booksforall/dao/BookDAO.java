@@ -41,6 +41,7 @@ public class BookDAO {
                         rs.getInt("REVIEWS_NUM"),
                         rs.getString("DELETED"),
                         rs.getString("FILE_PATH"),
+                        rs.getString("FILE_PRE_PATH"),
                         rs.getString("ICON_PATH"),
                         rs.getDate("SYS_CREATION_DATE"),
                         rs.getDate("SYS_UPDATE_DATE")
@@ -52,6 +53,49 @@ public class BookDAO {
         return booksList;
     }
 
+
+    public void addBook() {
+        Log.l(classFunc, "addBook", "Starting");
+
+        try (Connection connection = new DBConnection().getConnection()) {
+
+            String query1 = "INSERT INTO " + BOOKS + " (NAME,PRICE,DESCRIPTION,CATEGORY,LIKES_NUM,REVIEWS_NUM,DELETED,SYS_CREATION_DATE,SYS_UPDATE_DATE,FILE_PATH,FILE_PRE_PATH,ICON_PATH) VALUES('name1',12.1,'book 1','horror',1,2,'N',null,NULL ,'books/1.html','books/1-pre.html','books/1.jpg')";
+            String query2 = "INSERT INTO " + BOOKS + " (NAME,PRICE,DESCRIPTION,CATEGORY,LIKES_NUM,REVIEWS_NUM,DELETED,SYS_CREATION_DATE,SYS_UPDATE_DATE,FILE_PATH,FILE_PRE_PATH,ICON_PATH) VALUES('name2',12.1,'book 1','horror',1,2,'N',NULL,NULL ,'books/2.html','books/2-pre.html','books/2.jpg')";
+            String query3 = "INSERT INTO " + BOOKS + " (NAME,PRICE,DESCRIPTION,CATEGORY,LIKES_NUM,REVIEWS_NUM,DELETED,SYS_CREATION_DATE,SYS_UPDATE_DATE,FILE_PATH,FILE_PRE_PATH,ICON_PATH) VALUES('name3',12.1,'book 1','horror',1,2,'N',NULL,NULL ,'books/3.html','books/3-pre.html','books/3.jpg')";
+            String query4 = "INSERT INTO " + BOOKS + " (NAME,PRICE,DESCRIPTION,CATEGORY,LIKES_NUM,REVIEWS_NUM,DELETED,SYS_CREATION_DATE,SYS_UPDATE_DATE,FILE_PATH,FILE_PRE_PATH,ICON_PATH) VALUES('name4',12.1,'book 1','horror',1,2,'N',NULL,NULL ,'books/4.html','books/4-pre.html','books/4.jpg')";
+            String query5 = "INSERT INTO " + BOOKS + " (NAME,PRICE,DESCRIPTION,CATEGORY,LIKES_NUM,REVIEWS_NUM,DELETED,SYS_CREATION_DATE,SYS_UPDATE_DATE,FILE_PATH,FILE_PRE_PATH,ICON_PATH) VALUES('name5',12.1,'book 1','horror',1,2,'N',NULL,NULL ,'books/5.html','books/5-pre.html','books/5.jpg')";
+            String query6 = "INSERT INTO " + BOOKS + " (NAME,PRICE,DESCRIPTION,CATEGORY,LIKES_NUM,REVIEWS_NUM,DELETED,SYS_CREATION_DATE,SYS_UPDATE_DATE,FILE_PATH,FILE_PRE_PATH,ICON_PATH) VALUES('name6',12.1,'book 1','horror',1,2,'N',NULL,NULL ,'books/6.html','books/6-pre.html','books/6.jpg')";
+            String query7 = "INSERT INTO " + BOOKS + " (NAME,PRICE,DESCRIPTION,CATEGORY,LIKES_NUM,REVIEWS_NUM,DELETED,SYS_CREATION_DATE,SYS_UPDATE_DATE,FILE_PATH,FILE_PRE_PATH,ICON_PATH) VALUES('name7',12.1,'book 1','horror',1,2,'N',NULL,NULL ,'books/7.html','books/7-pre.html','books/7.jpg')";
+            String query8 = "INSERT INTO " + BOOKS + " (NAME,PRICE,DESCRIPTION,CATEGORY,LIKES_NUM,REVIEWS_NUM,DELETED,SYS_CREATION_DATE,SYS_UPDATE_DATE,FILE_PATH,FILE_PRE_PATH,ICON_PATH) VALUES('name8',12.1,'book 1','horror',1,2,'N',NULL,NULL ,'books/8.html','books/8-pre.html','books/8.jpg')";
+            String query9 = "INSERT INTO " + BOOKS + " (NAME,PRICE,DESCRIPTION,CATEGORY,LIKES_NUM,REVIEWS_NUM,DELETED,SYS_CREATION_DATE,SYS_UPDATE_DATE,FILE_PATH,FILE_PRE_PATH,ICON_PATH) VALUES('name9',12.1,'book 1','horror',1,2,'N',NULL,NULL ,'books/9.html','books/9-pre.html','books/9.jpg')";
+            String query10 = "INSERT INTO " + BOOKS + "(NAME,PRICE,DESCRIPTION,CATEGORY,LIKES_NUM,REVIEWS_NUM,DELETED,SYS_CREATION_DATE,SYS_UPDATE_DATE,FILE_PATH,FILE_PRE_PATH,ICON_PATH) VALUES('name10',12.1,'book 1','horror',1,2,'N',NULL ,NULL ,'books/10.html','books/10-pre.html','books/10.jpg')";
+            PreparedStatement statement = connection.prepareStatement(query1);
+            statement.executeUpdate();
+            statement = connection.prepareStatement(query2);
+            statement.executeUpdate();
+            statement = connection.prepareStatement(query3);
+            statement.executeUpdate();
+            statement = connection.prepareStatement(query4);
+            statement.executeUpdate();
+            statement = connection.prepareStatement(query5);
+            statement.executeUpdate();
+            statement = connection.prepareStatement(query6);
+            statement.executeUpdate();
+            statement = connection.prepareStatement(query7);
+            statement.executeUpdate();
+            statement = connection.prepareStatement(query8);
+            statement.executeUpdate();
+            statement = connection.prepareStatement(query9);
+            statement.executeUpdate();
+            statement = connection.prepareStatement(query10);
+            statement.executeUpdate();
+
+            connection.commit();
+            connection.close();
+        } catch (Exception e) {
+            Log.e(classFunc, "getAllBooks", "Error getting books", e);
+        }
+    }
 
     /**
      * Get all the books which has the same name
@@ -81,6 +125,7 @@ public class BookDAO {
                         rs.getInt("REVIEWS_NUM"),
                         rs.getString("DELETED"),
                         rs.getString("FILE_PATH"),
+                        rs.getString("FILE_PRE_PATH"),
                         rs.getString("ICON_PATH"),
                         rs.getDate("SYS_CREATION_DATE"),
                         rs.getDate("SYS_UPDATE_DATE")
@@ -118,6 +163,7 @@ public class BookDAO {
                         rs.getInt("REVIEWS_NUM"),
                         rs.getString("DELETED"),
                         rs.getString("FILE_PATH"),
+                        rs.getString("FILE_PRE_PATH"),
                         rs.getString("ICON_PATH"),
                         rs.getDate("SYS_CREATION_DATE"),
                         rs.getDate("SYS_UPDATE_DATE")
@@ -156,6 +202,7 @@ public class BookDAO {
                         rs.getInt("REVIEWS_NUM"),
                         rs.getString("DELETED"),
                         rs.getString("FILE_PATH"),
+                        rs.getString("FILE_PRE_PATH"),
                         rs.getString("ICON_PATH"),
                         rs.getDate("SYS_CREATION_DATE"),
                         rs.getDate("SYS_UPDATE_DATE")

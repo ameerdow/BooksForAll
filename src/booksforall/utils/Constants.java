@@ -43,7 +43,8 @@ public class Constants {
             + " NAME VARCHAR(10) NOT NULL UNIQUE, " + "PRICE DOUBLE NOT NULL, "
             + "DESCRIPTION VARCHAR(50) NOT NULL, " + "CATEGORY VARCHAR(50) NOT NULL, " + "LIKES_NUM INTEGER, " + "REVIEWS_NUM INTEGER, "
             + "DELETED VARCHAR(1), " + "SYS_CREATION_DATE DATE, " + "SYS_UPDATE_DATE DATE,"
-            + "FILE_PATH VARCHAR(500) NOT NULL" + ", ICON_PATH VARCHAR(500) NOT NULL )";
+            + "FILE_PATH VARCHAR(500) NOT NULL," + " FILE_PRE_PATH VARCHAR(500) NOT NULL" +
+            ", ICON_PATH VARCHAR(500) NOT NULL )";
 
     public static final String CREATE_USERS_BOOKS_PURCHASE_STATEMENT = "CREATE TABLE " + USERS_BOOKS_PURCHASE + "( "
             + "USERNAME VARCHAR(10) NOT NULL," + "BOOK_ID INTEGER NOT NULL," + "PRICE DOUBLE NOT NULL,"
@@ -85,6 +86,9 @@ public class Constants {
      * Book Statements.
      **************************************/
 
+    public static final String ADD_BOOK = "INSERT INTO " + BOOKS
+            + " (NAME,PRICE,DESCRIPTION,CATEGORY,LIKES_NUM,REVIEWS_NUM,DELETED,SYS_CREATION_DATE,SYS_UPDATE_DATE,FILE_PATH,ICON_PATH)"
+            + " VALUES(?,?,?,?,?,?,?,?,?,?,?)";
     public static final String SELECT_ALL_BOOKS = " SELECT * FROM " + BOOKS;
     public static final String SELECT_BOOKS_BY_BOOK_NAME = " SELECT * FROM " + BOOKS + " WHERE NAME LIKE '%?%'";
     public static final String SELECT_BOOK_BY_ID = " SELECT * FROM " + BOOKS + " WHERE ID=?";
@@ -109,24 +113,24 @@ public class Constants {
             + " (USERNAME,BOOK_ID,NICKNAME) VALUES (?,?,?)";
     public static final String DELETE_USER_BOOK_LIKE = " DELETE FROM " + USERS_BOOKS_LIKE
             + " WHERE USERNAME=? AND BOOK_ID=?";
-    public static final String SELECT_USER_BOOK_LIKE = " SELECT FROM " + USERS_BOOKS_LIKE
+    public static final String SELECT_USER_BOOK_LIKE = " SELECT * FROM " + USERS_BOOKS_LIKE
             + " WHERE USERNAME=? AND BOOK_ID=?";
-    public static final String SELECT_USER_BOOK_LIKE_BY_USER = " SELECT FROM " + USERS_BOOKS_LIKE + " WHERE USERNAME=?";
-    public static final String SELECT_USER_BOOK_LIKE_BY_BOOK = " SELECT FROM " + USERS_BOOKS_LIKE + " WHERE BOOK_ID=?";
+    public static final String SELECT_USER_BOOK_LIKE_BY_USER = " SELECT * FROM " + USERS_BOOKS_LIKE + " WHERE USERNAME=?";
+    public static final String SELECT_USER_BOOK_LIKE_BY_BOOK = " SELECT * FROM " + USERS_BOOKS_LIKE + " WHERE BOOK_ID=?";
 
     public static final String ADD_USER_BOOK_REVIEW = "INSERT INTO " + USERS_BOOKS_REVIEW
-            + " (USERNAME,BOOK_ID,REVIEW,APPROVED,SYS_CREATION_DATE VALUES (?,?,?,?,?)";
+            + " (USERNAME,BOOK_ID,REVIEW,APPROVED) VALUES (?,?,?,?)";
     public static final String APPROVE_USER_BOOK_REVIEW = "UPDATE " + USERS_BOOKS_REVIEW
             + " SET APPROVED = 'Y' WHERE ID = ?";
     public static final String REJECT_USER_BOOK_REVIEW = "UPDATE " + USERS_BOOKS_REVIEW
             + " SET APPROVED = 'N' WHERE ID = ?";
     public static final String GET_USER_PENDING_BOOK_REVIEW = "SELECT * FROM " + USERS_BOOKS_REVIEW
-            + " WHERE APPROVED = 'P' AND ID = ?";
+            + " WHERE 1=1";
     public static final String SELECT_BOOK_REVIEWS = "SELECT * FROM " + USERS_BOOKS_REVIEW + " WHERE BOOK_ID = ?";
     public static final String GET_REVIEW_BY_ID = "SELECT * FROM " + USERS_BOOKS_REVIEW + " WHERE ID = ?";
 
     public static final String ADD_USER_BOOK_PURCHASE = "INSERT INTO " + USERS_BOOKS_PURCHASE
-            + " (USERNAME,BOOK_ID,PRICE,SYS_CREATION_DATE) " + "VALUES (?,?,?,SYSDATE)";
+            + " (USERNAME,BOOK_ID,PRICE,SYS_CREATION_DATE) " + "VALUES (?,?,?,NULL)";
     public static final String GET_USER_BOOK_PURCHASE = "SELECT * FROM " + USERS_BOOKS_PURCHASE
             + " WHERE USERNAME=? AND BOOK_ID=?";
     public static final String GET_ALL_PURCHASES = "SELECT * FROM " + USERS_BOOKS_PURCHASE;
@@ -137,7 +141,7 @@ public class Constants {
             + " ( SELECT BOOK_ID FROM " + USERS_BOOKS_PURCHASE + " WHERE USERNAME = ? )";
 
     public static final String ADD_USER_BOOK_POSITION = "INSERT INTO " + USERS_BOOKS_POSITION
-            + " (USERNAME,BOOK_ID,POSITION,SYS_CREATION_DATE) " + "VALUES (?,?,?,?)";
+            + " (USERNAME,BOOK_ID,POSITION,SYS_CREATION_DATE) " + "VALUES (?,?,?,NULL)";
     public static final String GET_USER_BOOK_POSITION = "SELECT * FROM " + USERS_BOOKS_POSITION
             + " WHERE USERNAME=? AND BOOK_ID=?";
     public static final String SET_USER_BOOK_POSITION = "UPDATE " + USERS_BOOKS_POSITION
