@@ -10,31 +10,32 @@ function getParameterByName(name, url) {
 
 
 function checkUserData($scope) {
-    // Server.getUserData(function (response, error) {
-    //     if (error != null) {
-    //         // not logged in
-    //         window.location = "login.html";
-    //     } else {
-    //         // wait till controller loaded to prevent displayed unstructured angular data
-    //         $scope.$apply(function () {
-    //             $scope.user = response;
-    //             $("body").css("display", "block");
-    //         });
-    //     }
-    // });
+    Server.getUserData(function (response, error) {
+        if (error != null) {
+            // not logged in
+            window.location = "login.html";
+        } else {
+            // wait till controller loaded to prevent displayed unstructured angular data
+            $scope.$apply(function () {
+                $scope.user = response;
+                $scope.loadData && $scope.loadData();
+                $("body").css("display", "block");
+            });
+        }
+    });
 
-    $scope.user = {
-        "username": "admin",
-        "email": "admin@email.com",
-        "password": "passw0rd",
-        "address": {"street": "admin", "number": 1, "city": "admin", "zip": "1234567", "country": "admin"},
-        "phoneNumber": "0546597762",
-        "nickname": "nickname",
-        "description": "description",
-        "photoUrl": "photoUrl",
-        "role": "Admin",
-        "deleted": "N",
-        "creationDate": "Feb 24, 2018"
-    };
-    $("body").css("display", "block");
+    // $scope.user = {
+    //     "username": "admin",
+    //     "email": "admin@email.com",
+    //     "password": "passw0rd",
+    //     "address": {"street": "admin", "number": 1, "city": "admin", "zip": "1234567", "country": "admin"},
+    //     "phoneNumber": "0546597762",
+    //     "nickname": "nickname",
+    //     "description": "description",
+    //     "photoUrl": "photoUrl",
+    //     "role": "Admin",
+    //     "deleted": "N",
+    //     "creationDate": "Feb 24, 2018"
+    // };
+    // $("body").css("display", "block");
 }

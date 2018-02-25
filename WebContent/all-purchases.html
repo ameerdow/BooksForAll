@@ -26,6 +26,28 @@
         <li class="admin-tab">Admin</li>
         <li class="active">All Purchases</li>
     </ol>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>BookId</th>
+                <th>Price</th>
+                <th>Creation Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="purchase in purchases">
+                <td>{{$index+1}}</td>
+                <td>{{purchase.username}}</td>
+                <td>{{purchase.bookId}}</td>
+                <td>{{purchase.price}}</td>
+                <td>{{purchase.creationDate}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 </body>

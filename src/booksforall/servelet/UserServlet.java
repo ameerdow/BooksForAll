@@ -26,9 +26,9 @@ public class UserServlet extends HttpServlet {
     private static final String GET_ALL_USERS = "/users";
     private static final String GET_USER_BY_USERNAME = "/user/";
     private static final String GET_LOGGED_IN_USER = "/user";
-    private static final String APPROVE_REVIEW = "/review";
-    private static final String REJECT_REVIEW = "/review";
-    private static final String GET_PENDING_REVIEW = "/review";
+    private static final String APPROVE_REVIEW = "/review/approve";
+    private static final String REJECT_REVIEW = "/review/reject";
+    private static final String GET_PENDING_REVIEW = "/review/pending";
     private static final String SIGN_UP = "/user";
     private static final String LOGIN = "/login";
     private static final String LOGOUT = "/logout";
@@ -71,18 +71,18 @@ public class UserServlet extends HttpServlet {
                 String userToSearch = params[1];
                 printWriter.println(gson.toJson(userService.searchUser(userToSearch)));
                 return;
-            } else if (uri.contains(GET_LOGGED_IN_USER)) {
+            } else if (uri.endsWith(GET_LOGGED_IN_USER)) {
                 String username = Helper.checkSession(request);
                 printWriter.println(gson.toJson(userService.getUserByUsername(username)));
                 return;
             } else if (uri.contains(GET_USER_BY_USERNAME)) {
                 Helper.checkSession(request);
                 String[] params = pathInfo.split("/");
-                if (params.length != 1) {
+                if (params.length != 2) {
                     Log.l(classFunc, "doGet", "No user found to get");
                     throw new RuntimeException("No user found to get");
                 }
-                String username = params[0];
+                String username = params[1];
                 printWriter.println(gson.toJson(userService.getUserByUsername(username)));
                 return;
             } else if (uri.contains(GET_USERNAME_BOOK_PURCHASE)) {

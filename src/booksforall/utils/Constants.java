@@ -35,27 +35,27 @@ public class Constants {
             + "CITY VARCHAR(50) NOT NULL, " + "ZIP VARCHAR(50) NOT NULL, " + "COUNTRY VARCHAR(50) NOT NULL, "
             + "PHONE_NUMBER VARCHAR(50) NOT NULL, " + "NICKNAME VARCHAR(20) NOT NULL, "
             + "DESCRIPTION VARCHAR(50) NOT NULL, " + "PHOTO VARCHAR(255), " + "ROLE VARCHAR(10), "
-            + "DELETED VARCHAR(1), " + "SYS_CREATION_DATE DATE NOT NULL, " + "SYS_UPDATE_DATE DATE" + " ) ";
+            + "DELETED VARCHAR(1), " + "SYS_CREATION_DATE DATE, " + "SYS_UPDATE_DATE DATE" + " ) ";
 
     private static final String INC_ID = "id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)";
 
     public static final String CREATE_BOOKS_STATEMENT = "CREATE TABLE " + BOOKS + "( " + INC_ID + ", "
             + " NAME VARCHAR(10) NOT NULL UNIQUE, " + "PRICE DOUBLE NOT NULL, "
             + "DESCRIPTION VARCHAR(50) NOT NULL, " + "CATEGORY VARCHAR(50) NOT NULL, " + "LIKES_NUM INTEGER, " + "REVIEWS_NUM INTEGER, "
-            + "DELETED VARCHAR(1), " + "SYS_CREATION_DATE DATE NOT NULL, " + "SYS_UPDATE_DATE DATE,"
+            + "DELETED VARCHAR(1), " + "SYS_CREATION_DATE DATE, " + "SYS_UPDATE_DATE DATE,"
             + "FILE_PATH VARCHAR(500) NOT NULL" + ", ICON_PATH VARCHAR(500) NOT NULL )";
 
     public static final String CREATE_USERS_BOOKS_PURCHASE_STATEMENT = "CREATE TABLE " + USERS_BOOKS_PURCHASE + "( "
             + "USERNAME VARCHAR(10) NOT NULL," + "BOOK_ID INTEGER NOT NULL," + "PRICE DOUBLE NOT NULL,"
-            + "SYS_CREATION_DATE DATE NOT NULL" + " )";
+            + "SYS_CREATION_DATE DATE" + " )";
 
     public static final String CREATE_USERS_BOOKS_POSITION_STATEMENT = "CREATE TABLE " + USERS_BOOKS_POSITION + "( "
             + "USERNAME VARCHAR(10) NOT NULL," + "BOOK_ID INTEGER NOT NULL," + "POSITION FLOAT NOT NULL,"
-            + "SYS_CREATION_DATE DATE NOT NULL" + " )";
+            + "SYS_CREATION_DATE DATE" + " )";
 
     public static final String CREATE_USERS_BOOKS_REVIEW_STATEMENT = "CREATE TABLE " + USERS_BOOKS_REVIEW + "( "
             + INC_ID + ", " + "USERNAME VARCHAR(10) NOT NULL," + "BOOK_ID INTEGER NOT NULL,"
-            + "REVIEW VARCHAR(500) NOT NULL," + "APPROVED VARCHAR(1) NOT NULL," + "SYS_CREATION_DATE DATE NOT NULL"
+            + "REVIEW VARCHAR(500) NOT NULL," + "APPROVED VARCHAR(1) NOT NULL," + "SYS_CREATION_DATE DATE"
             + " )";
 
     public static final String CREATE_USERS_BOOKS_LIKE_STATEMENT = "CREATE TABLE " + USERS_BOOKS_LIKE + "( "
@@ -65,7 +65,7 @@ public class Constants {
      * User Statements.
      **************************************/
 
-    public static final String SELECT_ALL_USERS = " SELECT * FROM " + USERS;
+    public static final String SELECT_ALL_USERS = " SELECT * FROM " + USERS + " WHERE DELETED='N' ";
     public static final String SELECT_USER_BY_USERNAME = " SELECT * FROM " + USERS + " WHERE USERNAME=?";
     public static final String SEARCH_USER = " SELECT * FROM " + USERS + " WHERE USERNAME LIKE '%?%' ";
     public static final String INSERT_NEW_USER = "INSERT INTO " + USERS
@@ -133,11 +133,11 @@ public class Constants {
 
     public static final String GET_ALL_BOOKS_NOT_PURCHASED_BY_USER = "SELECT * FROM " + BOOKS + " WHERE BOOK_ID NOT IN "
             + " ( SELECT BOOK_ID FROM " + USERS_BOOKS_PURCHASE + " WHERE USERNAME = ? )";
-    public static final String GET_ALL_BOOKS_PURCHASED_BY_USER = "SELECT * FROM " + BOOKS + " WHERE BOOK_ID IN "
+    public static final String GET_ALL_BOOKS_PURCHASED_BY_USER = "SELECT * FROM " + BOOKS + " WHERE ID IN "
             + " ( SELECT BOOK_ID FROM " + USERS_BOOKS_PURCHASE + " WHERE USERNAME = ? )";
 
     public static final String ADD_USER_BOOK_POSITION = "INSERT INTO " + USERS_BOOKS_POSITION
-            + " (USERNAME,BOOK_ID,POSITION,SYS_CREATION_DATE) " + "VALUES (?,?,?,SYSDATE)";
+            + " (USERNAME,BOOK_ID,POSITION,SYS_CREATION_DATE) " + "VALUES (?,?,?,?)";
     public static final String GET_USER_BOOK_POSITION = "SELECT * FROM " + USERS_BOOKS_POSITION
             + " WHERE USERNAME=? AND BOOK_ID=?";
     public static final String SET_USER_BOOK_POSITION = "UPDATE " + USERS_BOOKS_POSITION

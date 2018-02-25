@@ -57,7 +57,6 @@ public class BookServlet extends HttpServlet {
      */
     public BookServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -154,20 +153,20 @@ public class BookServlet extends HttpServlet {
                 return;
             } else if (uri.contains(GET_ALL_BOOK_PURCHASES)) {
                 String[] params = pathInfo.split("/");
-                if (params.length != 2) {
+                if (params.length != 3) {
                     Log.l(classFunc, "doGet", "No book id found to get purchases");
                     throw new RuntimeException("No book id found to get purchases");
                 }
-                int bookId = Integer.parseInt(params[1]);
+                int bookId = Integer.parseInt(params[2]);
                 printWriter.println(bookService.getAllPurchasesForBook(bookId));
                 return;
             } else if (uri.contains(GET_ALL_BOOK_USER_PURCHASES)) {
                 String[] params = pathInfo.split("/");
-                if (params.length != 3) {
+                if (params.length != 4) {
                     Log.l(classFunc, "doGet", "No username found to get purchases");
                     throw new RuntimeException("No username found to get purchases");
                 }
-                String username = params[2];
+                String username = params[3];
                 printWriter.println(userService.getPurchasedBooksByUsername(username));
                 return;
             } else if (uri.contains(GET_ALL_BOOK_USER_NOT_PURCHASES)) {

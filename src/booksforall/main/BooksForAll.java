@@ -31,7 +31,7 @@ public class BooksForAll {
     }
 
     private BooksForAll() {
-//        InitDatabase.initTables();
+        InitDatabase.initTables();
         initMockData();
     }
 
@@ -43,7 +43,7 @@ public class BooksForAll {
 
         //adding admin user
         Address address = new Address("street ", 1, "admin", "1234567", "admin");
-//        service.addUser("admin", "admin@email.com", "passw0rd", address, "0546597762", "nickname", "description", "photoUrl");
+        service.addUser("admin", "admin@email.com", "passw0rd", address, "0546597762", "nickname", "description", "photoUrl");
 
         List<User> users = getMockUsers();
         List<UserBookReviewRelation> userBookReviewRelations = getMockReviews();

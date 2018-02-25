@@ -3,7 +3,7 @@ const Server = {};
 const GET = "GET";
 const POST = "POST";
 
-const proj = "http://192.168.0.107:8080/BooksForAll";
+const proj = "/BooksForAll";
 
 // Get requests
 
@@ -43,7 +43,7 @@ var getUrl = function (url) {
 
 const call = function (method, url, data, callback) {
     console.log("Server", "call |data|:", method, url, data);
-    if (method == GET) {
+    if (method === GET) {
         $.ajax({
             method: GET,
             url: getUrl(url),
@@ -53,10 +53,10 @@ const call = function (method, url, data, callback) {
             },
             error: function (error) {
                 console.log("Server", "call |ERROR|:", method, url, error);
-                callback(null, error.responseText);
+                callback(null, error.responseText || error.statusText || error);
             }
         });
-    } else if (method == POST) {
+    } else if (method === POST) {
         $.ajax({
             method: POST,
             url: getUrl(url),
@@ -66,7 +66,7 @@ const call = function (method, url, data, callback) {
                 callback(response);
             }, error: function (error) {
                 console.log("Server", "call |ERROR|:", method, url, error);
-                callback(null, error.responseText);
+                callback(null, error.responseText || error.statusText || error);
             }
         })
     } else {
@@ -215,7 +215,6 @@ Server.approveReview = function (reviewId, callback) {
  * @param reviewId review id
  * @param callback
  */
-// TODO: not implemented
 Server.rejectReview = function (reviewId, callback) {
     call(POST, REJECT_REVIEW, {
         reviewId: reviewId
@@ -226,8 +225,7 @@ Server.rejectReview = function (reviewId, callback) {
  * get pending reviews for admin
  * @param callback
  */
-// TODO: not implemented
-Server.rejectReview = function (callback) {
+Server.getPendingReviews = function (callback) {
     call(GET, GET_PENDING_REVIEWS, {}, callback);
 };
 

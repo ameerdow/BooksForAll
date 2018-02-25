@@ -12,49 +12,51 @@ app.controller('BookCtrl', ['$scope', function BookCtrl($scope) {
         return;
     }
 
-    // Server.getBookById($scope.bookId, function (book, error) {
-    //     if (error != null) {
-    //         alert(error);
-    //         return
-    //     }
+    $scope.loadData = function () {
+        Server.getBookById($scope.bookId, function (book, error) {
+            if (error != null) {
+                alert(error);
+                return
+            }
+            $scope.$apply(function () {
+                $scope.book = book;
+            })
+        });
+    }
+
+
+    // setTimeout(function () {
     //     $scope.$apply(function () {
-    //         $scope.book = book;
+    //         $scope.book = {
+    //             "ID": 1,
+    //             "name": "1",
+    //             "price": 120.2,
+    //             "description": "111111111",
+    //             "likesCount": 12,
+    //             "reviewCount": 3,
+    //             "deleted": "N",
+    //             "filePath": "books/1.html",
+    //             "filePrePath": "books/1-pre.html",
+    //             "iconPath": "books/1.jpg",
+    //             "purchased": true,
+    //             "position": 0,
+    //             "likers": [{username: "admin", nickname: "admin"}, {username: "ameerdow", nickname: "ameerdow1"}],
+    //             "reviews": [{
+    //                 "username": "ameerdow",
+    //                 "nickname": "ameerdow1",
+    //                 "review": "david askdmlasdmalsd als dkals dlkas dklas jksad sadkl"
+    //             }, {
+    //                 "username": "ameerdow1",
+    //                 "nickname": "ameerdow1",
+    //                 "review": "david askdmasldmas dlksa dlkasdlasdmalsd als dkals dlkas dklas jksad sadkl"
+    //             }, {
+    //                 "username": "davidan",
+    //                 "nickname": "ameerdow1",
+    //                 "review": "sadk las dklsadlksa dlkasdlasdmalsd als dkals dlkas dklas jksad sadkl"
+    //             }]
+    //         };
     //     })
-    // })
-
-
-    setTimeout(function () {
-        $scope.$apply(function () {
-            $scope.book = {
-                "ID": 1,
-                "name": "1",
-                "price": 120.2,
-                "description": "111111111",
-                "likesCount": 12,
-                "reviewCount": 3,
-                "deleted": "N",
-                "filePath": "books/1.html",
-                "filePrePath": "books/1-pre.html",
-                "iconPath": "books/1.jpg",
-                "purchased": true,
-                "position": 0,
-                "likers": [{username: "admin", nickname: "admin"}, {username: "ameerdow", nickname: "ameerdow1"}],
-                "reviews": [{
-                    "username": "ameerdow",
-                    "nickname": "ameerdow1",
-                    "review": "david askdmlasdmalsd als dkals dlkas dklas jksad sadkl"
-                }, {
-                    "username": "ameerdow1",
-                    "nickname": "ameerdow1",
-                    "review": "david askdmasldmas dlksa dlkasdlasdmalsd als dkals dlkas dklas jksad sadkl"
-                }, {
-                    "username": "davidan",
-                    "nickname": "ameerdow1",
-                    "review": "sadk las dklsadlksa dlkasdlasdmalsd als dkals dlkas dklas jksad sadkl"
-                }]
-            };
-        })
-    }, 500);
+    // }, 500);
 
     $scope.bookHtmlLoaded = function () {
         if ($scope.book.purchased) {

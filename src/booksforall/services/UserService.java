@@ -312,7 +312,7 @@ public class UserService {
                 return;
             }
         }
-        throw new RuntimeException("review validation failed");
+        System.out.println("review validation failed, " + review);
     }
 
     /**

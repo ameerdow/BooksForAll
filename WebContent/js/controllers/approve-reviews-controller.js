@@ -9,36 +9,38 @@ app.controller('ApproveReviewsCtrl', ['$scope', function ($scope) {
     $scope.reviews = null;
 
 
-    // Server.getPendingReviews(function (reviews, error) {
-    //     if (error != null) {
-    //         alert(error);
-    //         return
-    //     }
-    //     $scope.$apply(function () {
-    //         $scope.reviews = reviews;
-    //     })
-    // });
+    $scope.loadData = function () {
+        Server.getPendingReviews(function (reviews, error) {
+            if (error != null) {
+                alert(error);
+                return
+            }
+            $scope.$apply(function () {
+                $scope.reviews = reviews;
+            })
+        });
+    }
 
-    setTimeout(function () {
-        $scope.$apply(function () {
-            $scope.reviews = [{
-                "ID": 1,
-                "username": "ameerdow",
-                "nickname": "ameerdow1",
-                "review": "david askdmlasdmalsd als dkals dlkas dklas jksad sadkl"
-            }, {
-                "ID": 2,
-                "username": "ameerdow1",
-                "nickname": "ameerdow1",
-                "review": "david askdmasldmas dlksa dlkasdlasdmalsd als dkals dlkas dklas jksad sadkl"
-            }, {
-                "ID": 3,
-                "username": "davidan",
-                "nickname": "ameerdow1",
-                "review": "sadk las dklsadlksa dlkasdlasdmalsd als dkals dlkas dklas jksad sadkl"
-            }];
-        })
-    }, 500);
+    // setTimeout(function () {
+    //     $scope.$apply(function () {
+    //         $scope.reviews = [{
+    //             "ID": 1,
+    //             "username": "ameerdow",
+    //             "nickname": "ameerdow1",
+    //             "review": "david askdmlasdmalsd als dkals dlkas dklas jksad sadkl"
+    //         }, {
+    //             "ID": 2,
+    //             "username": "ameerdow1",
+    //             "nickname": "ameerdow1",
+    //             "review": "david askdmasldmas dlksa dlkasdlasdmalsd als dkals dlkas dklas jksad sadkl"
+    //         }, {
+    //             "ID": 3,
+    //             "username": "davidan",
+    //             "nickname": "ameerdow1",
+    //             "review": "sadk las dklsadlksa dlkasdlasdmalsd als dkals dlkas dklas jksad sadkl"
+    //         }];
+    //     })
+    // }, 500);
 
     $scope.rejectReview = function (review) {
         Server.approveReview(review.ID, function (s, error) {
